@@ -7,28 +7,28 @@ class MyComponent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        height: double.infinity,
-        width: double.infinity,
+        height: double.infinity, // Makes the child as high as the device screen
+        width: double.infinity, // Makes the child as wide as the device screen
         color: Colors.grey,
         child: _createBodyContent(),
       ),
     );
   }
 
-  Column _createBodyContent() {
-    return Column(
+  SafeArea _createBodyContent() {
+    return SafeArea( // SafeArea keeps the child widgets from interacting with the OS UI
+        child: Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        Expanded(
-          child: Container(
-            color: Colors.blue,
-            child: Center(
-              child: Text('Widget 1'),
-            ),
+        Container(
+          height: 100,
+          color: Colors.blue,
+          child: Center(
+            child: Text('Widget 1'),
           ),
         ),
-        Expanded(
+        Expanded( // Makes child fill all available space
           child: Container(
             color: Colors.green,
             child: Center(
@@ -36,15 +36,14 @@ class MyComponent extends StatelessWidget {
             ),
           ),
         ),
-        Expanded(
-          child: Container(
+         Container(
+           height: 100,
             color: Colors.orange,
             child: Center(
               child: Text('Widget 3'),
             ),
           ),
-        ),
       ],
-    );
+    ));
   }
 }
