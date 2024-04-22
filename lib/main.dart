@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:how_many_texas/test_page.dart';
+import 'package:how_many_texas/ui/home_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyComponent(),
+      home: const HomePage(),
     );
   }
 }

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
-class MyComponent extends StatelessWidget {
-  const MyComponent({super.key});
+import 'loading_page.dart';
+
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -10,12 +12,12 @@ class MyComponent extends StatelessWidget {
         height: double.infinity, // Makes the child as high as the device screen
         width: double.infinity, // Makes the child as wide as the device screen
         color: Colors.grey,
-        child: _createBodyContent(),
+        child: _createBodyContent(context),
       ),
     );
   }
 
-  SafeArea _createBodyContent() {
+  SafeArea _createBodyContent(BuildContext context) {
     return SafeArea( // SafeArea keeps the child widgets from interacting with the OS UI
         child: Column(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -25,14 +27,30 @@ class MyComponent extends StatelessWidget {
           height: 100,
           color: Colors.blue,
           child: Center(
-            child: Text('Widget 1'),
+            child: Text('***HomePage***'),
           ),
         ),
         Expanded( // Makes child fill all available space
           child: Container(
             color: Colors.green,
-            child: Center(
-              child: Text('Widget 2'),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [Text('Widget 1'),
+              Text('Widget 2'),
+                Text('Widget 3'),
+                Text('Widget 4'),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const LoadingPage(),
+                      ),
+                    );
+                  },
+                  child: Text('Click Here'),
+                )
+              ],
             ),
           ),
         ),
