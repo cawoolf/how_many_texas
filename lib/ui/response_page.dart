@@ -4,8 +4,8 @@ import 'package:how_many_texas/ui/home_page.dart';
 import 'loading_page.dart';
 
 
-class ResponePage extends StatelessWidget {
-  const ResponePage({super.key});
+class ResponsePage extends StatelessWidget {
+  const ResponsePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,7 @@ class ResponePage extends StatelessWidget {
                     Text('Widget 4'),
                     ElevatedButton(
                       onPressed: () {
-                        Navigator.push(
+                        Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                             builder: (context) => const HomePage(),
