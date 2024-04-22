@@ -61,13 +61,25 @@ class HomePage extends StatelessWidget {
           ),
         ),
          Container(
-           height: 100,
+           height: 120,
             color: Colors.orange,
-            child: Center(
-              child: Text('Widget 3'),
+            child:
+            Row(
+                children: [
+                  Expanded(child:
+                  Image.asset(
+                    'assets/texas_flag_2.png',
+                    fit: BoxFit.fill // Adjust the fit as needed
+                  )),
+                  Expanded(child:
+                  Image.asset(
+                      'assets/texas_flag_2.png',
+                      fit: BoxFit.fill, // Adjust the fit as needed
+                    ),
+                  )],
+              ),
             ),
-          ),
-      ],
+         ],
     ));
   }
 }
