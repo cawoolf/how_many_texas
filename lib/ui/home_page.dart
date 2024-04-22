@@ -23,13 +23,7 @@ class HomePage extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        Container(
-          height: 100,
-          color: Colors.blue,
-          child: Center(
-            child: Text('***HomePage***'),
-          ),
-        ),
+        _buildHeaderFooter(),
         Expanded(
           child: Container(
             decoration: const BoxDecoration(
@@ -60,26 +54,30 @@ class HomePage extends StatelessWidget {
             ),
           ),
         ),
-         Container(
-           height: 120,
-            color: Colors.orange,
-            child:
-            Row(
-                children: [
-                  Expanded(child:
-                  Image.asset(
-                    'assets/texas_flag_2.png',
-                    fit: BoxFit.fill // Adjust the fit as needed
-                  )),
-                  Expanded(child:
-                  Image.asset(
-                      'assets/texas_flag_2.png',
-                      fit: BoxFit.fill, // Adjust the fit as needed
-                    ),
-                  )],
-              ),
-            ),
+         _buildHeaderFooter(),
          ],
     ));
+  }
+
+  Container _buildHeaderFooter() {
+    return Container(
+         height: 120,
+          color: Colors.orange,
+          child:
+          Row(
+              children: [
+                Expanded(child:
+                Image.asset(
+                  'assets/texas_flag_2.png',
+                  fit: BoxFit.fill // Adjust the fit as needed
+                )),
+                Expanded(child:
+                Image.asset(
+                    'assets/texas_flag_2.png',
+                    fit: BoxFit.fill, // Adjust the fit as needed
+                  ),
+                )],
+            ),
+          );
   }
 }
