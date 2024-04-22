@@ -32,12 +32,18 @@ class ResponsePage extends StatelessWidget {
                 child: Text('***Response Page***'),
               ),
             ),
-            Expanded( // Makes child fill all available space
+            Expanded(
               child: Container(
-                color: Colors.green,
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/wood_floors_3.png'), // Replace 'assets/background_image.jpg' with your image path
+                    fit: BoxFit.cover, // Adjust the image fit as needed
+                  ),
+                ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [Text('Widget 1'),
+                  children: [
+                    Text('Widget 1'),
                     Text('Widget 2'),
                     Text('Widget 3'),
                     Text('Widget 4'),
@@ -56,6 +62,7 @@ class ResponsePage extends StatelessWidget {
                 ),
               ),
             ),
+
             Container(
               height: 100,
               color: Colors.orange,
