@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:how_many_texas/ui/response_page.dart';
-import 'package:how_many_texas/utils/colors.dart'; // Import async library for Future and Timer
+import 'package:how_many_texas/utils/colors.dart';
+import 'package:how_many_texas/utils/text_styles.dart'; // Import async library for Future and Timer
 
 class LoadingPage extends StatelessWidget {
   const LoadingPage({super.key});
@@ -29,14 +30,14 @@ class LoadingPage extends StatelessWidget {
     ));
   }
 
-  Expanded _buildFooterText() {
+  Expanded _buildHeaderText() {
     return Expanded(
       child: Container(
         color: AppColors.backgroundColor,
         child: Center(
           child: Text(
-            'Widget 3',
-            style: TextStyle(color: Colors.white, fontSize: 20.0),
+            'Widget 1',
+            style: AppTextStyles.yeehawHeading,
           ),
         ),
       ),
@@ -65,17 +66,18 @@ class LoadingPage extends StatelessWidget {
     );
   }
 
-  Expanded _buildHeaderText() {
+  Expanded _buildFooterText() {
     return Expanded(
       child: Container(
         color: AppColors.backgroundColor,
         child: Center(
           child: Text(
-            'Widget 1',
-            style: TextStyle(color: Colors.white, fontSize: 20.0),
+            'Widget 3',
+            style: AppTextStyles.yeehawHeading,
           ),
         ),
       ),
     );
   }
+
 }

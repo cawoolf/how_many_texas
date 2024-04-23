@@ -11,7 +11,6 @@ class HomePage extends StatelessWidget {
       body: Container(
         height: double.infinity, // Makes the child as high as the device screen
         width: double.infinity, // Makes the child as wide as the device screen
-        color: Colors.grey,
         child: _createBodyContent(context),
       ),
     );
@@ -62,7 +61,6 @@ class HomePage extends StatelessWidget {
   Container _buildHeaderFooter() {
     return Container(
          height: 120,
-          color: Colors.orange,
           child:
           Row(
               children: [

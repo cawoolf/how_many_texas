@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:how_many_texas/utils/text_styles.dart';
 
 import 'home_page.dart';
 
@@ -21,10 +22,7 @@ class WelcomePage extends StatelessWidget {
       body: Center(
         child: Text(
           'How Many Texas?',
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-          ),
+          style: AppTextStyles.yeehawHeading
         ),
       ),
     );
