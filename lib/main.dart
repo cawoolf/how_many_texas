@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:how_many_texas/ui/home_page.dart';
 import 'package:how_many_texas/ui/welcome_page.dart';
 
 void main() {

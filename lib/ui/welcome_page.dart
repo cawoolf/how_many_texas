@@ -10,11 +10,11 @@ class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Start a timer that triggers after 2 seconds
-    Future.delayed(Duration(seconds: 2), () {
+    Future.delayed(const Duration(seconds: 2), () {
       // Navigate to the HomePage after the delay
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => HomePage()),
+        MaterialPageRoute(builder: (context) => const HomePage()),
       );
     });
 

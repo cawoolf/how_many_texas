@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:how_many_texas/ui/home_page.dart';
 
-import 'loading_page.dart';
 
 
 class ResponsePage extends StatelessWidget {
@@ -28,7 +27,7 @@ class ResponsePage extends StatelessWidget {
             Container(
               height: 100,
               color: Colors.blue,
-              child: Center(
+              child: const Center(
                 child: Text('***Response Page***'),
               ),
             ),
@@ -43,10 +42,10 @@ class ResponsePage extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Text('Widget 1'),
-                    Text('Widget 2'),
-                    Text('Widget 3'),
-                    Text('Widget 4'),
+                    const Text('Widget 1'),
+                    const Text('Widget 2'),
+                    const Text('Widget 3'),
+                    const Text('Widget 4'),
                     ElevatedButton(
                       onPressed: () {
                         Navigator.pushReplacement(
@@ -56,7 +55,7 @@ class ResponsePage extends StatelessWidget {
                           ),
                         );
                       },
-                      child: Text('Click Here'),
+                      child: const Text('Click Here'),
                     )
                   ],
                 ),
@@ -66,7 +65,7 @@ class ResponsePage extends StatelessWidget {
             Container(
               height: 100,
               color: Colors.orange,
-              child: Center(
+              child: const Center(
                 child: Text('Widget 3'),
               ),
             ),

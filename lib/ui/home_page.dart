@@ -8,7 +8,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
+      body: SizedBox(
         height: double.infinity, // Makes the child as high as the device screen
         width: double.infinity, // Makes the child as wide as the device screen
         child: _createBodyContent(context),
@@ -34,10 +34,10 @@ class HomePage extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Text('Widget 1'),
-                Text('Widget 2'),
-                Text('Widget 3'),
-                Text('Widget 4'),
+                const Text('Widget 1'),
+                const Text('Widget 2'),
+                const Text('Widget 3'),
+                const Text('Widget 4'),
                 ElevatedButton(
                   onPressed: () {
                     Navigator.push(
@@ -47,7 +47,7 @@ class HomePage extends StatelessWidget {
                       ),
                     );
                   },
-                  child: Text('Click Here'),
+                  child: const Text('Click Here'),
                 )
               ],
             ),
@@ -58,8 +58,8 @@ class HomePage extends StatelessWidget {
     ));
   }
 
-  Container _buildHeaderFooter() {
-    return Container(
+  SizedBox _buildHeaderFooter() {
+    return SizedBox(
          height: 120,
           child:
           Row(
