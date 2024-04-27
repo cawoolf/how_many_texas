@@ -11,7 +11,7 @@ class ImageButton extends StatelessWidget {
     required this.onPressed,
     required this.image,
     this.width = 200,
-    this.height = 200,
+    this.height = 150,
   }) : super(key: key);
 
   @override
