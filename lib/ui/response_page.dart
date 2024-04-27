@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:how_many_texas/ui/home_page.dart';
 
+import 'common_widgets/image_button.dart';
+
 
 
 class ResponsePage extends StatelessWidget {
@@ -24,13 +26,6 @@ class ResponsePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Container(
-              height: 100,
-              color: Colors.blue,
-              child: const Center(
-                child: Text('***Response Page***'),
-              ),
-            ),
             Expanded(
               child: Container(
                 decoration: const BoxDecoration(
@@ -43,30 +38,22 @@ class ResponsePage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     const Text('Widget 1'),
-                    const Text('Widget 2'),
                     const Text('Widget 3'),
                     const Text('Widget 4'),
-                    ElevatedButton(
+                    ImageButton(
                       onPressed: () {
-                        Navigator.pushReplacement(
+                        Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => const HomePage(),
                           ),
                         );
                       },
-                      child: const Text('Click Here'),
+                      key: const Key("response_button"),
+                      image: AssetImage('assets/big_red_button.png'),
                     )
                   ],
                 ),
-              ),
-            ),
-
-            Container(
-              height: 100,
-              color: Colors.orange,
-              child: const Center(
-                child: Text('Widget 3'),
               ),
             ),
           ],

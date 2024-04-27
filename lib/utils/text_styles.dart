@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:how_many_texas/utils/colors.dart';
 
 class AppTextStyles {
 
@@ -11,4 +12,10 @@ class AppTextStyles {
     ..strokeWidth = 4
     ..color = Colors.black, // Set the color of the stroke,
   );
+
+  static TextStyle yeehawText = TextStyle(
+    fontFamily: 'Chunk', // Reference the font family name
+    fontSize: 34,
+    fontWeight: FontWeight.normal,
+    color: Colors.white);
 }
