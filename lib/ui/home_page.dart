@@ -39,6 +39,7 @@ class HomePage extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
+                SizedBox(height: 20),
                 Text(
                   'How many of this thing right here..',
                   style: AppTextStyles.yeehawText,
@@ -49,10 +50,10 @@ class HomePage extends StatelessWidget {
                   // Replace 'assets/your_image.png' with the actual path to your image asset
                   width: 100,
                   // Set the desired width
-                  height: 200, // Set the desired height
+                  height: 150, // Set the desired height
                 ),
                 _inputTextBox(),
-                // SizedBox(height: 20,),
+                SizedBox(height: 20,),
                 Text(
                   'Can fit inside of Texas?',
                   style: AppTextStyles.yeehawText,
