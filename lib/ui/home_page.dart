@@ -52,7 +52,7 @@ class HomePage extends StatelessWidget {
                   height: 200, // Set the desired height
                 ),
                 _inputTextBox(),
-                SizedBox(height: 20,),
+                // SizedBox(height: 20,),
                 Text(
                   'Can fit inside of Texas?',
                   style: AppTextStyles.yeehawText,
