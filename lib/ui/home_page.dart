@@ -56,7 +56,7 @@ class HomePage extends StatelessWidget {
                   ),
                   _inputTextBox(controller: _controller), // Pass the controller to _inputTextBox
                   SizedBox(
-                    height: 20,
+                    height: 30,
                   ),
                   Text(
                     'Can fit inside of Texas?',
