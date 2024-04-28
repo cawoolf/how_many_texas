@@ -15,7 +15,7 @@ class AppTextStyles {
 
   static TextStyle yeehawText = TextStyle(
     fontFamily: 'Chunk', // Reference the font family name
-    fontSize: 34,
+    fontSize: 30,
     fontWeight: FontWeight.normal,
     color: Colors.white);
 }

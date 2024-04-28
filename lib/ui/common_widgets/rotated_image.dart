@@ -5,18 +5,21 @@ class RotatedImage extends StatelessWidget {
   final String imagePath;
   final double width;
   final double height;
+  final double rotation;
 
   const RotatedImage({
     Key? key,
     required this.imagePath,
     required this.width,
     required this.height,
+    required this.rotation,
+
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Transform.rotate(
-      angle: pi / 2, // Rotate 90 degrees to the right (negative angle for clockwise rotation)
+      angle: rotation, // Rotate 90 degrees to the right (negative angle for clockwise rotation)
       child: Image.asset(
         imagePath,
         width: width,

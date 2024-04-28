@@ -6,7 +6,7 @@ class ImageButton extends StatelessWidget {
   final double width;
   final double height;
 
-  ImageButton({
+  const ImageButton({
     required Key key,
     required this.onPressed,
     required this.image,

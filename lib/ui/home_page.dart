@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:how_many_texas/ui/common_widgets/image_button.dart';
 import 'package:how_many_texas/utils/text_styles.dart';
@@ -20,7 +22,8 @@ class HomePage extends StatelessWidget {
   }
 
   SafeArea _createBodyContent(BuildContext context) {
-    TextEditingController _controller = TextEditingController(); // Create a TextEditingController
+    TextEditingController _controller =
+        TextEditingController(); // Create a TextEditingController
 
     return SafeArea(
       // SafeArea keeps the child widgets from interacting with the OS UI
@@ -31,31 +34,26 @@ class HomePage extends StatelessWidget {
           _buildHeaderFooter(),
           Flexible(
             child: Container(
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/wood_floors_3.png'),
-                  // Replace 'assets/background_image.jpg' with your image path
-                  fit: BoxFit.fill, // Adjust the image fit as needed
-                ),
-              ),
+              decoration: _woodBackground(),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   Text(
                     'How many of this thing right here..',
                     style: AppTextStyles.yeehawText,
                     textAlign: TextAlign.center,
                   ),
-                  const RotatedImage(
-                    imagePath: 'assets/arrow_down.png',
-                    // Replace 'assets/your_image.png' with the actual path to your image asset
-                    width: 100,
-                    // Set the desired width
-                    height: 150, // Set the desired height
+                  const SizedBox(
+                    height: 30,
                   ),
-                  _inputTextBox(controller: _controller), // Pass the controller to _inputTextBox
-                  SizedBox(
+                  _bigRedArrow(rotation: pi / 2),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  _inputTextBox(controller: _controller),
+                  // Pass the controller to _inputTextBox
+                  const SizedBox(
                     height: 30,
                   ),
                   Text(
@@ -64,7 +62,7 @@ class HomePage extends StatelessWidget {
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 10),
-                  _bigRedButton(context)
+                  _arrowButtonRow(context),
                 ],
               ),
             ),
@@ -72,6 +70,44 @@ class HomePage extends StatelessWidget {
           _buildHeaderFooter(),
         ],
       ),
+    );
+  }
+
+  Row _arrowButtonRow(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisSize: MainAxisSize.max,
+      children: <Widget>[
+        Padding(
+          padding: EdgeInsets.fromLTRB(80, 0, 0, 0),
+          child: _bigRedArrow(rotation: 0),
+        ),
+        Padding(
+          padding: EdgeInsets.fromLTRB(0, 0, 8, 0),
+          child: _bigRedButton(context),
+        ),
+      ],
+    );
+  }
+
+  BoxDecoration _woodBackground() {
+    return const BoxDecoration(
+      image: DecorationImage(
+        image: AssetImage('assets/wood_floors_3.png'),
+        // Replace 'assets/background_image.jpg' with your image path
+        fit: BoxFit.fill, // Adjust the image fit as needed
+      ),
+    );
+  }
+
+  RotatedImage _bigRedArrow({required double rotation}) {
+    return RotatedImage(
+      rotation: rotation,
+      imagePath: 'assets/arrow_down.png',
+      // Replace 'assets/your_image.png' with the actual path to your image asset
+      width: 100,
+      // Set the desired width
+      height: 100, // Set the desired height
     );
   }
 
@@ -87,6 +123,8 @@ class HomePage extends StatelessWidget {
       },
       key: const Key("home_button"),
       image: AssetImage('assets/big_red_button.png'),
+      height: 150,
+      width: 200,
     );
   }
 
@@ -95,7 +133,7 @@ class HomePage extends StatelessWidget {
       width: 300, // Set the width of the text input box
       child: TextField(
         controller: controller, // Assign the controller to the TextField
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
           filled: true,
           fillColor: Colors.white,
           // Set white background
@@ -127,7 +165,7 @@ class HomePage extends StatelessWidget {
           Expanded(
             child: Image.asset('assets/texas_flag_2.png',
                 fit: BoxFit.fill // Adjust the fit as needed
-            ),
+                ),
           ),
           Expanded(
             child: Image.asset(
