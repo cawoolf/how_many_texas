@@ -19,26 +19,30 @@ class LoadingPage extends StatelessWidget {
       );
     });
 
-    return SafeArea(
-        child: Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        _buildHeaderText(),
-        _showCowGraphic(),
-        _buildFooterText(),
-      ],
-    ));
+    return Scaffold(
+      body: SafeArea(
+          child: Flexible(
+        child: Container(
+          decoration: _backgroundColor(),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              _buildHeaderText(),
+              _showCowGraphic(),
+              _buildFooterText()
+            ],
+          ),
+        ),
+      )),
+    );
   }
 
   Expanded _buildHeaderText() {
     return Expanded(
-      child: Container(
-        color: AppColors.backgroundColor,
-        child: Center(
-          child: Text(
-            'Widget 1',
-            style: AppTextStyles.yeehawHeading,
-          ),
+      child: Center(
+        child: Text(
+          'Loading..',
+          style: AppTextStyles.loadingPageHeaderTextStyle,
         ),
       ),
     );
@@ -50,10 +54,6 @@ class LoadingPage extends StatelessWidget {
       child: Stack(
         children: [
           // Background Color
-          Container(
-            color: AppColors.backgroundColor, // Adjust opacity as needed
-          ),
-
           // Background Image
           Positioned.fill(
             child: Image.asset(
@@ -68,16 +68,16 @@ class LoadingPage extends StatelessWidget {
 
   Expanded _buildFooterText() {
     return Expanded(
-      child: Container(
-        color: AppColors.backgroundColor,
-        child: Center(
-          child: Text(
-            'Widget 3',
-            style: AppTextStyles.yeehawHeading,
-          ),
+      child: Center(
+        child: Text(
+          'AI Cow is thinking!',
+          style: AppTextStyles.loadingPageFooterTextStyle,
         ),
       ),
     );
   }
 
+  BoxDecoration _backgroundColor() {
+    return const BoxDecoration(color: AppColors.backgroundColor);
+  }
 }

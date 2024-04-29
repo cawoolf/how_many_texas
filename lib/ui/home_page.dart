@@ -41,7 +41,7 @@ class HomePage extends StatelessWidget {
                   const SizedBox(height: 20),
                   Text(
                     'How many of this thing right here..',
-                    style: AppTextStyles.yeehawText,
+                    style: AppTextStyles.homeTextStyle,
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(
@@ -58,7 +58,7 @@ class HomePage extends StatelessWidget {
                   ),
                   Text(
                     'Can fit inside of Texas?',
-                    style: AppTextStyles.yeehawText,
+                    style: AppTextStyles.homeTextStyle,
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: 10),
@@ -75,15 +75,15 @@ class HomePage extends StatelessWidget {
 
   Row _arrowButtonRow(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.max,
       children: <Widget>[
         Padding(
-          padding: EdgeInsets.fromLTRB(80, 0, 0, 0),
+          padding: EdgeInsets.fromLTRB(56, 0, 0, 0),
           child: _bigRedArrow(rotation: 0),
         ),
         Padding(
-          padding: EdgeInsets.fromLTRB(0, 0, 8, 0),
+          padding: EdgeInsets.fromLTRB(8.0, 0, 0, 0),
           child: _bigRedButton(context),
         ),
       ],
@@ -159,7 +159,7 @@ class HomePage extends StatelessWidget {
 
   SizedBox _buildHeaderFooter() {
     return SizedBox(
-      height: 110,
+      height: 100,
       child: Row(
         children: [
           Expanded(
