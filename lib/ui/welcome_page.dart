@@ -14,7 +14,6 @@ class WelcomePage extends StatelessWidget {
 
     return Scaffold(
       body: SafeArea(
-          child: Flexible(
             child: Container(
               decoration: _backgroundColor(),
               child: Column(
@@ -26,8 +25,7 @@ class WelcomePage extends StatelessWidget {
                 ],
               ),
             ),
-          )),
-    );
+          ));
   }
 
 
