@@ -114,17 +114,22 @@ class HomePage extends StatelessWidget {
   ImageButton _bigRedButton(BuildContext context) {
     return ImageButton(
       onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const LoadingPage(),
-          ),
-        );
+        _navToLoadingPage(context);
       },
       key: const Key("home_button"),
       image: AssetImage('assets/big_red_button.png'),
       height: 150,
       width: 200,
+    );
+  }
+
+  // Not UI
+  void _navToLoadingPage(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const LoadingPage(),
+      ),
     );
   }
 

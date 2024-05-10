@@ -88,18 +88,24 @@ class ResponsePage extends StatelessWidget {
   }
   ImageButton _bigRedButton(BuildContext context) {
     return ImageButton(
+      // Navigation isn't considered UI. How to abstract this away?
       onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const HomePage(),
-          ),
-        );
+        _navToHomePage(context);
       },
       key: const Key("home_button"),
       image: AssetImage('assets/big_red_button.png'),
       height: 150,
       width: 200,
+    );
+  }
+
+  // Not UI
+  void _navToHomePage(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const HomePage(),
+      ),
     );
   }
 
