@@ -82,4 +82,6 @@ class LoadingPage extends StatelessWidget {
   BoxDecoration _backgroundColor() {
     return const BoxDecoration(color: AppColors.backgroundColor);
   }
+
+  //Test
 }
