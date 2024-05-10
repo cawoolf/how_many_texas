@@ -60,6 +60,7 @@ class WelcomePage extends StatelessWidget {
     );
   }
 
+  // Also not UI
   void _delayedRouteToHomePage(BuildContext context) {
      Future.delayed(const Duration(seconds: 5), () {
       // Navigate to the HomePage after the delay
