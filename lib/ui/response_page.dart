@@ -43,6 +43,7 @@ class ResponsePage extends StatelessWidget {
                     style: AppTextStyles.welcomePageTextStyle,
                     textAlign: TextAlign.center),
                 _resultsColumn(),
+                // SizedBox(height: 8.0),
                 Text('Inside of Texas!',
                     style: AppTextStyles.homeTextStyle,
                     textAlign: TextAlign.center),
@@ -117,25 +118,34 @@ class ResponsePage extends StatelessWidget {
   }
   Widget _resultsColumn() {
     return Container(
-      margin: EdgeInsets.all(16.0),
+      // margin: EdgeInsets.all(4.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Image.asset(
-                'assets/rattlesnake_1.png',
-                width: 100,
-                height: 100,
+              // Image.asset(
+              //   'assets/rattlesnake_1.png',
+              //   width: 100,
+              //   height: 100,
+              // ),
+              // SizedBox(height: 4),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  RotatedImage(imagePath: 'assets/rattlesnake_1.png',
+                      width: 135,
+                      height: 135,
+                      rotation: 0.45),
+                  Text('100000000',
+                    style: AppTextStyles.homeTextStyle,
+                    textAlign: TextAlign.center),
+                 ],
               ),
-              SizedBox(height: 8),
-              Text('100000000',
-                  style: AppTextStyles.homeTextStyle,
-                  textAlign: TextAlign.center),
             ],
           ),
-          SizedBox(height: 16),
+          // SizedBox(height: 4.0),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -144,8 +154,8 @@ class ResponsePage extends StatelessWidget {
                   textAlign: TextAlign.center),
               Image.asset(
                 'assets/rattlesnake_1.png',
-                width: 100,
-                height: 100,
+                width: 135,
+                height: 135,
               ),
             ],
           ),
