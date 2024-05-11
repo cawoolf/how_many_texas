@@ -124,15 +124,22 @@ class ResponsePage extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Image.asset(
-                'assets/rattlesnake_1.png',
-                width: 100,
-                height: 100,
-              ),
+              // Image.asset(
+              //   'assets/rattlesnake_1.png',
+              //   width: 100,
+              //   height: 100,
+              // ),
+              RotatedImage(imagePath: 'assets/rattlesnake_1.png',
+                  width: 100,
+                  height: 100,
+                  rotation: 0.45),
               SizedBox(height: 8),
-              Text('100000000',
-                  style: AppTextStyles.homeTextStyle,
-                  textAlign: TextAlign.center),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [Text('100000000',
+                    style: AppTextStyles.homeTextStyle,
+                    textAlign: TextAlign.center)],
+              ),
             ],
           ),
           SizedBox(height: 16),
