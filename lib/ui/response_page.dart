@@ -7,6 +7,7 @@ import 'common_widgets/rotated_image.dart';
 
 class ResponsePage extends StatelessWidget {
   const ResponsePage({super.key});
+  static const String testImagePath = 'assets/rattlesnake_1.png';
 
   @override
   Widget build(BuildContext context) {
@@ -23,38 +24,55 @@ class ResponsePage extends StatelessWidget {
   SafeArea _createBodyContent(BuildContext context) {
     return SafeArea(
         // SafeArea keeps the child widgets from interacting with the OS UI
-        child: Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        Expanded(
-          child: Container(
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/wood_floors_3.png'),
-                // Replace 'assets/background_image.jpg' with your image path
-                fit: BoxFit.cover, // Adjust the image fit as needed
+        child: Container(
+          decoration: _woodBackground(),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+                  Text(
+                  'You can fit..',
+                  style: AppTextStyles.welcomePageTextStyle,
+                  textAlign: TextAlign.center),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  _resultsImage(
+                    imagePath: testImagePath,
+                    width: 150.0,
+                    height: 150.0,
+                    rotation: -25.0),
+                    _resultsImage(
+                      imagePath: testImagePath,
+                      width: 150.0,
+                      height: 150.0,
+                      rotation: 25.0,
+                  ),
+                ],
               ),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text('You can fit...',
-                    style: AppTextStyles.welcomePageTextStyle,
-                    textAlign: TextAlign.center),
-                _resultsColumn(),
-                // SizedBox(height: 8.0),
-                Text('Inside of Texas!',
-                    style: AppTextStyles.homeTextStyle,
-                    textAlign: TextAlign.center),
-                _texasImage(),
-               _arrowButtonRow(context)
-              ],
-            ),
+                  _resultsNumber(),
+                  _searchText(),
+              Text(
+                  'Inside of Texas',
+                  style: AppTextStyles.welcomePageTextStyle,
+                  textAlign: TextAlign.center),
+              _texasFlag(),
+              _arrowButtonRow(context)
+            ],
           ),
         ),
-      ],
-    ));
+    );
+
+  }
+
+  BoxDecoration _woodBackground() {
+    return const BoxDecoration(
+      image: DecorationImage(
+        image: AssetImage('assets/wood_floors_3.png'),
+        // Replace 'assets/background_image.jpg' with your image path
+        fit: BoxFit.fill, // Adjust the image fit as needed
+      ),
+    );
   }
 
   Row _arrowButtonRow(BuildContext context) {
@@ -110,56 +128,27 @@ class ResponsePage extends StatelessWidget {
     );
   }
 
-  Widget _texasImage() {
-    return const Image(
-        image: AssetImage('assets/texas_1_trimmed.png'),
-    width: 200,
-    height: 200,);
+  Widget _resultsImage({required imagePath,required double width,required double height, required rotation}) {
+    return RotatedImage(
+        imagePath: imagePath, width: width, height: height, rotation: rotation);
   }
-  Widget _resultsColumn() {
-    return Container(
-      // margin: EdgeInsets.all(4.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Image.asset(
-              //   'assets/rattlesnake_1.png',
-              //   width: 100,
-              //   height: 100,
-              // ),
-              // SizedBox(height: 4),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  RotatedImage(imagePath: 'assets/rattlesnake_1.png',
-                      width: 135,
-                      height: 135,
-                      rotation: 0.45),
-                  Text('100000000',
-                    style: AppTextStyles.homeTextStyle,
-                    textAlign: TextAlign.center),
-                 ],
-              ),
-            ],
-          ),
-          // SizedBox(height: 4.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text('Rattlesnakes',
-                  style: AppTextStyles.homeTextStyle,
-                  textAlign: TextAlign.center),
-              Image.asset(
-                'assets/rattlesnake_1.png',
-                width: 135,
-                height: 135,
-              ),
-            ],
-          ),
-        ],
+
+  Widget _resultsNumber() {
+    return Text('10000',
+        style: AppTextStyles.welcomePageTextStyle,
+        textAlign: TextAlign.center);
+  }
+
+  Widget _searchText() {
+    return Text('Rattlesnakes',
+        style: AppTextStyles.homeTextStyle,
+        textAlign: TextAlign.center);
+  }
+
+  SizedBox _texasFlag() {
+    return SizedBox(
+      height: 150,
+      child: Image.asset('assets/texas_flag_wavy_trimmed.png',// Adjust the fit as needed
       ),
     );
   }
