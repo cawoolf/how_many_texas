@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:how_many_texas/ui/common_widgets/image_button.dart';
 import 'package:how_many_texas/utils/text_styles.dart';
@@ -31,14 +32,16 @@ class HomePage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          _buildHeaderFooter(),
           Flexible(
             child: Container(
               decoration: _woodBackground(),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 20),
+                Padding(
+                    padding: const EdgeInsets.fromLTRB(0.0, 12.0, 0.0 , 0) ,
+                child: _buildHeaderFooter()),
+                  const SizedBox(height: 35),
                   Text(
                     'How many of this thing right here..',
                     style: AppTextStyles.homeTextStyle,
@@ -63,11 +66,11 @@ class HomePage extends StatelessWidget {
                   ),
                   SizedBox(height: 10),
                   _arrowButtonRow(context),
+                  // _buildHeaderFooter(),
                 ],
               ),
             ),
           ),
-          _buildHeaderFooter(),
         ],
       ),
     );
@@ -164,20 +167,19 @@ class HomePage extends StatelessWidget {
 
   SizedBox _buildHeaderFooter() {
     return SizedBox(
-      height: 100,
+      height: 150,
       child: Row(
         children: [
           Expanded(
-            child: Image.asset('assets/texas_flag_2.png',
-                fit: BoxFit.fill // Adjust the fit as needed
+            child: Image.asset('assets/texas_flag_wavy_trimmed.png',// Adjust the fit as needed
                 ),
           ),
-          Expanded(
-            child: Image.asset(
-              'assets/texas_flag_2.png',
-              fit: BoxFit.fill, // Adjust the fit as needed
-            ),
-          )
+          // Expanded(
+          //   child: Image.asset(
+          //     'assets/texas_flag_wavy_trimmed.png',
+          //     fit: BoxFit.fill, // Adjust the fit as needed
+          //   ),
+          // )
         ],
       ),
     );
