@@ -19,7 +19,7 @@ class RotatedImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Transform.rotate(
-      angle: rotation, // Rotate 90 degrees to the right (negative angle for clockwise rotation)
+      angle: rotation * (3.14/180), // Converts radians to degrees for rotation
       child: Image.asset(
         imagePath,
         width: width,
