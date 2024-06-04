@@ -50,7 +50,7 @@ class HomePage extends StatelessWidget {
                   const SizedBox(
                     height: 30,
                   ),
-                  _bigRedArrow(rotation: pi / 2),
+                  _bigRedArrow(rotation: 90),
                   const SizedBox(
                     height: 30,
                   ),
