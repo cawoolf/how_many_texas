@@ -10,12 +10,16 @@ abstract class AppState {
   const AppState();
 }
 
-class AppInitial extends AppState {
-  const AppInitial();
+class WelcomePageState extends AppState {
+  const WelcomePageState();
 }
 
-class APILoading extends AppState {
-  const APILoading();
+class HomePageState extends AppState {
+  const HomePageState();
+}
+
+class APILoadingState extends AppState {
+  const APILoadingState();
 }
 
 class APILoaded extends AppState {
