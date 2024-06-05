@@ -8,7 +8,7 @@ class AppCubit extends Cubit<AppState> {
   AppCubit(this._apiRepository) :super(const WelcomePageState());
 
   Future<void> welcomePageDelay() async {
-    Future.delayed(const Duration(seconds: 5), () {
+    Future.delayed(const Duration(seconds: 3), () {
       emit(const HomePageState());
     });
   }
@@ -16,12 +16,23 @@ class AppCubit extends Cubit<AppState> {
   Future<void> apiRequests(String search) async {
     try {
       emit(const APILoadingState());
-      final searchImage = await _apiRepository.fetchSearchImage(search);
-      final aiResult = await _apiRepository.fetchAIResult(search);
-      emit(APILoaded(searchImage, aiResult));
+      // final searchImage = await _apiRepository.fetchSearchImage(search);
+      // final aiResult = await _apiRepository.fetchAIResult(search);
+      // emit(APILoaded(searchImage, aiResult));
+
+      // For testing
+      Future.delayed(const Duration(seconds: 5), (){
+        emit(const APILoaded());
+      });
+
     } on APIError {
-      emit(const APIError('Something went worng'));
+
+      emit(const APIError('Something went wrong'));
     }
+  }
+
+  void loadHomePage() {
+    emit(const HomePageState());
   }
 
 }

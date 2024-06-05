@@ -23,9 +23,10 @@ class APILoadingState extends AppState {
 }
 
 class APILoaded extends AppState {
-  final SearchImage searchImage;
-  final AIResult aiResult;
-  const APILoaded(this.searchImage, this.aiResult);
+  // final SearchImage searchImage;
+  // final AIResult aiResult;
+  // const APILoaded(this.searchImage, this.aiResult);
+  const APILoaded();
 }
 
 class APIError extends AppState {

@@ -10,7 +10,7 @@ class LoadingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Not UI
-    _delayedNavToResponsePage(context);
+    // _delayedNavToResponsePage(context);
 
     return Scaffold(
       body: SafeArea(
@@ -30,15 +30,15 @@ class LoadingPage extends StatelessWidget {
     );
   }
 
-  void _delayedNavToResponsePage(BuildContext context) {
-       Future.delayed(const Duration(seconds: 3), () {
-      // Navigate to the ResponsePage after the delay and replace the current route
-      // Prevents multiple instances of the HomePage being pushed onto the stack by the ResponsePage
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const ResponsePage()),
-      );
-    });
+  // void _delayedNavToResponsePage(BuildContext context) {
+  //      Future.delayed(const Duration(seconds: 3), () {
+  //     // Navigate to the ResponsePage after the delay and replace the current route
+  //     // Prevents multiple instances of the HomePage being pushed onto the stack by the ResponsePage
+  //     Navigator.pushReplacement(
+  //       context,
+  //       MaterialPageRoute(builder: (context) => const ResponsePage()),
+  //     );
+  //   });
   }
 
   Expanded _buildHeaderText() {
@@ -86,4 +86,3 @@ class LoadingPage extends StatelessWidget {
   }
 
   //Test
-}

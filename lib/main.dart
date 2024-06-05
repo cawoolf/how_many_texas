@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:how_many_texas/data/api_repository.dart';
+import 'package:how_many_texas/how_many_texas.dart';
 import 'package:how_many_texas/ui/welcome_page.dart';
+
+import 'cubit/app_cubit.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +22,10 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const WelcomePage(key: Key("welcome_page"),),
+      home: BlocProvider(
+      create: (context) => AppCubit(TestAPIRepository()),
+      child: const HowManyTexas(),
+    )
     );
   }
 }

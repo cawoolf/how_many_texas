@@ -12,12 +12,8 @@ import 'package:how_many_texas/ui/welcome_page.dart';
 class HowManyTexas extends StatelessWidget {
   const HowManyTexas({super.key});
 
-
   @override
   Widget build(BuildContext context) {
-
-
-
     return MaterialApp(
       title: 'How Many Texas?',
       home: BlocBuilder<AppCubit,AppState>(
@@ -40,8 +36,4 @@ class HowManyTexas extends StatelessWidget {
       }));
   }
 
-  void _welcomePageDelay(BuildContext context) {
-    final appCubit = BlocProvider.of<AppCubit>(context);
-    appCubit.welcomePageDelay();
-  }
 }

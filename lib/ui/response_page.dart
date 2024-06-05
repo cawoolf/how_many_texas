@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:how_many_texas/ui/home_page.dart';
+import '../cubit/app_cubit.dart';
 import 'common_widgets/image_button.dart';
 import 'package:how_many_texas/utils/text_styles.dart';
 
@@ -131,12 +133,8 @@ class ResponsePage extends StatelessWidget {
 
   // Not UI
   void _navToHomePage(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const HomePage(),
-      ),
-    );
+    final appCubit = BlocProvider.of<AppCubit>(context);
+    appCubit.loadHomePage();
   }
 
   Widget _resultsImage(
