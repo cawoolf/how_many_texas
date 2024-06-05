@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:how_many_texas/utils/text_styles.dart';
 
+import '../cubit/app_cubit.dart';
 import '../utils/colors.dart';
 import 'home_page.dart';
 
@@ -10,7 +12,7 @@ class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    _delayedRouteToHomePage(context);
+    _welcomePageDelay(context);
 
     return Scaffold(
       body: SafeArea(
@@ -58,6 +60,10 @@ class WelcomePage extends StatelessWidget {
     );
   }
 
+  void _welcomePageDelay(BuildContext context) {
+    final appCubit = BlocProvider.of<AppCubit>(context);
+    appCubit.welcomePageDelay();
+  }
   // Also not UI
   void _delayedRouteToHomePage(BuildContext context) {
      Future.delayed(const Duration(seconds: 5), () {

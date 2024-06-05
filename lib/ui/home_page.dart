@@ -2,8 +2,10 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:how_many_texas/ui/common_widgets/image_button.dart';
 import 'package:how_many_texas/utils/text_styles.dart';
+import '../cubit/app_cubit.dart';
 import 'common_widgets/rotated_image.dart';
 import 'loading_page.dart';
 
@@ -50,7 +52,7 @@ class HomePage extends StatelessWidget {
                   const SizedBox(
                     height: 30,
                   ),
-                  _bigRedArrow(rotation: pi / 2),
+                  _bigRedArrow(rotation: 90),
                   const SizedBox(
                     height: 30,
                   ),
@@ -117,7 +119,8 @@ class HomePage extends StatelessWidget {
   ImageButton _bigRedButton(BuildContext context) {
     return ImageButton(
       onPressed: () {
-        _navToLoadingPage(context);
+        // _navToLoadingPage(context);
+        _submitAPIRequests(context);
       },
       key: const Key("home_button"),
       image: AssetImage('assets/big_red_button.png'),
@@ -126,15 +129,21 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  // Not UI
-  void _navToLoadingPage(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const LoadingPage(),
-      ),
-    );
+
+  void _submitAPIRequests(BuildContext context) {
+    final appCubit = BlocProvider.of<AppCubit>(context);
+    appCubit.apiRequests('test');
+
   }
+  // // Not UI
+  // void _navToLoadingPage(BuildContext context) {
+  //   Navigator.push(
+  //     context,
+  //     MaterialPageRoute(
+  //       builder: (context) => const LoadingPage(),
+  //     ),
+  //   );
+  // }
 
   SizedBox _inputTextBox({required TextEditingController controller}) {
     return SizedBox(
