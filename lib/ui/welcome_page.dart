@@ -16,24 +16,24 @@ class WelcomePage extends StatelessWidget {
 
     return Scaffold(
       body: SafeArea(
-            child: Container(
-              decoration: _backgroundColor(),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  _welcomeText1(),
-                  _welcomeText2(),
-                  _showCowBoyGraphic()
-                ],
-              ),
+          child: Container(
+            decoration: _backgroundColor(),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _welcomeText1(),
+                _welcomeText2(),
+                _showCowBoyGraphic()
+              ],
             ),
-          ));
+          )),
+    );
   }
-
 
   Text _welcomeText1() {
     return Text('How Many', style: AppTextStyles.welcomePageTextStyle);
   }
+
   Text _welcomeText2() {
     return Text('Texas?', style: AppTextStyles.welcomePageTextStyle);
   }
@@ -64,9 +64,9 @@ class WelcomePage extends StatelessWidget {
     final appCubit = BlocProvider.of<AppCubit>(context);
     appCubit.welcomePageDelay();
   }
-  // Also not UI
+
   void _delayedRouteToHomePage(BuildContext context) {
-     Future.delayed(const Duration(seconds: 5), () {
+    Future.delayed(const Duration(seconds: 5), () {
       // Navigate to the HomePage after the delay
       Navigator.pushReplacement(
         context,

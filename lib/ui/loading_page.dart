@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
-import 'package:how_many_texas/ui/response_page.dart';
 import 'package:how_many_texas/utils/colors.dart';
-import 'package:how_many_texas/utils/text_styles.dart'; // Import async library for Future and Timer
+import 'package:how_many_texas/utils/text_styles.dart';
 
 class LoadingPage extends StatelessWidget {
   const LoadingPage({super.key});
@@ -25,18 +23,8 @@ class LoadingPage extends StatelessWidget {
             ],
           ),
         ),
-      ));
-  }
-
-  // void _delayedNavToResponsePage(BuildContext context) {
-  //      Future.delayed(const Duration(seconds: 3), () {
-  //     // Navigate to the ResponsePage after the delay and replace the current route
-  //     // Prevents multiple instances of the HomePage being pushed onto the stack by the ResponsePage
-  //     Navigator.pushReplacement(
-  //       context,
-  //       MaterialPageRoute(builder: (context) => const ResponsePage()),
-  //     );
-  //   });
+      ),
+    );
   }
 
   Expanded _buildHeaderText() {
@@ -82,5 +70,5 @@ class LoadingPage extends StatelessWidget {
   BoxDecoration _backgroundColor() {
     return const BoxDecoration(color: AppColors.backgroundColor);
   }
+}
 
-  //Test
