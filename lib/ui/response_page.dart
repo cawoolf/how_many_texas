@@ -2,31 +2,36 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:how_many_texas/data/model/search_result.dart';
 import 'package:how_many_texas/ui/home_page.dart';
 import '../cubit/app_cubit.dart';
+import '../data/model/search_image.dart';
 import 'common_widgets/image_button.dart';
 import 'package:how_many_texas/utils/text_styles.dart';
 
 import 'common_widgets/rotated_image.dart';
 
 class ResponsePage extends StatelessWidget {
-  const ResponsePage({super.key});
+  final SearchImage searchImage;
+  final AIResult aiResult;
+  const ResponsePage({required this.searchImage, required this.aiResult, super.key});
 
   static const String testImagePath = 'assets/rattlesnake_1.png';
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: Container(
         height: double.infinity, // Makes the child as high as the device screen
         width: double.infinity, // Makes the child as wide as the device screen
         color: Colors.grey,
-        child: _createBodyContent(context),
+        child: _createBodyContent(context, searchImage, aiResult),
       ),
     );
   }
 
-  SafeArea _createBodyContent(BuildContext context) {
+  SafeArea _createBodyContent(BuildContext context, SearchImage searchImage, AIResult aiResult) {
     return SafeArea(
       // SafeArea keeps the child widgets from interacting with the OS UI
       child: Container(
@@ -59,7 +64,7 @@ class ResponsePage extends StatelessWidget {
                 ),
               ],
             ),
-                _resultsNumber(),
+            _resultsNumber(),
             _searchText(),
             Text('Inside of Texas',
                 style: AppTextStyles.homeTextStyle,
@@ -140,8 +145,10 @@ class ResponsePage extends StatelessWidget {
         imagePath: imagePath, width: width, height: height, rotation: rotation);
   }
 
+
+
   Widget _resultsNumber() {
-    return Text('123466789123',
+    return Text(aiResult.aiResult, // Bad naming, fix it!
         style: AppTextStyles.welcomePageTextStyle, textAlign: TextAlign.center);
   }
 

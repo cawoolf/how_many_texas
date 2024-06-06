@@ -28,7 +28,7 @@ class HowManyTexas extends StatelessWidget {
          return const LoadingPage();
        }
        else if (state is APILoaded) {
-         return const ResponsePage();
+         return ResponsePage(searchImage: state.searchImage, aiResult: state.aiResult);
        }
        else{
          return const Text('Error'); // Error
