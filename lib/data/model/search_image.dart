@@ -3,9 +3,9 @@ import 'package:flutter/widgets.dart';
 
 class SearchImage {
   final String search;
-  final Image searchImage;
+  final Image image;
 
-  SearchImage({required this.search, required this.searchImage});
+  SearchImage({required this.search, required this.image});
 
   @override
   bool operator ==(Object o) {
@@ -13,9 +13,9 @@ class SearchImage {
 
     return o is SearchImage &&
         o.search == search &&
-        o.searchImage == searchImage;
+        o.image == image;
   }
 
   @override
-  int get hashCode => search.hashCode ^ searchImage.hashCode;
+  int get hashCode => search.hashCode ^ image.hashCode;
 }

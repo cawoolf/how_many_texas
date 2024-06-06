@@ -22,7 +22,7 @@ class HowManyTexas extends StatelessWidget {
          return const WelcomePage();
         }
        else if (state is HomePageState) {
-         return const HomePage();
+         return HomePage();
        }
        else if (state is APILoadingState){
          return const LoadingPage();

@@ -2,9 +2,9 @@
 
 class AIResult {
   final String search;
-  final String aiResult;
+  final String result;
 
-  AIResult({required this.search, required this.aiResult});
+  AIResult({required this.search, required this.result});
 
 
   @override
@@ -13,9 +13,9 @@ class AIResult {
 
     return o is AIResult &&
         o.search == search &&
-        o.aiResult == aiResult;
+        o.result == result;
   }
 
   @override
-  int get hashCode => search.hashCode ^ aiResult.hashCode;
+  int get hashCode => search.hashCode ^ result.hashCode;
 }

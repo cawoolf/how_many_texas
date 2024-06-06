@@ -1,9 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:how_many_texas/data/model/search_result.dart';
-import 'package:how_many_texas/ui/home_page.dart';
 import '../cubit/app_cubit.dart';
 import '../data/model/search_image.dart';
 import 'common_widgets/image_button.dart';
@@ -15,8 +12,6 @@ class ResponsePage extends StatelessWidget {
   final SearchImage searchImage;
   final AIResult aiResult;
   const ResponsePage({required this.searchImage, required this.aiResult, super.key});
-
-  static const String testImagePath = 'assets/rattlesnake_1.png';
 
   @override
   Widget build(BuildContext context) {
@@ -48,15 +43,15 @@ class ResponsePage extends StatelessWidget {
               children: [
                 Transform.translate(offset: Offset(0,-50),
                   child: _resultsImage(
-                      imagePath: testImagePath,
+                      image: searchImage.image,
                       width:175.0,
                       height: 175.0,
                       rotation: -25.0),
                 ),
                 Transform.translate(
-                  offset: Offset(-25,25),
+                  offset: const Offset(-25,25),
                   child: _resultsImage(
-                    imagePath: testImagePath,
+                    image: searchImage.image,
                     width: 175.0,
                     height: 175.0,
                     rotation: 25.0,
@@ -66,7 +61,7 @@ class ResponsePage extends StatelessWidget {
             ),
             _resultsNumber(),
             _searchText(),
-            Text('Inside of Texas',
+            Text('Inside of Texas!',
                 style: AppTextStyles.homeTextStyle,
                 textAlign: TextAlign.center),
             // _texasFlag(),
@@ -92,11 +87,11 @@ class ResponsePage extends StatelessWidget {
       mainAxisSize: MainAxisSize.max,
       children: <Widget>[
         Padding(
-          padding: EdgeInsets.fromLTRB(32.0, 0, 0, 0),
+          padding: const EdgeInsets.fromLTRB(32.0, 0, 0, 0),
           child: _bigRedButton(context),
         ),
         Padding(
-          padding: EdgeInsets.fromLTRB(0, 0, 0, 48),
+          padding: const EdgeInsets.fromLTRB(0, 0, 0, 48),
           child: _bigRedArrow(rotation: 0),
         ),
       ],
@@ -124,7 +119,7 @@ class ResponsePage extends StatelessWidget {
         _navToHomePage(context);
       },
       key: const Key("home_button"),
-      image: AssetImage('assets/big_red_button.png'),
+      image: const AssetImage('assets/big_red_button.png'),
       height: 125,
       width: 175,
     );
@@ -137,23 +132,23 @@ class ResponsePage extends StatelessWidget {
   }
 
   Widget _resultsImage(
-      {required imagePath,
+      {required Image image,
       required double width,
       required double height,
       required rotation}) {
     return RotatedImage(
-        imagePath: imagePath, width: width, height: height, rotation: rotation);
+       image: image, width: width, height: height, rotation: rotation);
   }
 
 
 
   Widget _resultsNumber() {
-    return Text(aiResult.aiResult, // Bad naming, fix it!
+    return Text(aiResult.result, // Bad naming, fix it!
         style: AppTextStyles.welcomePageTextStyle, textAlign: TextAlign.center);
   }
 
   Widget _searchText() {
-    return Text('Rattlesnakes',
+    return Text(aiResult.search,
         style: AppTextStyles.welcomePageTextStyle, textAlign: TextAlign.center);
   }
 

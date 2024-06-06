@@ -10,7 +10,9 @@ import 'common_widgets/rotated_image.dart';
 import 'loading_page.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage();
+  HomePage({super.key});
+
+  final TextEditingController _controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +27,7 @@ class HomePage extends StatelessWidget {
   }
 
   SafeArea _createBodyContent(BuildContext context) {
-    TextEditingController _controller =
-        TextEditingController(); // Create a TextEditingController
-
+   // Create a TextEditingController
     return SafeArea(
       // SafeArea keeps the child widgets from interacting with the OS UI
       child: Column(
@@ -66,7 +66,7 @@ class HomePage extends StatelessWidget {
                     style: AppTextStyles.homeTextStyle,
                     textAlign: TextAlign.center,
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   _arrowButtonRow(context),
                   // _buildHeaderFooter(),
                 ],
@@ -84,11 +84,11 @@ class HomePage extends StatelessWidget {
       mainAxisSize: MainAxisSize.max,
       children: <Widget>[
         Padding(
-          padding: EdgeInsets.fromLTRB(56, 0, 0, 0),
+          padding: const EdgeInsets.fromLTRB(56, 0, 0, 0),
           child: _bigRedArrow(rotation: 0),
         ),
         Padding(
-          padding: EdgeInsets.fromLTRB(8.0, 0, 0, 0),
+          padding: const EdgeInsets.fromLTRB(8.0, 0, 0, 0),
           child: _bigRedButton(context),
         ),
       ],
@@ -108,11 +108,11 @@ class HomePage extends StatelessWidget {
   RotatedImage _bigRedArrow({required double rotation}) {
     return RotatedImage(
       rotation: rotation,
-      imagePath: 'assets/arrow_down.png',
       // Replace 'assets/your_image.png' with the actual path to your image asset
       width: 100,
       // Set the desired width
-      height: 100, // Set the desired height
+      height: 100,
+      image: Image.asset('assets/arrow_down.png'), // Set the desired height
     );
   }
 
@@ -123,7 +123,7 @@ class HomePage extends StatelessWidget {
         _submitAPIRequests(context);
       },
       key: const Key("home_button"),
-      image: AssetImage('assets/big_red_button.png'),
+      image: const AssetImage('assets/big_red_button.png'),
       height: 150,
       width: 200,
     );
@@ -131,19 +131,11 @@ class HomePage extends StatelessWidget {
 
 
   void _submitAPIRequests(BuildContext context) {
+   String searchText = _controller.text;
     final appCubit = BlocProvider.of<AppCubit>(context);
-    appCubit.apiRequests('test');
+    appCubit.apiRequests(searchText);
 
   }
-  // // Not UI
-  // void _navToLoadingPage(BuildContext context) {
-  //   Navigator.push(
-  //     context,
-  //     MaterialPageRoute(
-  //       builder: (context) => const LoadingPage(),
-  //     ),
-  //   );
-  // }
 
   SizedBox _inputTextBox({required TextEditingController controller}) {
     return SizedBox(
@@ -183,12 +175,6 @@ class HomePage extends StatelessWidget {
             child: Image.asset('assets/texas_flag_wavy_trimmed.png',// Adjust the fit as needed
                 ),
           ),
-          // Expanded(
-          //   child: Image.asset(
-          //     'assets/texas_flag_wavy_trimmed.png',
-          //     fit: BoxFit.fill, // Adjust the fit as needed
-          //   ),
-          // )
         ],
       ),
     );

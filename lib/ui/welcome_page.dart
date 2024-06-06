@@ -65,13 +65,4 @@ class WelcomePage extends StatelessWidget {
     appCubit.welcomePageDelay();
   }
 
-  void _delayedRouteToHomePage(BuildContext context) {
-    Future.delayed(const Duration(seconds: 5), () {
-      // Navigate to the HomePage after the delay
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const HomePage()),
-      );
-    });
-  }
 }

@@ -20,11 +20,6 @@ class AppCubit extends Cubit<AppState> {
       final aiResult = await _apiRepository.fetchAIResult(search);
       emit(APILoaded(searchImage, aiResult));
 
-      // For testing
-      // Future.delayed(const Duration(seconds: 5), (){
-      //   emit(const APILoaded());
-      // });
-
     } on APIError {
 
       emit(const APIError('Something went wrong'));
