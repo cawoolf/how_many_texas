@@ -1,5 +1,5 @@
 
-import 'dart:ui';
+import 'package:flutter/widgets.dart';
 
 class SearchImage {
   final String search;

@@ -1,4 +1,4 @@
-import 'dart:ui';
+
 
 class AIResult {
   final String search;

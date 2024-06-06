@@ -57,12 +57,6 @@ class ResponsePage extends StatelessWidget {
                     rotation: 25.0,
                   ),
                 ),
-                // _resultsImage(
-                //   imagePath: testImagePath,
-                //   width: 150.0,
-                //   height: 150.0,
-                //   rotation: 25.0,
-                // ),
               ],
             ),
                 _resultsNumber(),
