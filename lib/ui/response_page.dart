@@ -41,7 +41,7 @@ class ResponsePage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Transform.translate(offset: Offset(0,-50),
+                Transform.translate(offset: Offset(0,0),
                   child: _resultsImage(
                       image: searchImage.image,
                       width:175.0,
@@ -49,7 +49,7 @@ class ResponsePage extends StatelessWidget {
                       rotation: -25.0),
                 ),
                 Transform.translate(
-                  offset: const Offset(-25,25),
+                  offset: const Offset(0,0),
                   child: _resultsImage(
                     image: searchImage.image,
                     width: 175.0,

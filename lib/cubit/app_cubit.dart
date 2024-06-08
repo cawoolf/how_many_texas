@@ -1,4 +1,6 @@
+import 'package:flutter/widgets.dart';
 import 'package:bloc/bloc.dart';
+import 'package:how_many_texas/data/model/search_image.dart';
 import 'app_state.dart';
 import 'package:how_many_texas/data/api_repository.dart';
 
@@ -16,8 +18,11 @@ class AppCubit extends Cubit<AppState> {
   Future<void> apiRequests(String search) async {
     try {
       emit(const APILoadingState());
-      final searchImage = await _apiRepository.fetchSearchImage(search);
+      final searchImageURL = await _apiRepository.fetchSearchImage(search);
+      final searchImage = SearchImage(search: search, image: _loadImage(searchImageURL));
+
       final aiResult = await _apiRepository.fetchAIResult(search);
+
       emit(APILoaded(searchImage, aiResult));
 
     } on APIError {
@@ -28,6 +33,10 @@ class AppCubit extends Cubit<AppState> {
 
   void loadHomePage() {
     emit(const HomePageState());
+  }
+
+  Image _loadImage(String? searchImageURL) {
+    return Image.network(searchImageURL!);
   }
 
 }

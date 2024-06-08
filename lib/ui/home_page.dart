@@ -131,7 +131,7 @@ class HomePage extends StatelessWidget {
 
 
   void _submitAPIRequests(BuildContext context) {
-   String searchText = _controller.text;
+    String searchText = _controller.text;
     final appCubit = BlocProvider.of<AppCubit>(context);
     appCubit.apiRequests(searchText);
 

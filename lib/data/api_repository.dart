@@ -1,11 +1,13 @@
+import 'dart:convert';
 import 'dart:math';
 import 'package:flutter/cupertino.dart';
-import 'model/search_image.dart';
+import 'package:how_many_texas/utils/api_keys.dart';
 import 'model/search_result.dart';
+import 'package:http/http.dart' as http;
 
 abstract class APIRepository {
   // Throws [Network Exception]
-  Future<SearchImage> fetchSearchImage(String search);
+  Future<String?> fetchSearchImage(String search);
   Future<AIResult> fetchAIResult(String search);
 
 }
@@ -26,10 +28,21 @@ class TestAPIRepository implements APIRepository {
   }
 
   @override
-  Future<SearchImage> fetchSearchImage(String search) {
-    return Future.delayed(const Duration(seconds: 1),(){
-      return SearchImage(search: search, image: testImage);
-    });
-  }
+  Future<String?> fetchSearchImage(String search) async {
+    const String baseUrl = 'https://api.unsplash.com';
+    const String accessKey = unsplash_access_key;
+
+    final response = await http.get(
+      Uri.parse('$baseUrl/photos/random?query=$search&client_id=$accessKey'),
+    );
+
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      return data['urls']['regular'];
+    } else {
+      return "unsplash error ${response.statusCode}";
+    }
+
+    }
 
 }
