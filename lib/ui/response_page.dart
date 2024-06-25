@@ -44,19 +44,19 @@ class ResponsePage extends StatelessWidget {
                 Transform.translate(offset: Offset(0,0),
                   child: _resultsImage(
                       image: searchImage.image,
-                      width:175.0,
-                      height: 175.0,
-                      rotation: -25.0),
+                      width:300.0,
+                      height: 300.0,
+                      rotation: 0.0),
                 ),
-                Transform.translate(
-                  offset: const Offset(0,0),
-                  child: _resultsImage(
-                    image: searchImage.image,
-                    width: 175.0,
-                    height: 175.0,
-                    rotation: 25.0,
-                  ),
-                ),
+                // Transform.translate(
+                //   offset: const Offset(0,0),
+                //   child: _resultsImage(
+                //     image: searchImage.image,
+                //     width: 175.0,
+                //     height: 175.0,
+                //     rotation: 25.0,
+                //   ),
+                // ),
               ],
             ),
             _resultsNumber(),
