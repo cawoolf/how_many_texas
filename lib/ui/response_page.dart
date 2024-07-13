@@ -4,7 +4,7 @@ import 'package:how_many_texas/data/model/search_result.dart';
 import '../cubit/app_cubit.dart';
 import '../data/model/search_image.dart';
 import 'common_widgets/image_button.dart';
-import 'package:how_many_texas/utils/text_styles.dart';
+import 'package:how_many_texas/constants/text_styles.dart';
 
 import 'common_widgets/rotated_image.dart';
 

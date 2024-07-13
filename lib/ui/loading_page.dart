@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:how_many_texas/utils/colors.dart';
-import 'package:how_many_texas/utils/text_styles.dart';
+import 'package:how_many_texas/constants/colors.dart';
+import 'package:how_many_texas/constants/text_styles.dart';
 
 class LoadingPage extends StatelessWidget {
   const LoadingPage({super.key});

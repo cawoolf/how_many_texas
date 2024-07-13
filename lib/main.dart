@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:how_many_texas/data/api_repository.dart';
+import 'package:how_many_texas/utils/api_service.dart';
 import 'package:how_many_texas/how_many_texas.dart';
 import 'package:how_many_texas/ui/welcome_page.dart';
 

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:how_many_texas/utils/text_styles.dart';
+import 'package:how_many_texas/constants/text_styles.dart';
 
 import '../cubit/app_cubit.dart';
-import '../utils/colors.dart';
+import '../constants/colors.dart';
 import 'home_page.dart';
 
 class WelcomePage extends StatelessWidget {

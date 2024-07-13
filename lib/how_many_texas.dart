@@ -18,21 +18,25 @@ class HowManyTexas extends StatelessWidget {
       title: 'How Many Texas?',
       home: BlocBuilder<AppCubit,AppState>(
       builder: (BuildContext context, AppState state) {
-       if(state is WelcomePageState) {
-         return const WelcomePage();
+        if (state is WelcomePageState) {
+          return const WelcomePage();
         }
-       else if (state is HomePageState) {
-         return HomePage();
-       }
-       else if (state is APILoadingState){
-         return const LoadingPage();
-       }
-       else if (state is APILoaded) {
-         return ResponsePage(searchImage: state.searchImage, aiResult: state.aiResult);
-       }
-       else{
-         return const Text('Error'); // Error
-       }
+        else if (state is HomePageState) {
+          return HomePage();
+        }
+        else if (state is APILoadingState) {
+          return const LoadingPage();
+        }
+        else if (state is APILoaded) {
+          return ResponsePage(
+              searchImage: state.searchImage, aiResult: state.aiResult);
+        }
+        else if (state is APIError){
+          return Text(state.errorMessage); // Error
+        }
+        else {
+          return const Text('Other Error');
+        }
       }));
   }
 

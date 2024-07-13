@@ -1,11 +1,13 @@
+import 'dart:developer';
+
 import 'package:flutter/widgets.dart';
 import 'package:bloc/bloc.dart';
 import 'package:how_many_texas/data/model/search_image.dart';
 import 'app_state.dart';
-import 'package:how_many_texas/data/api_repository.dart';
+import 'package:how_many_texas/utils/api_service.dart';
 
 class AppCubit extends Cubit<AppState> {
-  final APIRepository _apiRepository;
+  final APIService _apiRepository;
 
   AppCubit(this._apiRepository) :super(const WelcomePageState());
 
@@ -25,9 +27,10 @@ class AppCubit extends Cubit<AppState> {
 
       emit(APILoaded(searchImage, aiResult));
 
-    } on APIError {
+    } catch (error) {
 
-      emit(const APIError('Something went wrong'));
+      log("apiRequest error: $error");
+      emit(APIError(error.toString()));
     }
   }
 
