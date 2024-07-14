@@ -1,34 +1,28 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:developer';
-import 'package:flutter/cupertino.dart';
+import 'package:dart_openai/dart_openai.dart';
 import 'package:how_many_texas/constants/api_keys.dart';
 import 'package:how_many_texas/constants/constants.dart';
+import 'package:path_provider/path_provider.dart';
 import '../data/model/search_result.dart';
 import 'package:http/http.dart' as http;
 
 abstract class APIService {
-  // Throws [Network Exception]
   Future<String?> fetchSearchImage(String search);
-  Future<AIResult> fetchAIResult(String search);
 
+  Future<AIResult> fetchChatCompletion(String search);
+
+  Future<String> fetchChatTTS(String numberText);
 }
 
-class TestAPIRepository implements APIService {
-
-   static const String testImagePath = 'assets/rattlesnake_1.png';
-   Image testImage = Image.asset(testImagePath);
-
-
-  // Testing
+class ApiService implements APIService {
   @override
-  Future<AIResult> fetchAIResult(String search) async {
+  Future<AIResult> fetchChatCompletion(String search) async {
     var messagesBody = [
-      {"role": "system",
-        "content" : GPT_PROMPT
-      },
-      {"role" : "user",
-        "content" : search}];
+      {"role": "system", "content": GPT_PROMPT},
+      {"role": "user", "content": search}
+    ];
 
     print("content: $search");
 
@@ -37,11 +31,11 @@ class TestAPIRepository implements APIService {
         Uri.parse("$BASE_CHAT_URL/completions"),
         headers: {
           "Content-Type": "application/json",
-          'Authorization': 'Bearer $API_KEY'
+          'Authorization': 'Bearer $OPEN_AI_API_KEY'
         },
         body: jsonEncode(
           {
-            "model": GPT_MODEL_1,
+            "model": GPT_CHAT_MODEL,
             "messages": messagesBody,
             "max_tokens": 100,
           },
@@ -70,6 +64,30 @@ class TestAPIRepository implements APIService {
     }
 
     return AIResult(search: search, result: "Error");
+  }
+
+  @override
+  Future<String> fetchChatTTS(String numberText) async {
+    OpenAI.apiKey = OPEN_AI_API_KEY;
+
+    Directory tempDir = await getTemporaryDirectory();
+    String outputPath = tempDir.path;
+
+    // The speech request.
+    File speechFile = await OpenAI.instance.audio.createSpeech(
+      model: "tts-1",
+      input: numberText,
+      voice: "onyx",
+      responseFormat: OpenAIAudioSpeechResponseFormat.mp3,
+      outputDirectory: Directory(outputPath),
+      outputFileName: "anas",
+    );
+
+// The file result.
+    print(speechFile.path);
+
+    return speechFile.path;
+
 
   }
 
@@ -88,9 +106,5 @@ class TestAPIRepository implements APIService {
     } else {
       return "unsplash error ${response.statusCode}";
     }
-
-    }
-
-
-
+  }
 }

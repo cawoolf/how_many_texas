@@ -49,6 +49,8 @@ class TexasCalculator {
     double fitTimes = _calculateFitTimes(json);
 
     print('The object fits inside Texas $fitTimes times.');
-    return fitTimes.toString();
+
+    return fitTimes.round().toString();
   }
+
 }

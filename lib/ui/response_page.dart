@@ -12,10 +12,13 @@ import 'common_widgets/rotated_image.dart';
 class ResponsePage extends StatelessWidget {
   final SearchImage searchImage;
   final AIResult aiResult;
-  const ResponsePage({required this.searchImage, required this.aiResult, super.key});
+  final String ttsFilePath;
+  const ResponsePage({required this.searchImage, required this.aiResult, required this.ttsFilePath, super.key});
 
   @override
   Widget build(BuildContext context) {
+
+    _playTTSAudio(ttsFilePath, context);
 
     return Scaffold(
       body: Container(
@@ -39,29 +42,9 @@ class ResponsePage extends StatelessWidget {
             Text('You can fit..',
                 style: AppTextStyles.homeTextStyle,
                 textAlign: TextAlign.center),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Transform.translate(offset: Offset(0,0),
-                  child: _resultsImage(
-                      image: searchImage.image,
-                      width:300.0,
-                      height: 300.0,
-                      rotation: 0.0),
-                ),
-                // Transform.translate(
-                //   offset: const Offset(0,0),
-                //   child: _resultsImage(
-                //     image: searchImage.image,
-                //     width: 175.0,
-                //     height: 175.0,
-                //     rotation: 25.0,
-                //   ),
-                // ),
-              ],
-            ),
             _resultsNumber(),
             _searchText(),
+            _resultsImageRow(searchImage),
             Text('Inside of Texas!',
                 style: AppTextStyles.homeTextStyle,
                 textAlign: TextAlign.center),
@@ -71,6 +54,21 @@ class ResponsePage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Row _resultsImageRow(SearchImage searchImage) {
+    return Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Transform.translate(offset: Offset(0,0),
+                child: _resultsImage(
+                    image: searchImage.image,
+                    width:300.0,
+                    height: 300.0,
+                    rotation: 0.0),
+              ),
+            ],
+          );
   }
   BoxDecoration _woodBackground() {
     return const BoxDecoration(
@@ -130,6 +128,11 @@ class ResponsePage extends StatelessWidget {
   void _navToHomePage(BuildContext context) {
     final appCubit = BlocProvider.of<AppCubit>(context);
     appCubit.loadHomePage();
+  }
+
+  void _playTTSAudio(String ttsFilePath, BuildContext context) {
+    final appCubit = BlocProvider.of<AppCubit>(context);
+    appCubit.playNumbersAudio(ttsFilePath);
   }
 
   Widget _resultsImage(

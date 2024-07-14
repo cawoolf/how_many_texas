@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/widgets.dart';
 import 'package:bloc/bloc.dart';
 import 'package:how_many_texas/data/model/search_image.dart';
@@ -25,9 +26,10 @@ class AppCubit extends Cubit<AppState> {
       final searchImageURL = await _apiRepository.fetchSearchImage(search);
       final searchImage = SearchImage(search: search, image: _loadImage(searchImageURL));
 
-      final aiResult = await _apiRepository.fetchAIResult(search);
+      final aiResult = await _apiRepository.fetchChatCompletion(search);
+      final ttsFilePath = await _apiRepository.fetchChatTTS(calculateHowManyTexas(aiResult));
 
-      emit(APILoaded(searchImage, aiResult));
+      emit(APILoaded(searchImage, aiResult, ttsFilePath));
 
     } catch (error) {
 
@@ -47,6 +49,17 @@ class AppCubit extends Cubit<AppState> {
   String calculateHowManyTexas(AIResult aiResult) {
     TexasCalculator texasCalculator = TexasCalculator();
     return texasCalculator.calculateFromAPIResult(aiResult.result);
+  }
+
+  // String getNumberWords(AIResult aiResult) {
+  //   TexasCalculator texasCalculator = TexasCalculator();
+  //   return texasCalculator.getNumberWords(aiResult.result);
+  // }
+
+  Future<void> playNumbersAudio(String speechFilePath) async {
+    // Play the audio file
+    AudioPlayer audioPlayer = AudioPlayer();
+    await audioPlayer.play(UrlSource(speechFilePath));
   }
 
 }

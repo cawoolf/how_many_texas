@@ -23,7 +23,8 @@ class APILoadingState extends AppState {
 class APILoaded extends AppState {
   final SearchImage searchImage;
   final AIResult aiResult;
-  const APILoaded(this.searchImage, this.aiResult);
+  final String ttsFilePath;
+  const APILoaded(this.searchImage, this.aiResult, this.ttsFilePath);
 
 }
 

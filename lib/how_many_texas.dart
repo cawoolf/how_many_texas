@@ -29,7 +29,7 @@ class HowManyTexas extends StatelessWidget {
         }
         else if (state is APILoaded) {
           return ResponsePage(
-              searchImage: state.searchImage, aiResult: state.aiResult);
+              searchImage: state.searchImage, aiResult: state.aiResult, ttsFilePath: state.ttsFilePath);
         }
         else if (state is APIError){
           return Text(state.errorMessage); // Error
