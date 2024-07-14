@@ -25,15 +25,6 @@ class APILoaded extends AppState {
   final AIResult aiResult;
   const APILoaded(this.searchImage, this.aiResult);
 
-  // @override
-  // bool operator ==(Object o) {
-  //   if (identical(this, o)) return true;
-  //
-  //   return o is APILoaded && o.searchImage == searchImage && o.aiResult == aiResult;
-  // }
-  //
-  // @override
-  // int get hashCode => hashCode;
 }
 
 class APIError extends AppState {

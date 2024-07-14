@@ -3,6 +3,8 @@ import 'dart:developer';
 import 'package:flutter/widgets.dart';
 import 'package:bloc/bloc.dart';
 import 'package:how_many_texas/data/model/search_image.dart';
+import 'package:how_many_texas/data/model/search_result.dart';
+import 'package:how_many_texas/utils/texas_calculator.dart';
 import 'app_state.dart';
 import 'package:how_many_texas/utils/api_service.dart';
 
@@ -40,6 +42,11 @@ class AppCubit extends Cubit<AppState> {
 
   Image _loadImage(String? searchImageURL) {
     return Image.network(searchImageURL!);
+  }
+
+  String calculateHowManyTexas(AIResult aiResult) {
+    TexasCalculator texasCalculator = TexasCalculator();
+    return texasCalculator.calculateFromAPIResult(aiResult.result);
   }
 
 }

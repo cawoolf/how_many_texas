@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:how_many_texas/data/model/search_result.dart';
+import 'package:how_many_texas/utils/texas_calculator.dart';
 import '../cubit/app_cubit.dart';
 import '../data/model/search_image.dart';
 import 'common_widgets/image_button.dart';
@@ -143,7 +144,8 @@ class ResponsePage extends StatelessWidget {
 
 
   Widget _resultsNumber() {
-    return Text(aiResult.result, // Bad naming, fix it!
+    TexasCalculator texasCalculator = TexasCalculator();
+    return Text(texasCalculator.calculateFromAPIResult(aiResult.result),
         style: AppTextStyles.welcomePageTextStyle, textAlign: TextAlign.center);
   }
 
