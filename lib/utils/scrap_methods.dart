@@ -7,12 +7,12 @@ GestureDetector _inputTextDialog(BuildContext context) {
       _showInputDialog(context); // Call the method to show the input dialog
     },
     child: Container(
-      padding: EdgeInsets.all(10), // Adjust padding as needed
+      padding: const EdgeInsets.all(10), // Adjust padding as needed
       decoration: BoxDecoration(
         border: Border.all(), // Add border for better visual cue
         borderRadius: BorderRadius.circular(5), // Optional: Add border radius
       ),
-      child: Text(
+      child: const Text(
         'Click here to enter text', // Hint or custom message
         style: TextStyle(color: Colors.grey), // Optional: Adjust text color
       ),
@@ -26,12 +26,12 @@ Future<void> _showInputDialog(BuildContext context) async {
     builder: (BuildContext context) {
       String text = ''; // Initial value of the input field
       return AlertDialog(
-        title: Text('Enter Text'),
+        title: const Text('Enter Text'),
         content: TextField(
           onChanged: (value) {
             text = value; // Update the text variable when input changes
           },
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             hintText: 'Enter text...',
           ),
         ),
@@ -40,7 +40,7 @@ Future<void> _showInputDialog(BuildContext context) async {
             onPressed: () {
               Navigator.of(context).pop(text); // Close dialog and return text
             },
-            child: Text('OK'),
+            child: const Text('OK'),
           ),
         ],
       );

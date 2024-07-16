@@ -60,7 +60,7 @@ class ResponsePage extends StatelessWidget {
     return Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Transform.translate(offset: Offset(0,0),
+              Transform.translate(offset: const Offset(0,0),
                 child: _resultsImage(
                     image: searchImage.image,
                     width:300.0,
@@ -148,7 +148,7 @@ class ResponsePage extends StatelessWidget {
 
   Widget _resultsNumber() {
     TexasCalculator texasCalculator = TexasCalculator();
-    return Text(texasCalculator.calculateFromAPIResult(aiResult.result),
+    return Text(texasCalculator.calculateFromAPIResult(aiResult.result).toString(),
         style: AppTextStyles.welcomePageTextStyle, textAlign: TextAlign.center);
   }
 

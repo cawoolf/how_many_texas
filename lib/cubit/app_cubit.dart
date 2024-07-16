@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/widgets.dart';
 import 'package:bloc/bloc.dart';
+import 'package:how_many_texas/constants/constants.dart';
 import 'package:how_many_texas/data/model/search_image.dart';
 import 'package:how_many_texas/data/model/search_result.dart';
 import 'package:how_many_texas/utils/texas_calculator.dart';
@@ -20,16 +21,18 @@ class AppCubit extends Cubit<AppState> {
     });
   }
 
-  Future<void> apiRequests(String search) async {
+  Future<void> apiRequests(String userInput) async {
     try {
       emit(const APILoadingState());
-      final searchImageURL = await _apiRepository.fetchSearchImage(search);
-      final searchImage = SearchImage(search: search, image: _loadImage(searchImageURL));
+      final searchImageURL = await _apiRepository.fetchSearchImage(userInput); // Calls the UnSplash AIP to return a random image of the user input
+      final searchImage = SearchImage(search: userInput, image: _loadImage(searchImageURL));
 
-      final aiResult = await _apiRepository.fetchChatCompletion(search);
-      final ttsFilePath = await _apiRepository.fetchChatTTS(calculateHowManyTexas(aiResult));
+      final objectDimensions = await _apiRepository.fetchChatCompletion(userInput, GPT_PROMPT); // Calls OpenAI API to return the dimensions of the object the user inputs to the search field
+      final numberWords = await _apiRepository.fetchChatCompletion(calculateHowManyTexas(objectDimensions), TTS_PROMPT); // Calculates how many times the object fits into Texas, and then calls the API to return the number in written english.
+      final String fullText = "${numberWords.result} $userInput can fit inside of Texas";
+      final ttsFilePath = await _apiRepository.fetchChatTTS(fullText); // Submits the result of the numberWords to the OpenAI TTS API to generate an audio file, and store it to the file path, and returns the file path
 
-      emit(APILoaded(searchImage, aiResult, ttsFilePath));
+      emit(APILoaded(searchImage, objectDimensions, ttsFilePath));
 
     } catch (error) {
 

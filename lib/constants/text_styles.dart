@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:how_many_texas/constants/colors.dart';
 
 class AppTextStyles {
   static TextStyle welcomePageTextStyle = const TextStyle(

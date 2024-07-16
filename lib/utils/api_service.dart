@@ -11,20 +11,20 @@ import 'package:http/http.dart' as http;
 abstract class APIService {
   Future<String?> fetchSearchImage(String search);
 
-  Future<AIResult> fetchChatCompletion(String search);
+  Future<AIResult> fetchChatCompletion(String search, String prompt);
 
   Future<String> fetchChatTTS(String numberText);
 }
 
 class ApiService implements APIService {
   @override
-  Future<AIResult> fetchChatCompletion(String search) async {
+  Future<AIResult> fetchChatCompletion(String userInput, String prompt) async {
     var messagesBody = [
-      {"role": "system", "content": GPT_PROMPT},
-      {"role": "user", "content": search}
+      {"role": "system", "content": prompt},
+      {"role": "user", "content": userInput}
     ];
 
-    print("content: $search");
+    print("content: $userInput");
 
     try {
       var response = await http.post(
@@ -56,14 +56,14 @@ class ApiService implements APIService {
         log("jsonResponse[choices]text ${jsonResponse["choices"][0]["text"]}");
         result = jsonResponse["choices"][0]["message"]["content"].toString();
         print("result: $result");
-        return AIResult(search: search, result: result);
+        return AIResult(search: userInput, result: result);
       }
     } catch (error) {
       log("error $error");
       rethrow;
     }
 
-    return AIResult(search: search, result: "Error");
+    return AIResult(search: userInput, result: "Error");
   }
 
   @override

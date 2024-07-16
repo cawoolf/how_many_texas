@@ -4,7 +4,6 @@ import 'package:how_many_texas/constants/text_styles.dart';
 
 import '../cubit/app_cubit.dart';
 import '../constants/colors.dart';
-import 'home_page.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});

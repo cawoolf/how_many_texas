@@ -6,5 +6,5 @@ class AppColors {
   // static const Color accentColor = Color(0xFFFFC107);
 
   static const Color backgroundColor = Color(0xFFD4E7EB);
-  static const Color yeeHawTextColor = Color(0xFFFFFF);
+  static const Color yeeHawTextColor = Color(0x00ffffff);
 }
