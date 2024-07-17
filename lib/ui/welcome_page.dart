@@ -11,7 +11,7 @@ class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    _welcomePageDelay(context);
+    _navToHomePageDelayed(context);
 
     return Scaffold(
       body: SafeArea(
@@ -59,9 +59,9 @@ class WelcomePage extends StatelessWidget {
     );
   }
 
-  void _welcomePageDelay(BuildContext context) {
+  void _navToHomePageDelayed (BuildContext context) {
     final appCubit = BlocProvider.of<AppCubit>(context);
-    appCubit.welcomePageDelay();
+    appCubit.navToHomePageDelayed();
   }
 
 }

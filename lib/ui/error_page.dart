@@ -1,15 +1,25 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:how_many_texas/constants/colors.dart';
 import 'package:how_many_texas/constants/text_styles.dart';
+import 'package:how_many_texas/ui/home_page.dart';
+
+import '../cubit/app_cubit.dart';
 
 
-class LoadingPage extends StatelessWidget {
-  const LoadingPage({super.key});
+class ErrorPage extends StatelessWidget {
+
+  final String error;
+  const ErrorPage({super.key, required this.error});
 
   @override
   Widget build(BuildContext context) {
+
     // Not UI
-    // _delayedNavToResponsePage(context);
+    _logErrorMsg(error);
+    _navToHomePageDelayed(context);
 
     return Scaffold(
       body: SafeArea(
@@ -48,7 +58,7 @@ class LoadingPage extends StatelessWidget {
           // Background Image
           Positioned.fill(
             child: Image.asset(
-              'assets/cow_1_trimmed.png',
+              'assets/cow_skull_edited.png',
               fit: BoxFit.scaleDown,
             ),
           ),
@@ -70,5 +80,14 @@ class LoadingPage extends StatelessWidget {
 
   BoxDecoration _backgroundColor() {
     return const BoxDecoration(color: AppColors.backgroundColor);
+  }
+
+  void _logErrorMsg(String errorMsg) {
+    log(errorMsg);
+  }
+
+  void _navToHomePageDelayed (BuildContext context) {
+    final appCubit = BlocProvider.of<AppCubit>(context);
+    appCubit.navToHomePageDelayed();
   }
 }

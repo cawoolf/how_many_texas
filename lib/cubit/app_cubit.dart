@@ -15,11 +15,13 @@ class AppCubit extends Cubit<AppState> {
 
   AppCubit(this._apiRepository) :super(const WelcomePageState());
 
-  Future<void> welcomePageDelay() async {
+  Future<void> navToHomePageDelayed() async {
     Future.delayed(const Duration(seconds: 3), () {
       emit(const HomePageState());
     });
   }
+
+
 
   Future<void> apiRequests(String userInput) async {
     try {
