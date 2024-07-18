@@ -43,7 +43,7 @@ class TexasCalculator {
     return texasAreaSquareMiles / objectArea;
   }
 
-  String calculateFromAPIResult(String result)  {
+  String calculateFitTimesFromAPIResult(String result)  {
     Map<String, dynamic> json = jsonDecode(result);
 
     double fitTimes = _calculateFitTimes(json);

@@ -32,6 +32,7 @@ class AppCubit extends Cubit<AppState> {
       final objectDimensions = await _apiRepository.fetchChatCompletion(userInput, GPT_PROMPT); // Calls OpenAI API to return the dimensions of the object the user inputs to the search field
       final numberWords = await _apiRepository.fetchChatCompletion(calculateHowManyTexas(objectDimensions), TTS_PROMPT); // Calculates how many times the object fits into Texas, and then calls the API to return the number in written english.
       final String fullText = "${numberWords.result} $userInput can fit inside of Texas";
+      print(fullText);
       final ttsFilePath = await _apiRepository.fetchChatTTS(fullText); // Submits the result of the numberWords to the OpenAI TTS API to generate an audio file, and store it to the file path, and returns the file path
 
       emit(APILoaded(searchImage, objectDimensions, ttsFilePath));
@@ -53,13 +54,13 @@ class AppCubit extends Cubit<AppState> {
 
   String calculateHowManyTexas(AIResult aiResult) {
     TexasCalculator texasCalculator = TexasCalculator();
-    return texasCalculator.calculateFromAPIResult(aiResult.result);
+    return texasCalculator.calculateFitTimesFromAPIResult(aiResult.result);
   }
 
-  // String getNumberWords(AIResult aiResult) {
-  //   TexasCalculator texasCalculator = TexasCalculator();
-  //   return texasCalculator.getNumberWords(aiResult.result);
-  // }
+  String getNumberToWords(AIResult aiResult) {
+    TexasCalculator texasCalculator = TexasCalculator();
+    return texasCalculator.calculateFitTimesFromAPIResult(aiResult.result);
+  }
 
   Future<void> playNumbersAudio(String speechFilePath) async {
     // Play the audio file

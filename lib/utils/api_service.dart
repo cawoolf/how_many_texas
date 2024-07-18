@@ -16,6 +16,8 @@ abstract class APIService {
   Future<String> fetchChatTTS(String numberText);
 }
 
+// With the GPT prompt, Returns the length and width of the object described in the user input
+// With the TTS Prompt, returns the number spelled out in written English.
 class ApiService implements APIService {
   @override
   Future<AIResult> fetchChatCompletion(String userInput, String prompt) async {

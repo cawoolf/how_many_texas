@@ -148,7 +148,7 @@ class ResponsePage extends StatelessWidget {
 
   Widget _resultsNumber() {
     TexasCalculator texasCalculator = TexasCalculator();
-    return Text(texasCalculator.calculateFromAPIResult(aiResult.result).toString(),
+    return Text(texasCalculator.calculateFitTimesFromAPIResult(aiResult.result).toString(),
         style: AppTextStyles.welcomePageTextStyle, textAlign: TextAlign.center);
   }
 
