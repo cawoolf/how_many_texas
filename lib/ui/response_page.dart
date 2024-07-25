@@ -128,7 +128,7 @@ class ResponsePage extends StatelessWidget {
   // Not UI
   void _navToHomePage(BuildContext context) {
     final appCubit = BlocProvider.of<AppCubit>(context);
-    appCubit.loadHomePage();
+    appCubit.navToHomePage();
 
     // Navigator.push(
     //   context,

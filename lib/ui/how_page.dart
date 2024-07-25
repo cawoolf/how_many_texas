@@ -114,7 +114,7 @@ class HowPage extends StatelessWidget {
   // Not UI
   void _navToHomePage(BuildContext context) {
     final appCubit = BlocProvider.of<AppCubit>(context);
-    appCubit.loadHomePage();
+    appCubit.navToHomePage();
   }
 
   void _playTTSAudio(String ttsFilePath, BuildContext context) {

@@ -15,14 +15,6 @@ class AppCubit extends Cubit<AppState> {
 
   AppCubit(this._apiRepository) :super(const WelcomePageState());
 
-  Future<void> navToHomePageDelayed() async {
-    Future.delayed(const Duration(seconds: 3), () {
-      emit(const HomePageState());
-    });
-  }
-
-
-
   Future<void> apiRequests(String userInput) async {
     try {
       emit(const APILoadingState());
@@ -44,10 +36,6 @@ class AppCubit extends Cubit<AppState> {
     }
   }
 
-  void loadHomePage() {
-    emit(const HomePageState());
-  }
-
   Image _loadImage(String? searchImageURL) {
     return Image.network(searchImageURL!);
   }
@@ -66,6 +54,18 @@ class AppCubit extends Cubit<AppState> {
     // Play the audio file
     AudioPlayer audioPlayer = AudioPlayer();
     await audioPlayer.play(UrlSource(speechFilePath));
+  }
+
+
+  // Navigation.. Not the best but kind of stuck with it for now
+  void navToHomePage() {
+    emit(const HomePageState());
+  }
+
+  Future<void> navToHomePageDelayed() async {
+    Future.delayed(const Duration(seconds: 3), () {
+      emit(const HomePageState());
+    });
   }
 
 }
