@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:how_many_texas/data/model/search_result.dart';
 import '../data/model/search_image.dart';
 
+// Needs to extends Equatable
 @immutable
 abstract class AppState {
   const AppState();
