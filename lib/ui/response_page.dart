@@ -21,12 +21,18 @@ class ResponsePage extends StatelessWidget {
 
     _playTTSAudio(ttsFilePath, context);
 
-    return Scaffold(
-      body: Container(
-        height: double.infinity, // Makes the child as high as the device screen
-        width: double.infinity, // Makes the child as wide as the device screen
-        color: Colors.grey,
-        child: _createBodyContent(context, searchImage, aiResult),
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (backClicked) {
+        _navToHomePage(context);
+      },
+      child: Scaffold(
+        body: Container(
+          height: double.infinity, // Makes the child as high as the device screen
+          width: double.infinity, // Makes the child as wide as the device screen
+          color: Colors.grey,
+          child: _createBodyContent(context, searchImage, aiResult),
+        ),
       ),
     );
   }
@@ -127,16 +133,15 @@ class ResponsePage extends StatelessWidget {
 
   // Not UI
   void _navToHomePage(BuildContext context) {
-    // final appCubit = BlocProvider.of<AppCubit>(context);
-    // appCubit.navToHomePage();
+    // Navigator.popUntil(context, (route) => route.isFirst);
+    final appCubit = BlocProvider.of<AppCubit>(context);
+    appCubit.navToHomePage();
 
   }
 
   void _navToHowPage(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => HowPage(aiResult: aiResult,)),
-    );
+    final appCubit = BlocProvider.of<AppCubit>(context);
+    appCubit.navToHowPage();
   }
 
   void _playTTSAudio(String ttsFilePath, BuildContext context) {

@@ -3,15 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:how_many_texas/cubit/app_cubit.dart';
 import 'package:how_many_texas/cubit/app_state.dart';
+import 'package:how_many_texas/data/model/search_result.dart';
 import 'package:how_many_texas/ui/error_page.dart';
 import 'package:how_many_texas/ui/home_page.dart';
+import 'package:how_many_texas/ui/how_page.dart';
 import 'package:how_many_texas/ui/loading_page.dart';
 import 'package:how_many_texas/ui/money_page.dart';
 import 'package:how_many_texas/ui/response_page.dart';
 import 'package:how_many_texas/ui/welcome_page.dart';
 
 class HowManyTexas extends StatelessWidget {
-  const HowManyTexas({super.key});
+  HowManyTexas({super.key});
+
+  late AIResult aiResult;
 
   @override
   Widget build(BuildContext context) {
@@ -22,27 +26,36 @@ class HowManyTexas extends StatelessWidget {
         if (state is WelcomePageState) {
           return const WelcomePage();
         }
-        if(state is MoneyPageState) {
+        else if(state is MoneyPageState) {
           return MoneyPage(credits: state.credits);
         }
-        else if (state is HomePageState) {
+
+        else if(state is HomePageState) {
           return HomePage();
         }
+
         else if (state is APILoadingState) {
           return const LoadingPage();
-        }
-        else if (state is APILoaded) {
-          
-          return ResponsePage(
-              searchImage: state.searchImage, aiResult: state.aiResult, ttsFilePath: state.ttsFilePath);
         }
         else if (state is APIError){
           return ErrorPage(error: state.errorMessage); // Error
         }
+        else if (state is APILoaded) {
+          aiResult = state.aiResult;
+          return ResponsePage(
+              searchImage: state.searchImage, aiResult: state.aiResult, ttsFilePath: state.ttsFilePath);
+        }
+
+        else if(state is HowPageState) {
+          return HowPage(aiResult: aiResult);
+        }
+
         else {
           return const Text('Other Error');
         }
       }));
   }
+
+
 
 }

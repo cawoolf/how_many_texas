@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:math';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/widgets.dart';
@@ -31,7 +32,6 @@ class AppCubit extends Cubit<AppState> {
 
     } catch (error) {
 
-      log("apiRequest error: $error");
       emit(APIError(error.toString()));
     }
   }
@@ -56,8 +56,12 @@ class AppCubit extends Cubit<AppState> {
     await audioPlayer.play(UrlSource(speechFilePath));
   }
 
+  int getCredits() {
+    int credits = Random().nextInt(5);
+    return credits;
+  }
   // Navigation.. Not the best but kind of stuck with it for now
-  void setHomePageState() {
+  void navToHomePage() {
     emit(const HomePageState());
   }
 
@@ -65,6 +69,16 @@ class AppCubit extends Cubit<AppState> {
     Future.delayed(const Duration(seconds: 3), () {
       emit(const HomePageState());
     });
+  }
+
+  void navToHowPage() {
+    emit(const HowPageState());
+  }
+
+  void navToMoneyPage() {
+    int credits = getCredits();
+    print(credits);
+    emit(MoneyPageState(credits));
   }
 
 

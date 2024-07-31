@@ -14,12 +14,15 @@ class MoneyPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        height: double.infinity, // Makes the child as high as the device screen
-        width: double.infinity, // Makes the child as wide as the device screen
-        color: Colors.grey,
-        child: _createBodyContent(context),
+    return PopScope(
+      canPop: true,
+      child: Scaffold(
+        body: Container(
+          height: double.infinity, // Makes the child as high as the device screen
+          width: double.infinity, // Makes the child as wide as the device screen
+          color: Colors.grey,
+          child: _createBodyContent(context),
+        ),
       ),
     );
   }
@@ -105,13 +108,8 @@ class MoneyPage extends StatelessWidget {
   // Not UI
   void _navToHomePage(BuildContext context) {
 
-    Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(builder: (context) => const HowManyTexas()),
-        (Route<dynamic> route) => false);
-
     final appCubit = BlocProvider.of<AppCubit>(context);
-    appCubit.setHomePageState();
+    appCubit.navToHomePage();
 
   }
 }

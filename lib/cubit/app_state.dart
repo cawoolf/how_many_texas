@@ -73,4 +73,13 @@ class APIError extends AppState {
   @override
   // TODO: implement props
   List<Object?> get props => throw UnimplementedError();
+
+}
+
+class HowPageState extends AppState {
+  const HowPageState();
+  @override
+  // TODO: implement props
+  List<Object?> get props => throw UnimplementedError();
+
 }

@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       ),
       home: BlocProvider(
       create: (context) => AppCubit(ApiService()),
-      child: const HowManyTexas(),
+      child: HowManyTexas(),
     )
     );
   }

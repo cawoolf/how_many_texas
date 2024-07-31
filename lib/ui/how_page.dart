@@ -22,14 +22,18 @@ class HowPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-
-
-    return Scaffold(
-      body: Container(
-        height: double.infinity, // Makes the child as high as the device screen
-        width: double.infinity, // Makes the child as wide as the device screen
-        color: Colors.grey,
-        child: _createBodyContent(context, aiResult),
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (backClicked) {
+        _navToHomePage(context);
+      },
+      child: Scaffold(
+        body: Container(
+          height: double.infinity, // Makes the child as high as the device screen
+          width: double.infinity, // Makes the child as wide as the device screen
+          color: Colors.grey,
+          child: _createBodyContent(context, aiResult),
+        ),
       ),
     );
   }
@@ -116,19 +120,26 @@ class HowPage extends StatelessWidget {
   }
 
   void _navToMoneyScreen(BuildContext context) {
-    int credits = Random().nextInt(5);
-    if(credits ==0) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => MoneyPage(credits: credits)),
-      );
+    final appCubit = BlocProvider.of<AppCubit>(context);
+    int credits = appCubit.getCredits();
+    // print(credits);
+    credits = 0;
+    if(credits == 0) {
+
+      appCubit.navToMoneyPage();
+
     }
     else {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => HomePage()),
-      );
+      appCubit.navToHomePage();
     }
+  }
+
+  // Not UI
+  void _navToHomePage(BuildContext context) {
+    // Navigator.popUntil(context, (route) => route.isFirst);
+    final appCubit = BlocProvider.of<AppCubit>(context);
+    appCubit.navToHomePage();
+
   }
 
 
