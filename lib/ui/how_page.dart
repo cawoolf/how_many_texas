@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:how_many_texas/data/model/search_result.dart';
@@ -8,6 +10,8 @@ import 'common_widgets/image_button.dart';
 import 'package:how_many_texas/constants/text_styles.dart';
 
 import 'common_widgets/rotated_image.dart';
+import 'home_page.dart';
+import 'money_page.dart';
 
 class HowPage extends StatelessWidget {
 
@@ -39,7 +43,7 @@ class HowPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text('You can fit..',
+            Text('How can you fit..',
                 style: AppTextStyles.homeTextStyle,
                 textAlign: TextAlign.center),
             _resultsNumber(),
@@ -102,7 +106,7 @@ class HowPage extends StatelessWidget {
     return ImageButton(
       // Navigation isn't considered UI. How to abstract this away?
       onPressed: () {
-        _navToHomePage(context);
+        _navToMoneyScreen(context);
       },
       key: const Key("home_button"),
       image: const AssetImage('assets/big_red_button.png'),
@@ -111,26 +115,21 @@ class HowPage extends StatelessWidget {
     );
   }
 
-  // Not UI
-  void _navToHomePage(BuildContext context) {
-    final appCubit = BlocProvider.of<AppCubit>(context);
-    appCubit.navToHomePage();
+  void _navToMoneyScreen(BuildContext context) {
+    int credits = Random().nextInt(5);
+    if(credits ==0) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => MoneyPage(credits: credits)),
+      );
+    }
+    else {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => HomePage()),
+      );
+    }
   }
-
-  void _playTTSAudio(String ttsFilePath, BuildContext context) {
-    final appCubit = BlocProvider.of<AppCubit>(context);
-    appCubit.playNumbersAudio(ttsFilePath);
-  }
-
-  Widget _resultsImage(
-      {required Image image,
-        required double width,
-        required double height,
-        required rotation}) {
-    return RotatedImage(
-        image: image, width: width, height: height, rotation: rotation);
-  }
-
 
 
   Widget _resultsNumber() {

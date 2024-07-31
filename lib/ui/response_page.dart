@@ -116,7 +116,7 @@ class ResponsePage extends StatelessWidget {
     return ImageButton(
       // Navigation isn't considered UI. How to abstract this away?
       onPressed: () {
-        _navToHomePage(context);
+        _navToHowPage(context);
       },
       key: const Key("home_button"),
       image: const AssetImage('assets/big_red_button.png'),
@@ -127,13 +127,16 @@ class ResponsePage extends StatelessWidget {
 
   // Not UI
   void _navToHomePage(BuildContext context) {
-    final appCubit = BlocProvider.of<AppCubit>(context);
-    appCubit.navToHomePage();
+    // final appCubit = BlocProvider.of<AppCubit>(context);
+    // appCubit.navToHomePage();
 
-    // Navigator.push(
-    //   context,
-    //   MaterialPageRoute(builder: (context) => HowPage(aiResult: aiResult,)),
-    // );
+  }
+
+  void _navToHowPage(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => HowPage(aiResult: aiResult,)),
+    );
   }
 
   void _playTTSAudio(String ttsFilePath, BuildContext context) {

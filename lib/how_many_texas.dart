@@ -6,6 +6,7 @@ import 'package:how_many_texas/cubit/app_state.dart';
 import 'package:how_many_texas/ui/error_page.dart';
 import 'package:how_many_texas/ui/home_page.dart';
 import 'package:how_many_texas/ui/loading_page.dart';
+import 'package:how_many_texas/ui/money_page.dart';
 import 'package:how_many_texas/ui/response_page.dart';
 import 'package:how_many_texas/ui/welcome_page.dart';
 
@@ -21,6 +22,9 @@ class HowManyTexas extends StatelessWidget {
         if (state is WelcomePageState) {
           return const WelcomePage();
         }
+        if(state is MoneyPageState) {
+          return MoneyPage(credits: state.credits);
+        }
         else if (state is HomePageState) {
           return HomePage();
         }
@@ -28,6 +32,7 @@ class HowManyTexas extends StatelessWidget {
           return const LoadingPage();
         }
         else if (state is APILoaded) {
+          
           return ResponsePage(
               searchImage: state.searchImage, aiResult: state.aiResult, ttsFilePath: state.ttsFilePath);
         }

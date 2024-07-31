@@ -56,9 +56,8 @@ class AppCubit extends Cubit<AppState> {
     await audioPlayer.play(UrlSource(speechFilePath));
   }
 
-
   // Navigation.. Not the best but kind of stuck with it for now
-  void navToHomePage() {
+  void setHomePageState() {
     emit(const HomePageState());
   }
 
@@ -67,5 +66,7 @@ class AppCubit extends Cubit<AppState> {
       emit(const HomePageState());
     });
   }
+
+
 
 }
