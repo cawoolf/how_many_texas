@@ -97,16 +97,27 @@ class ApiService implements APIService {
   Future<String?> fetchSearchImage(String search) async {
     const String baseUrl = 'https://api.unsplash.com';
     const String accessKey = unsplash_access_key;
+    const int width = 500;
+    const int height = 500;
+    const int dpr = 2;
+
+    String uri = '$baseUrl/photos/random?query=$search&client_id=$accessKey';
 
     final response = await http.get(
-      Uri.parse('$baseUrl/photos/random?query=$search&client_id=$accessKey'),
+      Uri.parse(uri),
     );
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
-      return data['urls']['regular'];
+      String imageUrl = data['urls']['raw'];
+
+      // Append the width and height parameters to the image URL
+      imageUrl += '&w=$width&h=$height&$dpr';
+
+      return imageUrl;
     } else {
       return "unsplash error ${response.statusCode}";
     }
   }
 }
+

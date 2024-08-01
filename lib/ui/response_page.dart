@@ -68,15 +68,33 @@ class ResponsePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Transform.translate(offset: const Offset(0,0),
-                child: _resultsImage(
-                    image: searchImage.image,
-                    width:300.0,
-                    height: 300.0,
-                    rotation: 0.0),
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    _resultsImage(
+                      image: searchImage.image,
+                      width: 300,
+                      height: 300,
+                      rotation: 0.0,
+                    ),
+                    const SizedBox(
+                      width: 200.0, // Adjust width to match the frame image
+                      height: 300.0, // Adjust height to match the frame image
+                      child: FittedBox(
+                        fit: BoxFit.cover,
+                        child: Image(
+                          image: AssetImage('assets/rope_frame.png'),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           );
   }
+
+
   BoxDecoration _woodBackground() {
     return const BoxDecoration(
       image: DecorationImage(
