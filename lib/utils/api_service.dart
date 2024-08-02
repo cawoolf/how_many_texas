@@ -106,7 +106,7 @@ class ApiService implements APIService {
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
-      String imageUrl = data['urls']['raw'];
+      String imageUrl = data['urls']['regular'];
 
       return imageUrl;
 
