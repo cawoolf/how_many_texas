@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:how_many_texas/data/model/search_result.dart';
@@ -14,11 +15,15 @@ class ResponsePage extends StatelessWidget {
   final SearchImage searchImage;
   final AIResult aiResult;
   final String ttsFilePath;
-  const ResponsePage({required this.searchImage, required this.aiResult, required this.ttsFilePath, super.key});
+
+  const ResponsePage(
+      {required this.searchImage,
+      required this.aiResult,
+      required this.ttsFilePath,
+      super.key});
 
   @override
   Widget build(BuildContext context) {
-
     _playTTSAudio(ttsFilePath, context);
 
     return PopScope(
@@ -28,8 +33,10 @@ class ResponsePage extends StatelessWidget {
       },
       child: Scaffold(
         body: Container(
-          height: double.infinity, // Makes the child as high as the device screen
-          width: double.infinity, // Makes the child as wide as the device screen
+          height: double.infinity,
+          // Makes the child as high as the device screen
+          width: double.infinity,
+          // Makes the child as wide as the device screen
           color: Colors.grey,
           child: _createBodyContent(context, searchImage, aiResult),
         ),
@@ -37,7 +44,8 @@ class ResponsePage extends StatelessWidget {
     );
   }
 
-  SafeArea _createBodyContent(BuildContext context, SearchImage searchImage, AIResult aiResult) {
+  SafeArea _createBodyContent(
+      BuildContext context, SearchImage searchImage, AIResult aiResult) {
     return SafeArea(
       // SafeArea keeps the child widgets from interacting with the OS UI
       child: Container(
@@ -50,8 +58,10 @@ class ResponsePage extends StatelessWidget {
                 style: AppTextStyles.homeTextStyle,
                 textAlign: TextAlign.center),
             _resultsNumber(),
-            _searchText(),
+            Transform.translate(offset: const Offset(0, -25),
+            child: _searchText()),
             _resultsImageRow(searchImage),
+            const SizedBox(height: 15.0),
             Text('Inside of Texas!',
                 style: AppTextStyles.homeTextStyle,
                 textAlign: TextAlign.center),
@@ -65,33 +75,45 @@ class ResponsePage extends StatelessWidget {
 
   Row _resultsImageRow(SearchImage searchImage) {
     return Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Transform.translate(
+          offset: const Offset(0, -15),
+          child: Stack(
+            alignment: Alignment.center,
             children: [
-              Transform.translate(offset: const Offset(0,0),
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    _resultsImage(
-                      image: searchImage.image,
-                      width: 300,
-                      height: 300,
-                      rotation: 0.0,
-                    ),
-                    const SizedBox(
-                      width: 200.0, // Adjust width to match the frame image
-                      height: 300.0, // Adjust height to match the frame image
-                      child: FittedBox(
-                        fit: BoxFit.cover,
-                        child: Image(
-                          image: AssetImage('assets/rope_frame.png'),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              _resultsImage(searchImage: searchImage.image),
+              _ropePictureFrame(),
             ],
-          );
+          ),
+        ),
+      ],
+    );
+  }
+
+  SizedBox _ropePictureFrame() {
+    return const SizedBox(
+      width: 325.0, // Adjust width to match the frame image
+      height: 300.0, // Adjust height to match the frame image
+      child: FittedBox(
+        fit: BoxFit.cover,
+        child: Image(
+          image: AssetImage('assets/rope_frame.png'),
+        ),
+      ),
+    );
+  }
+
+  SizedBox _resultsImage({required Image searchImage}) {
+    return SizedBox(
+      width: 300, // Set the width of the square
+      height: 325, // Set the height of the square
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(25.0),
+        // Optional: For rounded corners
+        child: searchImage,
+      ),
+    );
   }
 
 
@@ -154,7 +176,6 @@ class ResponsePage extends StatelessWidget {
     // Navigator.popUntil(context, (route) => route.isFirst);
     final appCubit = BlocProvider.of<AppCubit>(context);
     appCubit.navToHomePage();
-
   }
 
   void _navToHowPage(BuildContext context) {
@@ -167,21 +188,15 @@ class ResponsePage extends StatelessWidget {
     appCubit.playNumbersAudio(ttsFilePath);
   }
 
-  Widget _resultsImage(
-      {required Image image,
-      required double width,
-      required double height,
-      required rotation}) {
-    return RotatedImage(
-       image: image, width: width, height: height, rotation: rotation);
-  }
-
-
 
   Widget _resultsNumber() {
     TexasCalculator texasCalculator = TexasCalculator();
-    return Text(texasCalculator.calculateFitTimesFromAPIResult(aiResult.result).toString(),
-        style: AppTextStyles.welcomePageTextStyle, textAlign: TextAlign.center);
+    return Text(
+        texasCalculator
+            .calculateFitTimesFromAPIResult(aiResult.result)
+            .toString(),
+        style: AppTextStyles.welcomePageTextStyle,
+        textAlign: TextAlign.center);
   }
 
   Widget _searchText() {
@@ -189,12 +204,4 @@ class ResponsePage extends StatelessWidget {
         style: AppTextStyles.welcomePageTextStyle, textAlign: TextAlign.center);
   }
 
-  SizedBox _texasFlag() {
-    return SizedBox(
-      height: 125,
-      child: Image.asset(
-        'assets/texas_flag_wavy_trimmed.png', // Adjust the fit as needed
-      ),
-    );
-  }
 }
