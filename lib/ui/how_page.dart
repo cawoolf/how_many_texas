@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:how_many_texas/data/model/search_result.dart';
+import 'package:how_many_texas/utils/texas_calculator.dart';
 import '../cubit/app_cubit.dart';
 import 'common_widgets/image_button.dart';
 import 'package:how_many_texas/constants/text_styles.dart';
@@ -10,6 +13,7 @@ class HowPage extends StatelessWidget {
 
   final SearchResult searchResult;
   const HowPage({required this.searchResult,  super.key});
+
 
   @override
   Widget build(BuildContext context) {
@@ -36,24 +40,17 @@ class HowPage extends StatelessWidget {
       child: Container(
         decoration: _woodBackground(),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          // crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text('How can you fit..',
-                style: AppTextStyles.homeTextStyle,
-                textAlign: TextAlign.center),
-            Text(searchResult.finalNumberResult),
-            Text('Inside of Texas!',
-                style: AppTextStyles.homeTextStyle,
-                textAlign: TextAlign.center),
-            // _texasFlag(),
+             _spacerBox(45),
+             _explanationBody(),
             _arrowButtonRow(context)
           ],
         ),
       ),
     );
   }
-
 
   BoxDecoration _woodBackground() {
     return const BoxDecoration(
@@ -63,6 +60,71 @@ class HowPage extends StatelessWidget {
         fit: BoxFit.fill, // Adjust the image fit as needed
       ),
     );
+  }
+
+  SizedBox _spacerBox(double height) {
+    return SizedBox(width: double.infinity, height: height);
+  }
+
+  Stack _explanationBody() {
+    return Stack(children: [
+      Center(child: _paperBackGround()),
+      Center(child: _ropePictureFrame()),
+      Center(child: _textBody()),
+    ],);
+  }
+
+  SizedBox _paperBackGround() {
+    return const SizedBox(
+      width: 350,
+      height: 525,
+      child: ClipRRect(
+        borderRadius: BorderRadius.all(Radius.circular(50)), // Adjust the radius as needed
+        child: Image(
+          image: AssetImage('assets/paper_background.png'),
+          fit: BoxFit.fill, // Use BoxFit.fill to stretch the image to fit the box
+        ),
+      ),
+    );
+  }
+
+  Widget _ropePictureFrame() {
+    return SizedBox(
+      width: 500,
+      height: 570,
+      child: Transform.translate(
+        offset: const Offset(0, -15), // Adjust the x and y offset as needed
+        child: const Image(
+          image: AssetImage('assets/rope_frame.png'),
+          fit: BoxFit.fill, // Use BoxFit.fill to stretch the image to fit the box
+        ),
+      ),
+    );
+  }
+
+  Column _textBody() {
+    TexasCalculator texasCalculator = TexasCalculator();
+    Map<String, dynamic> json = jsonDecode(searchResult.objectDimensionsResult);
+    String objectArea = texasCalculator.calculateObjectAreaForHowPage(json);
+
+    return Column(children: [
+      Text('1) The area of 1 ${searchResult.search} = $objectArea ',
+          style: AppTextStyles.howPageBodyTextStyle,
+          textAlign: TextAlign.center),
+      Text('2) The area of Texas = ${texasCalculator.getTexasArea()} square miles',
+          style: AppTextStyles.howPageBodyTextStyle,
+          textAlign: TextAlign.center),
+      Text('3) Convert area of ${searchResult.search} to square miles',
+          style: AppTextStyles.howPageBodyTextStyle,
+          textAlign: TextAlign.center),
+      Text('4) Divide the area of Texas by the area of ${searchResult.search}',
+          style: AppTextStyles.howPageBodyTextStyle,
+          textAlign: TextAlign.center),
+      Text('5) Result! = ${searchResult.finalNumberResult}',
+          style: AppTextStyles.howPageBodyTextStyle,
+          textAlign: TextAlign.center),
+
+    ],);
   }
 
   Row _arrowButtonRow(BuildContext context) {
@@ -82,6 +144,19 @@ class HowPage extends StatelessWidget {
     );
   }
 
+  ImageButton _bigRedButton(BuildContext context) {
+    return ImageButton(
+      // Navigation isn't considered UI. How to abstract this away?
+      onPressed: () {
+        _navToMoneyScreen(context);
+      },
+      key: const Key("home_button"),
+      image: const AssetImage('assets/big_red_button.png'),
+      height: 125,
+      width: 175,
+    );
+  }
+
   Transform _bigRedArrow({required double rotation}) {
     return Transform(
       alignment: Alignment.center,
@@ -96,18 +171,7 @@ class HowPage extends StatelessWidget {
     );
   }
 
-  ImageButton _bigRedButton(BuildContext context) {
-    return ImageButton(
-      // Navigation isn't considered UI. How to abstract this away?
-      onPressed: () {
-        _navToMoneyScreen(context);
-      },
-      key: const Key("home_button"),
-      image: const AssetImage('assets/big_red_button.png'),
-      height: 125,
-      width: 175,
-    );
-  }
+  // Navigation
 
   void _navToMoneyScreen(BuildContext context) {
     final appCubit = BlocProvider.of<AppCubit>(context);
@@ -124,12 +188,12 @@ class HowPage extends StatelessWidget {
     }
   }
 
-  // Not UI
   void _navToHomePage(BuildContext context) {
     final appCubit = BlocProvider.of<AppCubit>(context);
     appCubit.navToHomePage();
 
   }
+
 
 
 }

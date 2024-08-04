@@ -30,18 +30,30 @@ class AppTextStyles {
     ],
   );
 
-
-
   static TextStyle loadingPageHeaderTextStyle = const TextStyle(
     fontFamily: 'Chunk', // Reference the font family name
     fontSize: 64,
     fontWeight: FontWeight.normal,
     color: Colors.black);
 
-
   static TextStyle loadingPageFooterTextStyle = const TextStyle(
       fontFamily: 'Chunk', // Reference the font family name
       fontSize: 30,
       fontWeight: FontWeight.normal,
       color: Colors.black);
+
+  static TextStyle howPageBodyTextStyle = const TextStyle(
+    fontFamily: 'Smokum',
+    fontSize: 20,
+    color: Colors.black,
+    fontWeight: FontWeight.bold,
+    letterSpacing: 4.0,
+    shadows: [
+      Shadow(
+        color: Colors.black,
+        blurRadius: 4,
+        offset: Offset(1, 1),
+      ),
+    ],
+  );
 }

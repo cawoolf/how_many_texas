@@ -45,8 +45,8 @@ class APILoadingState extends AppState {
 
 class APILoaded extends AppState {
 
-  final SearchResult aiResult;
-  const APILoaded(this.aiResult);
+  final SearchResult searchResult;
+  const APILoaded(this.searchResult);
 
   @override
   // TODO: implement props

@@ -53,4 +53,23 @@ class TexasCalculator {
     return fitTimes.round().toString();
   }
 
+
+  String calculateObjectAreaForHowPage(Map<String, dynamic> json) {
+
+    if(json['area'] != null) {
+      return json['area'].toDouble();
+    }
+
+    double length = json['length'].toDouble();
+    double width = json['width'].toDouble();
+    double area = length * width;
+
+    String unit = json['unit'];
+
+    return '${area} square $unit';
+  }
+
+  double getTexasArea() {
+    return texasAreaSquareMiles;
+  }
 }
