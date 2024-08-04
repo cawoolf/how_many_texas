@@ -48,7 +48,7 @@ class TexasCalculator {
 
     double fitTimes = _calculateFitTimes(json);
 
-    print('The object fits inside Texas $fitTimes times.');
+    print('texas_calculator.dart line 51 -> The object fits inside Texas $fitTimes times.');
 
     return fitTimes.round().toString();
   }

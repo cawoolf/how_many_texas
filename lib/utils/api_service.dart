@@ -45,20 +45,22 @@ class ApiService implements APIService {
       late String result;
 
       if (jsonResponse['error'] != null) {
-        print("api_service.dart line 49 - json error occurred");
+        print("api_service.dart line 49 -> json error occurred");
         // print("jsonResponse['error'] ${jsonResponse['error']["message"]}");
         throw HttpException(jsonResponse['error']["message"]);
       }
 
       if (jsonResponse["choices"].length > 0) {
-        print("api_service.dart line 45 - response: $jsonResponse");
-        log("jsonResponse[choices]text ${jsonResponse["choices"][0]["text"]}");
+        // print("api_service.dart line 45 - response: $jsonResponse");
+
         result = jsonResponse["choices"][0]["message"]["content"].toString();
-        print("result: $result");
+
+        print("api_service.dart line 57 -> result: $result");
+
         return result;
       }
     } catch (error) {
-      log("api_service.dart line 62 error $error");
+      print("api_service.dart line 62 error $error");
       rethrow;
     }
 
@@ -83,7 +85,7 @@ class ApiService implements APIService {
     );
 
 // The file result.
-    print(speechFile.path);
+    print('api_service.dart line 88 -> TTSPath : ${speechFile.path}');
 
     return speechFile.path;
 

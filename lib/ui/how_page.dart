@@ -11,11 +11,8 @@ class HowPage extends StatelessWidget {
   final SearchResult searchResult;
   const HowPage({required this.searchResult,  super.key});
 
-
   @override
   Widget build(BuildContext context) {
-
-    
 
     return PopScope(
       canPop: false,
