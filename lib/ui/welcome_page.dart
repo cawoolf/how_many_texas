@@ -11,7 +11,9 @@ class WelcomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    _navToHomePageDelayed(context);
+    final appCubit = BlocProvider.of<AppCubit>(context);
+    checkCredits(appCubit);
+
 
     return Scaffold(
       body: SafeArea(
@@ -59,9 +61,15 @@ class WelcomePage extends StatelessWidget {
     );
   }
 
-  void _navToHomePageDelayed (BuildContext context) {
-    final appCubit = BlocProvider.of<AppCubit>(context);
-    appCubit.navToHomePageDelayed();
+  void checkCredits(AppCubit appCubit) {
+    int credits = appCubit.getCredits();
+    print('welcome_page.dart line 66 -> credits = $credits');
+    if(credits == 0) {
+      appCubit.navToMoneyPage(credits);
+    }
+    else {
+      appCubit.navToHomePageDelayed();
+    }
   }
 
 }

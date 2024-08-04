@@ -1,9 +1,6 @@
-
 import 'dart:math';
-
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:bloc/bloc.dart';
 import 'package:how_many_texas/constants/constants.dart';
 import 'package:how_many_texas/data/model/search_result.dart';
@@ -98,9 +95,7 @@ class AppCubit extends Cubit<AppState> {
     emit(const HowPageState());
   }
 
-  void navToMoneyPage() {
-    int credits = getCredits();
-    print(credits);
+  void navToMoneyPage(int credits) {
     emit(MoneyPageState(credits));
   }
 

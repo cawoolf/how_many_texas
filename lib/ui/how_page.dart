@@ -9,11 +9,13 @@ import 'package:how_many_texas/constants/text_styles.dart';
 class HowPage extends StatelessWidget {
 
   final SearchResult searchResult;
-
   const HowPage({required this.searchResult,  super.key});
+
 
   @override
   Widget build(BuildContext context) {
+
+    
 
     return PopScope(
       canPop: false,
@@ -112,12 +114,12 @@ class HowPage extends StatelessWidget {
 
   void _navToMoneyScreen(BuildContext context) {
     final appCubit = BlocProvider.of<AppCubit>(context);
-    int credits = appCubit.getCredits();
+    int currentCredits = appCubit.getCredits();
     // print(credits);
-    credits = 0;
-    if(credits == 0) {
+    currentCredits = 0; // Just for testing
+    if(currentCredits == 0) {
 
-      appCubit.navToMoneyPage();
+      appCubit.navToMoneyPage(currentCredits);
 
     }
     else {
@@ -127,7 +129,6 @@ class HowPage extends StatelessWidget {
 
   // Not UI
   void _navToHomePage(BuildContext context) {
-    // Navigator.popUntil(context, (route) => route.isFirst);
     final appCubit = BlocProvider.of<AppCubit>(context);
     appCubit.navToHomePage();
 
