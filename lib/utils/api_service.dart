@@ -5,13 +5,12 @@ import 'package:dart_openai/dart_openai.dart';
 import 'package:how_many_texas/constants/api_keys.dart';
 import 'package:how_many_texas/constants/constants.dart';
 import 'package:path_provider/path_provider.dart';
-import '../data/model/search_result.dart';
 import 'package:http/http.dart' as http;
 
 abstract class APIService {
-  Future<String?> fetchSearchImage(String search);
+  Future<String> fetchSearchImage(String search);
 
-  Future<AIResult> fetchChatCompletion(String search, String prompt);
+  Future<String> fetchChatCompletion(String search, String prompt);
 
   Future<String> fetchChatTTS(String numberText);
 }
@@ -20,13 +19,11 @@ abstract class APIService {
 // With the TTS Prompt, returns the number spelled out in written English.
 class ApiService implements APIService {
   @override
-  Future<AIResult> fetchChatCompletion(String userInput, String prompt) async {
+  Future<String> fetchChatCompletion(String userInput, String prompt) async {
     var messagesBody = [
       {"role": "system", "content": prompt},
       {"role": "user", "content": userInput}
     ];
-
-    print("content: $userInput");
 
     try {
       var response = await http.post(
@@ -48,24 +45,24 @@ class ApiService implements APIService {
       late String result;
 
       if (jsonResponse['error'] != null) {
-        print("error");
+        print("api_service.dart line 49 - json error occurred");
         // print("jsonResponse['error'] ${jsonResponse['error']["message"]}");
         throw HttpException(jsonResponse['error']["message"]);
       }
 
       if (jsonResponse["choices"].length > 0) {
-        print("response: $jsonResponse");
+        print("api_service.dart line 45 - response: $jsonResponse");
         log("jsonResponse[choices]text ${jsonResponse["choices"][0]["text"]}");
         result = jsonResponse["choices"][0]["message"]["content"].toString();
         print("result: $result");
-        return AIResult(search: userInput, result: result);
+        return result;
       }
     } catch (error) {
-      log("error $error");
+      log("api_service.dart line 62 error $error");
       rethrow;
     }
 
-    return AIResult(search: userInput, result: "Error");
+    return "Error";
   }
 
   @override
@@ -94,7 +91,7 @@ class ApiService implements APIService {
   }
 
   @override
-  Future<String?> fetchSearchImage(String search) async {
+  Future<String> fetchSearchImage(String search) async {
     const String baseUrl = 'https://api.unsplash.com';
     const String accessKey = unsplash_access_key;
 

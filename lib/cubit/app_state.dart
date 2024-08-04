@@ -1,8 +1,8 @@
-
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
 import 'package:how_many_texas/data/model/search_result.dart';
-import '../data/model/search_image.dart';
+
 
 // Needs to extends Equatable
 @immutable
@@ -44,10 +44,9 @@ class APILoadingState extends AppState {
 }
 
 class APILoaded extends AppState {
-  final SearchImage searchImage;
-  final AIResult aiResult;
-  final String ttsFilePath;
-  const APILoaded(this.searchImage, this.aiResult, this.ttsFilePath);
+
+  final SearchResult aiResult;
+  const APILoaded(this.aiResult);
 
   @override
   // TODO: implement props

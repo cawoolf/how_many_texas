@@ -1,30 +1,24 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:how_many_texas/data/model/search_result.dart';
-import 'package:how_many_texas/utils/texas_calculator.dart';
 import '../cubit/app_cubit.dart';
-import '../data/model/search_image.dart';
 import 'common_widgets/image_button.dart';
 import 'package:how_many_texas/constants/text_styles.dart';
 
-import 'common_widgets/rotated_image.dart';
-import 'how_page.dart';
 
 class ResponsePage extends StatelessWidget {
-  final SearchImage searchImage;
-  final AIResult aiResult;
-  final String ttsFilePath;
+  final Image searchImage;
+  final SearchResult searchResult;
+
 
   const ResponsePage(
       {required this.searchImage,
-      required this.aiResult,
-      required this.ttsFilePath,
+      required this.searchResult,
       super.key});
 
   @override
   Widget build(BuildContext context) {
-    _playTTSAudio(ttsFilePath, context);
+    _playTTSAudio(searchResult.TTS_PATH, context);
 
     return PopScope(
       canPop: false,
@@ -38,14 +32,14 @@ class ResponsePage extends StatelessWidget {
           width: double.infinity,
           // Makes the child as wide as the device screen
           color: Colors.grey,
-          child: _createBodyContent(context, searchImage, aiResult),
+          child: _createBodyContent(context, searchImage),
         ),
       ),
     );
   }
 
   SafeArea _createBodyContent(
-      BuildContext context, SearchImage searchImage, AIResult aiResult) {
+      BuildContext context, Image searchImage) {
     return SafeArea(
       // SafeArea keeps the child widgets from interacting with the OS UI
       child: Container(
@@ -73,7 +67,7 @@ class ResponsePage extends StatelessWidget {
     );
   }
 
-  Row _resultsImageRow(SearchImage searchImage) {
+  Row _resultsImageRow(Image searchImage) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -82,7 +76,7 @@ class ResponsePage extends StatelessWidget {
           child: Stack(
             alignment: Alignment.center,
             children: [
-              _resultsImage(searchImage: searchImage.image),
+              _resultsImage(searchImage: searchImage),
               _ropePictureFrame(),
             ],
           ),
@@ -190,17 +184,15 @@ class ResponsePage extends StatelessWidget {
 
 
   Widget _resultsNumber() {
-    TexasCalculator texasCalculator = TexasCalculator();
+    // TexasCalculator texasCalculator = TexasCalculator();
     return Text(
-        texasCalculator
-            .calculateFitTimesFromAPIResult(aiResult.result)
-            .toString(),
+        searchResult.finalNumberResult,
         style: AppTextStyles.welcomePageTextStyle,
         textAlign: TextAlign.center);
   }
 
   Widget _searchText() {
-    return Text(aiResult.search,
+    return Text(searchResult.search,
         style: AppTextStyles.welcomePageTextStyle, textAlign: TextAlign.center);
   }
 

@@ -15,7 +15,7 @@ import 'package:how_many_texas/ui/welcome_page.dart';
 class HowManyTexas extends StatelessWidget {
   HowManyTexas({super.key});
 
-  late AIResult aiResult;
+  late SearchResult searchResult;
 
   @override
   Widget build(BuildContext context) {
@@ -41,13 +41,13 @@ class HowManyTexas extends StatelessWidget {
           return ErrorPage(error: state.errorMessage); // Error
         }
         else if (state is APILoaded) {
-          aiResult = state.aiResult;
+          searchResult = state.aiResult;
           return ResponsePage(
-              searchImage: state.searchImage, aiResult: state.aiResult, ttsFilePath: state.ttsFilePath);
+              searchImage: searchResult.searchImage, searchResult: searchResult);
         }
 
         else if(state is HowPageState) {
-          return HowPage(aiResult: aiResult);
+          return HowPage(searchResult: searchResult);
         }
 
         else {

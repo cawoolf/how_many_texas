@@ -1,4 +1,4 @@
-import 'dart:developer';
+
 import 'dart:math';
 
 import 'package:audioplayers/audioplayers.dart';
@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:bloc/bloc.dart';
 import 'package:how_many_texas/constants/constants.dart';
-import 'package:how_many_texas/data/model/search_image.dart';
 import 'package:how_many_texas/data/model/search_result.dart';
 import 'package:how_many_texas/utils/texas_calculator.dart';
 import 'app_state.dart';
@@ -21,16 +20,18 @@ class AppCubit extends Cubit<AppState> {
     try {
       emit(const APILoadingState());
       final searchImageURL = await _apiRepository.fetchSearchImage(userInput); // Calls the UnSplash AIP to return a random image of the user input
-      Image image = await _loadImage2(searchImageURL);
-      final searchImage = SearchImage(search: userInput, image: image);
+      Image searchImage = await _loadImage2(searchImageURL); // Loads the image provided by the URL
+
 
       final objectDimensions = await _apiRepository.fetchChatCompletion(userInput, GPT_PROMPT); // Calls OpenAI API to return the dimensions of the object the user inputs to the search field
-      final numberWords = await _apiRepository.fetchChatCompletion(calculateHowManyTexas(objectDimensions), TTS_PROMPT); // Calculates how many times the object fits into Texas, and then calls the API to return the number in written english.
-      final String fullText = "${numberWords.result} $userInput can fit inside of Texas";
-      print(fullText);
-      final ttsFilePath = await _apiRepository.fetchChatTTS(fullText); // Submits the result of the numberWords to the OpenAI TTS API to generate an audio file, and store it to the file path, and returns the file path
+      final finalNumberResult = calculateHowManyTexas(objectDimensions); // Calculates how many times the object can fit inside of Texas
+      final finalNumberResultToWords = await _apiRepository.fetchChatCompletion(calculateHowManyTexas(objectDimensions), TTS_PROMPT); // Calculates how many times the object fits into Texas, and then calls the API to return the number in written english.
+      final String fullText = "$finalNumberResultToWords $userInput can fit inside of Texas"; // Full text to be converted to audio
+      final ttsFilePath = await _apiRepository.fetchChatTTS(fullText); // Submits the result of the finalNumberToWords to the OpenAI TTS API to generate an audio file, and store it to the file path, and returns the file path
 
-      emit(APILoaded(searchImage, objectDimensions, ttsFilePath));
+      SearchResult aiResult = SearchResult(search: userInput,searchImage: searchImage, objectDimensionsResult: objectDimensions, finalNumberResult: finalNumberResult, TTS_PATH: ttsFilePath);
+
+      emit(APILoaded(aiResult));
 
     } catch (error) {
 
@@ -67,14 +68,9 @@ class AppCubit extends Cubit<AppState> {
     }
   }
 
-  String calculateHowManyTexas(AIResult aiResult) {
+  String calculateHowManyTexas(String objectDimensions) {
     TexasCalculator texasCalculator = TexasCalculator();
-    return texasCalculator.calculateFitTimesFromAPIResult(aiResult.result);
-  }
-
-  String getNumberToWords(AIResult aiResult) {
-    TexasCalculator texasCalculator = TexasCalculator();
-    return texasCalculator.calculateFitTimesFromAPIResult(aiResult.result);
+    return texasCalculator.calculateFitTimesFromAPIResult(objectDimensions);
   }
 
   Future<void> playNumbersAudio(String speechFilePath) async {

@@ -1,23 +1,16 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:how_many_texas/data/model/search_result.dart';
-import 'package:how_many_texas/utils/texas_calculator.dart';
 import '../cubit/app_cubit.dart';
-import '../data/model/search_image.dart';
 import 'common_widgets/image_button.dart';
 import 'package:how_many_texas/constants/text_styles.dart';
 
-import 'common_widgets/rotated_image.dart';
-import 'home_page.dart';
-import 'money_page.dart';
 
 class HowPage extends StatelessWidget {
 
-  final AIResult aiResult;
+  final SearchResult searchResult;
 
-  const HowPage({required this.aiResult,  super.key});
+  const HowPage({required this.searchResult,  super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -32,13 +25,13 @@ class HowPage extends StatelessWidget {
           height: double.infinity, // Makes the child as high as the device screen
           width: double.infinity, // Makes the child as wide as the device screen
           color: Colors.grey,
-          child: _createBodyContent(context, aiResult),
+          child: _createBodyContent(context),
         ),
       ),
     );
   }
 
-  SafeArea _createBodyContent(BuildContext context,  AIResult aiResult) {
+  SafeArea _createBodyContent(BuildContext context) {
     return SafeArea(
       // SafeArea keeps the child widgets from interacting with the OS UI
       child: Container(
@@ -50,9 +43,7 @@ class HowPage extends StatelessWidget {
             Text('How can you fit..',
                 style: AppTextStyles.homeTextStyle,
                 textAlign: TextAlign.center),
-            _resultsNumber(),
-            _searchText(),
-
+            Text(searchResult.finalNumberResult),
             Text('Inside of Texas!',
                 style: AppTextStyles.homeTextStyle,
                 textAlign: TextAlign.center),
@@ -143,23 +134,4 @@ class HowPage extends StatelessWidget {
   }
 
 
-  Widget _resultsNumber() {
-    TexasCalculator texasCalculator = TexasCalculator();
-    return Text(texasCalculator.calculateFitTimesFromAPIResult(aiResult.result).toString(),
-        style: AppTextStyles.welcomePageTextStyle, textAlign: TextAlign.center);
-  }
-
-  Widget _searchText() {
-    return Text(aiResult.search,
-        style: AppTextStyles.welcomePageTextStyle, textAlign: TextAlign.center);
-  }
-
-  SizedBox _texasFlag() {
-    return SizedBox(
-      height: 125,
-      child: Image.asset(
-        'assets/texas_flag_wavy_trimmed.png', // Adjust the fit as needed
-      ),
-    );
-  }
 }

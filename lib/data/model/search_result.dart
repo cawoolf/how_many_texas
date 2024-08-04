@@ -1,21 +1,18 @@
+import 'package:equatable/equatable.dart';
+import 'package:flutter/widgets.dart';
 
-
-class AIResult {
+class SearchResult extends Equatable{
   final String search;
-  final String result;
+  final Image searchImage;
+  final String objectDimensionsResult;
+  final String finalNumberResult;
+  final String TTS_PATH;
 
-  AIResult({required this.search, required this.result});
 
+  const SearchResult({required this.search, required this.searchImage, required this.objectDimensionsResult, required this.finalNumberResult, required this.TTS_PATH});
 
-  @override
-  bool operator ==(Object o) {
-    if (identical(this, o)) return true;
-
-    return o is AIResult &&
-        o.search == search &&
-        o.result == result;
-  }
 
   @override
-  int get hashCode => search.hashCode ^ result.hashCode;
+  // TODO: implement props
+  List<Object?> get props => throw UnimplementedError();
 }
