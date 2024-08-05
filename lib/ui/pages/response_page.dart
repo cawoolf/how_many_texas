@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:how_many_texas/data/model/search_result.dart';
-import '../cubit/app_cubit.dart';
-import 'common_widgets/image_button.dart';
+import '../../cubit/app_cubit.dart';
+import '../common_widgets/image_button.dart';
 import 'package:how_many_texas/constants/text_styles.dart';
 
 

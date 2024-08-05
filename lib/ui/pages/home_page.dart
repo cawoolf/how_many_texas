@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:how_many_texas/ui/common_widgets/image_button.dart';
 import 'package:how_many_texas/constants/text_styles.dart';
-import '../cubit/app_cubit.dart';
-import 'common_widgets/rotated_image.dart';
+
+import '../../cubit/app_cubit.dart';
+import '../common_widgets/rotated_image.dart';
+
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});

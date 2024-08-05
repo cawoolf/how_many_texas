@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:how_many_texas/constants/text_styles.dart';
 
-import '../cubit/app_cubit.dart';
-import '../constants/colors.dart';
+import '../../cubit/app_cubit.dart';
+import '../../constants/colors.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});

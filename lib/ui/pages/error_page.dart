@@ -4,9 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:how_many_texas/constants/colors.dart';
 import 'package:how_many_texas/constants/text_styles.dart';
-import 'package:how_many_texas/ui/home_page.dart';
 
-import '../cubit/app_cubit.dart';
+import '../../cubit/app_cubit.dart';
 
 
 class ErrorPage extends StatelessWidget {

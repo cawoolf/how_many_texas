@@ -1,16 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:how_many_texas/cubit/app_cubit.dart';
-import 'package:how_many_texas/cubit/app_state.dart';
-import 'package:how_many_texas/data/model/search_result.dart';
-import 'package:how_many_texas/ui/error_page.dart';
-import 'package:how_many_texas/ui/home_page.dart';
-import 'package:how_many_texas/ui/how_page.dart';
-import 'package:how_many_texas/ui/loading_page.dart';
-import 'package:how_many_texas/ui/money_page.dart';
-import 'package:how_many_texas/ui/response_page.dart';
-import 'package:how_many_texas/ui/welcome_page.dart';
+import 'package:how_many_texas/ui/ui_exports.dart';
 
 class HowManyTexas extends StatelessWidget {
   const HowManyTexas({super.key});

@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';
 import 'package:how_many_texas/constants/constants.dart';
 import 'package:how_many_texas/data/model/search_result.dart';
-import 'package:how_many_texas/utils/texas_calculator.dart';
+import 'package:how_many_texas/cubit/texas_calculator.dart';
 import 'app_state.dart';
-import 'package:how_many_texas/utils/api_service.dart';
+import 'package:how_many_texas/cubit/api_service.dart';
 
 class AppCubit extends Cubit<AppState> {
   final APIService _apiRepository;
