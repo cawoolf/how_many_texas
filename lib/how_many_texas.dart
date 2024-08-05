@@ -19,8 +19,6 @@ class HowManyTexas extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    late SearchResult searchResult;
-
     return MaterialApp(
       title: 'How Many Texas?',
       home: BlocBuilder<AppCubit,AppState>(
@@ -43,24 +41,13 @@ class HowManyTexas extends StatelessWidget {
           return ErrorPage(error: state.errorMessage); // Error
         }
         else if (state is APILoaded) {
-          searchResult = state.searchResult;
-          return ResponsePage(
-              searchImage: searchResult.searchImage, searchResult: searchResult);
+
+          return ResponsePage();
         }
 
         else if(state is HowPageState) {
-          // For testing
-          String objectDimensions = '''
-            {
-              "length": 22,
-              "width": 22,
-              "unit": "inches"
-            }
-            ''';
 
-          final SearchResult searchResult = SearchResult(search: 'userInput', searchImage: Image.asset(''), objectDimensionsResult: objectDimensions, finalNumberResult: '99999999999', TTS_PATH: '');
-
-          return HowPage(searchResult: searchResult);
+          return HowPage();
         }
 
         else {

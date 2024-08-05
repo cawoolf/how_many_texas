@@ -7,17 +7,15 @@ import 'package:how_many_texas/constants/text_styles.dart';
 
 
 class ResponsePage extends StatelessWidget {
-  final Image searchImage;
-  final SearchResult searchResult;
-
-
-  const ResponsePage(
-      {required this.searchImage,
-      required this.searchResult,
-      super.key});
+  ResponsePage({super.key});
+  late SearchResult searchResult;
+  late AppCubit appCubit;
 
   @override
   Widget build(BuildContext context) {
+    appCubit = BlocProvider.of<AppCubit>(context);
+    searchResult = appCubit.getCurrentSearchResult();
+
     _playTTSAudio(searchResult.TTS_PATH, context);
 
     return PopScope(
@@ -32,7 +30,7 @@ class ResponsePage extends StatelessWidget {
           width: double.infinity,
           // Makes the child as wide as the device screen
           color: Colors.grey,
-          child: _createBodyContent(context, searchImage),
+          child: _createBodyContent(context, searchResult.searchImage),
         ),
       ),
     );

@@ -45,7 +45,7 @@ class AppTextStyles {
   static TextStyle howPageBodyTextStyle = const TextStyle(
     fontFamily: 'Smokum',
     fontSize: 20,
-    color: Colors.black,
+    color: Colors.white,
     fontWeight: FontWeight.bold,
     letterSpacing: 4.0,
     shadows: [

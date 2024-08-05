@@ -10,13 +10,17 @@ import 'package:how_many_texas/constants/text_styles.dart';
 
 
 class HowPage extends StatelessWidget {
+  HowPage({super.key});
+  late SearchResult searchResult;
+  late AppCubit appCubit;
 
-  final SearchResult searchResult;
-  const HowPage({required this.searchResult,  super.key});
-
+  // final SearchResult searchResult;
+  // const HowPage({required this.searchResult,  super.key});
 
   @override
   Widget build(BuildContext context) {
+    appCubit = BlocProvider.of<AppCubit>(context);
+    searchResult = appCubit.getCurrentSearchResult();
 
     return PopScope(
       canPop: false,
@@ -102,29 +106,31 @@ class HowPage extends StatelessWidget {
     );
   }
 
-  Column _textBody() {
+  SizedBox _textBody() {
     TexasCalculator texasCalculator = TexasCalculator();
     Map<String, dynamic> json = jsonDecode(searchResult.objectDimensionsResult);
     String objectArea = texasCalculator.calculateObjectAreaForHowPage(json);
 
-    return Column(children: [
-      Text('1) The area of 1 ${searchResult.search} = $objectArea ',
+    return SizedBox(
+      width: 300,
+      height: 500, // Adjust the height as needed
+      child: Center(
+        child: DefaultTextStyle(
           style: AppTextStyles.howPageBodyTextStyle,
-          textAlign: TextAlign.center),
-      Text('2) The area of Texas = ${texasCalculator.getTexasArea()} square miles',
-          style: AppTextStyles.howPageBodyTextStyle,
-          textAlign: TextAlign.center),
-      Text('3) Convert area of ${searchResult.search} to square miles',
-          style: AppTextStyles.howPageBodyTextStyle,
-          textAlign: TextAlign.center),
-      Text('4) Divide the area of Texas by the area of ${searchResult.search}',
-          style: AppTextStyles.howPageBodyTextStyle,
-          textAlign: TextAlign.center),
-      Text('5) Result! = ${searchResult.finalNumberResult}',
-          style: AppTextStyles.howPageBodyTextStyle,
-          textAlign: TextAlign.center),
-
-    ],);
+          textAlign: TextAlign.center,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Text('1) The area of 1 ${searchResult.search} = $objectArea'),
+              Text('2) The area of Texas = ${texasCalculator.getTexasArea()} square miles'),
+              Text('3) Convert area of ${searchResult.search} to square miles'),
+              Text('4) Divide the area of Texas by the area of ${searchResult.search}'),
+              Text('5) Result! = ${searchResult.finalNumberResult}'),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   Row _arrowButtonRow(BuildContext context) {
@@ -174,7 +180,7 @@ class HowPage extends StatelessWidget {
   // Navigation
 
   void _navToMoneyScreen(BuildContext context) {
-    final appCubit = BlocProvider.of<AppCubit>(context);
+    // final appCubit = BlocProvider.of<AppCubit>(context);
     int currentCredits = appCubit.getCredits();
     // print(credits);
     currentCredits = 0; // Just for testing
@@ -189,7 +195,7 @@ class HowPage extends StatelessWidget {
   }
 
   void _navToHomePage(BuildContext context) {
-    final appCubit = BlocProvider.of<AppCubit>(context);
+    // final appCubit = BlocProvider.of<AppCubit>(context);
     appCubit.navToHomePage();
 
   }

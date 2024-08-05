@@ -10,6 +10,7 @@ import 'package:how_many_texas/utils/api_service.dart';
 
 class AppCubit extends Cubit<AppState> {
   final APIService _apiRepository;
+  late SearchResult _searchResult;
 
   AppCubit(this._apiRepository) :super(const WelcomePageState());
 
@@ -18,7 +19,7 @@ class AppCubit extends Cubit<AppState> {
       emit(const APILoadingState());
 
       final searchImageURL = await _apiRepository.fetchSearchImage(userInput); // Calls the UnSplash AIP to return a random image of the user input
-      Image searchImage = await _loadImage2(searchImageURL); // Loads the image provided by the URL
+      Image searchImage = await _loadImage(searchImageURL); // Loads the image provided by the URL
 
       final objectDimensions = await _apiRepository.fetchChatCompletion(userInput, GPT_PROMPT); // Calls OpenAI API to return the dimensions of the object the user inputs to the search field
       final finalNumberResult = calculateHowManyTexas(objectDimensions); // Calculates how many times the object can fit inside of Texas
@@ -27,10 +28,11 @@ class AppCubit extends Cubit<AppState> {
       final String fullText = "$finalNumberResultToWords $userInput can fit inside of Texas"; // Full text to be converted to audio
       final ttsFilePath = await _apiRepository.fetchChatTTS(fullText); // Submits the result of the finalNumberToWords to the OpenAI TTS API to generate an audio file, and store it to the file path, and returns the file path
 
-      // searchImage = _loadErrorImage(); // For testing
-      SearchResult searchResult = SearchResult(search: userInput,searchImage: searchImage, objectDimensionsResult: objectDimensions, finalNumberResult: finalNumberResult, TTS_PATH: ttsFilePath);
 
-      emit(APILoaded(searchResult));
+      _searchResult = SearchResult(search: userInput,searchImage: searchImage, objectDimensionsResult: objectDimensions, finalNumberResult: finalNumberResult, TTS_PATH: ttsFilePath);
+
+
+      emit(APILoaded(_searchResult));
 
     } catch (error) {
 
@@ -45,7 +47,7 @@ class AppCubit extends Cubit<AppState> {
     );
   }
 
-  Future<Image> _loadImage2(String? searchImageURL) async {
+  Future<Image> _loadImage(String? searchImageURL) async {
 
     if (searchImageURL != null) {
       return Image.network(
@@ -62,17 +64,11 @@ class AppCubit extends Cubit<AppState> {
           );
         },
         errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
-          return Image.asset(
-            'assets/cow_skull_edited.png',
-            fit: BoxFit.scaleDown,
-          );
+          return _loadErrorImage();
         },
       );
     } else {
-      return Image.asset(
-        'assets/cow_skull_edited.png',
-        fit: BoxFit.scaleDown,
-      );
+      return _loadErrorImage();
     }
   }
 
@@ -87,9 +83,15 @@ class AppCubit extends Cubit<AppState> {
     await audioPlayer.play(UrlSource(speechFilePath));
   }
 
+  // Getters
+
   int getCredits() {
     int credits = Random().nextInt(5);
     return credits;
+  }
+
+  SearchResult getCurrentSearchResult() {
+    return _searchResult;
   }
   // Navigation.. Not the best but kind of stuck with it for now
   void navToHomePage() {

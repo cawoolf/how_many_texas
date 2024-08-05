@@ -58,16 +58,6 @@ class APIError extends AppState {
   final String errorMessage;
   const APIError(this.errorMessage);
 
-  // // Still not sure about what this is for..
-  // @override
-  // bool operator ==(Object other) {
-  //   if (identical(this, other)) return true;
-  //
-  //   return other is APIError && other.errorMessage == errorMessage;
-  // }
-  //
-  // @override
-  // int get hashCode => errorMessage.hashCode;
 
   @override
   // TODO: implement props
