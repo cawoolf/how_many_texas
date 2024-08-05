@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
-import 'package:how_many_texas/data/model/search_result.dart';
 
 
 // Needs to extends Equatable
@@ -45,8 +44,7 @@ class APILoadingState extends AppState {
 
 class APILoaded extends AppState {
 
-  final SearchResult searchResult;
-  const APILoaded(this.searchResult);
+  const APILoaded();
 
   @override
   // TODO: implement props

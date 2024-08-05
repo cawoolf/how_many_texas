@@ -66,7 +66,7 @@ class TexasCalculator {
 
     String unit = json['unit'];
 
-    return '${area} square $unit';
+    return '$area square $unit';
   }
 
   double getTexasArea() {

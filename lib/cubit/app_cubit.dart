@@ -28,11 +28,9 @@ class AppCubit extends Cubit<AppState> {
       final String fullText = "$finalNumberResultToWords $userInput can fit inside of Texas"; // Full text to be converted to audio
       final ttsFilePath = await _apiRepository.fetchChatTTS(fullText); // Submits the result of the finalNumberToWords to the OpenAI TTS API to generate an audio file, and store it to the file path, and returns the file path
 
-
       _searchResult = SearchResult(search: userInput,searchImage: searchImage, objectDimensionsResult: objectDimensions, finalNumberResult: finalNumberResult, TTS_PATH: ttsFilePath);
 
-
-      emit(APILoaded(_searchResult));
+      emit(const APILoaded());
 
     } catch (error) {
 
@@ -84,7 +82,6 @@ class AppCubit extends Cubit<AppState> {
   }
 
   // Getters
-
   int getCredits() {
     int credits = Random().nextInt(5);
     return credits;
@@ -111,7 +108,5 @@ class AppCubit extends Cubit<AppState> {
   void navToMoneyPage(int credits) {
     emit(MoneyPageState(credits));
   }
-
-
 
 }

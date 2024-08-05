@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:developer';
 import 'package:dart_openai/dart_openai.dart';
 import 'package:how_many_texas/constants/api_keys.dart';
 import 'package:how_many_texas/constants/constants.dart';
