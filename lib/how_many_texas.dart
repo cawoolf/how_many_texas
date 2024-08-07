@@ -46,6 +46,6 @@ class HowManyTexas extends StatelessWidget {
       }));
   }
 
-
-
 }
+
+// To refactor navigation, use a BlocListener to push routes when listening for changes.

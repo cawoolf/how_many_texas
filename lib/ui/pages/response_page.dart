@@ -16,12 +16,12 @@ class ResponsePage extends StatelessWidget {
     appCubit = BlocProvider.of<AppCubit>(context);
     searchResult = appCubit.getCurrentSearchResult();
 
-    _playTTSAudio(searchResult.TTS_PATH, context);
+    appCubit.playNumbersAudio(searchResult.TTS_PATH);
 
     return PopScope(
       canPop: false,
       onPopInvoked: (backClicked) {
-        _navToHomePage(context);
+        appCubit.navToHomePage();
       },
       child: Scaffold(
         body: Container(
@@ -152,9 +152,8 @@ class ResponsePage extends StatelessWidget {
 
   ImageButton _bigRedButton(BuildContext context) {
     return ImageButton(
-      // Navigation isn't considered UI. How to abstract this away?
       onPressed: () {
-        _navToHowPage(context);
+        appCubit.navToHowPage();
       },
       key: const Key("home_button"),
       image: const AssetImage('assets/big_red_button.png'),
@@ -163,26 +162,7 @@ class ResponsePage extends StatelessWidget {
     );
   }
 
-  // Not UI
-  void _navToHomePage(BuildContext context) {
-    // Navigator.popUntil(context, (route) => route.isFirst);
-    final appCubit = BlocProvider.of<AppCubit>(context);
-    appCubit.navToHomePage();
-  }
-
-  void _navToHowPage(BuildContext context) {
-    final appCubit = BlocProvider.of<AppCubit>(context);
-    appCubit.navToHowPage();
-  }
-
-  void _playTTSAudio(String ttsFilePath, BuildContext context) {
-    final appCubit = BlocProvider.of<AppCubit>(context);
-    appCubit.playNumbersAudio(ttsFilePath);
-  }
-
-
   Widget _resultsNumber() {
-    // TexasCalculator texasCalculator = TexasCalculator();
     return Text(
         searchResult.finalNumberResult,
         style: AppTextStyles.welcomePageTextStyle,
