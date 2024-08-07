@@ -155,7 +155,7 @@ class ResponsePage extends StatelessWidget {
       onPressed: () {
         appCubit.navToHowPage();
       },
-      key: const Key("home_button"),
+
       image: const AssetImage('assets/big_red_button.png'),
       height: 125,
       width: 175,

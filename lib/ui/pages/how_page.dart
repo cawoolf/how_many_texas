@@ -155,7 +155,7 @@ class HowPage extends StatelessWidget {
       onPressed: () {
         _navToMoneyScreen(context);
       },
-      key: const Key("home_button"),
+
       image: const AssetImage('assets/big_red_button.png'),
       height: 125,
       width: 175,

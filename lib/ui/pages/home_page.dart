@@ -121,7 +121,6 @@ class HomePage extends StatelessWidget {
         // _navToLoadingPage(context);
         _submitAPIRequests(context);
       },
-      key: const Key("home_button"),
       image: const AssetImage('assets/big_red_button.png'),
       height: 150,
       width: 200,

@@ -35,7 +35,9 @@ class MoneyPage extends StatelessWidget {
             _headerText(),
             _posterText(),
             _posterImages(),
-            _arrowButtonRow(context)
+            _creditsRow(),
+            _buttonRow(context),
+            // SizedBox(height: 15,)
           ],
         ),
       ),
@@ -44,7 +46,7 @@ class MoneyPage extends StatelessWidget {
 
   Text _headerText() {
     return Text('Out of credits..',
-              style: AppTextStyles.homeTextStyle,
+              style: AppTextStyles.welcomePageTextStyle,
               textAlign: TextAlign.center);
   }
 
@@ -58,36 +60,16 @@ class MoneyPage extends StatelessWidget {
     );
   }
 
-  Row _arrowButtonRow(BuildContext context) {
+  Row _buttonRow(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      mainAxisSize: MainAxisSize.max,
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.fromLTRB(32.0, 0, 0, 0),
-          child: _bigRedButton(context),
-        ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(0, 0, 0, 48),
-          child: _bigRedArrow(rotation: 0),
-        ),
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        _bigRedButton(context),
+        _bigRedButton(context),
       ],
     );
   }
 
-  Transform _bigRedArrow({required double rotation}) {
-    return Transform(
-      alignment: Alignment.center,
-      transform: Matrix4.rotationY(rotation * 3.1415927 / 180)
-        ..rotateZ(180 * 3.1415927 / 180)
-        ..scale(1.0, -1.0), // Flip horizontally
-      child: Image.asset(
-        'assets/arrow_1_trimmed.png',
-        width: 120,
-        height: 120,
-      ),
-    );
-  }
 
   ImageButton _bigRedButton(BuildContext context) {
     return ImageButton(
@@ -95,7 +77,6 @@ class MoneyPage extends StatelessWidget {
       onPressed: () {
         _navToHomePage(context);
       },
-      key: const Key("home_button"),
       image: const AssetImage('assets/big_red_button.png'),
       height: 125,
       width: 175,
@@ -114,11 +95,11 @@ class MoneyPage extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-      Text('Watch an Ad!',
+      Text('Watch an \n Ad',
           style: AppTextStyles.homeTextStyle,
           textAlign: TextAlign.center),
       const SizedBox(width: 15),
-      Text('Cash in!',
+      Text('Cash in \n \$0.50',
           style: AppTextStyles.homeTextStyle,
           textAlign: TextAlign.center),
     ],);
@@ -126,8 +107,9 @@ class MoneyPage extends StatelessWidget {
 
   Row _posterImages() {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        SizedBox(width: 10),
         _posterImageBank(),
         _posterImageWanted(),
 
@@ -137,9 +119,9 @@ class MoneyPage extends StatelessWidget {
   SizedBox _posterImageBank() {
     return const SizedBox(
       width: 200,
-      height: 200,
+      height: 300,
       child: ClipRRect(
-        borderRadius: BorderRadius.all(Radius.circular(50)), // Adjust the radius as needed
+        borderRadius: BorderRadius.all(Radius.circular(0)), // Adjust the radius as needed
         child: Image(
           image: AssetImage('assets/images/money_page/bank.png'),
           fit: BoxFit.fill, // Use BoxFit.fill to stretch the image to fit the box
@@ -151,14 +133,29 @@ class MoneyPage extends StatelessWidget {
   SizedBox _posterImageWanted() {
     return const SizedBox(
       width: 200,
-      height: 200,
+      height: 325,
       child: ClipRRect(
-        borderRadius: BorderRadius.all(Radius.circular(50)), // Adjust the radius as needed
+        borderRadius: BorderRadius.all(Radius.circular(0)), // Adjust the radius as needed
         child: Image(
           image: AssetImage('assets/images/money_page/wanted_poster.png'),
           fit: BoxFit.fill, // Use BoxFit.fill to stretch the image to fit the box
         ),
       ),
     );
+  }
+
+  Row _creditsRow() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Text('4 Credits',
+            style: AppTextStyles.homeTextStyle,
+            textAlign: TextAlign.center),
+        const SizedBox(width: 15),
+        Text('50 Credits',
+            style: AppTextStyles.homeTextStyle,
+            textAlign: TextAlign.center),
+      ],);
+
   }
 }

@@ -6,13 +6,13 @@ class ImageButton extends StatelessWidget {
   final double width;
   final double height;
 
-  const ImageButton({
-    required Key key,
+  const ImageButton({super.key,
+
     required this.onPressed,
     required this.image,
     this.width = 200,
     this.height = 200,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
