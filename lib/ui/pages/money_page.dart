@@ -31,21 +31,21 @@ class MoneyPage extends StatelessWidget {
         decoration: _woodBackground(),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text('Ad Plays',
-                style: AppTextStyles.homeTextStyle,
-                textAlign: TextAlign.center),
-
-            Text('Or you pays',
-                style: AppTextStyles.homeTextStyle,
-                textAlign: TextAlign.center),
-            // _texasFlag(),
+            _headerText(),
+            _posterText(),
+            _posterImages(),
             _arrowButtonRow(context)
           ],
         ),
       ),
     );
+  }
+
+  Text _headerText() {
+    return Text('Out of credits..',
+              style: AppTextStyles.homeTextStyle,
+              textAlign: TextAlign.center);
   }
 
   BoxDecoration _woodBackground() {
@@ -108,5 +108,57 @@ class MoneyPage extends StatelessWidget {
     final appCubit = BlocProvider.of<AppCubit>(context);
     appCubit.navToHomePage();
 
+  }
+
+  Row _posterText() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+      Text('Watch an Ad!',
+          style: AppTextStyles.homeTextStyle,
+          textAlign: TextAlign.center),
+      const SizedBox(width: 15),
+      Text('Cash in!',
+          style: AppTextStyles.homeTextStyle,
+          textAlign: TextAlign.center),
+    ],);
+  }
+
+  Row _posterImages() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        _posterImageBank(),
+        _posterImageWanted(),
+
+      ]);
+  }
+
+  SizedBox _posterImageBank() {
+    return const SizedBox(
+      width: 200,
+      height: 200,
+      child: ClipRRect(
+        borderRadius: BorderRadius.all(Radius.circular(50)), // Adjust the radius as needed
+        child: Image(
+          image: AssetImage('assets/images/money_page/bank.png'),
+          fit: BoxFit.fill, // Use BoxFit.fill to stretch the image to fit the box
+        ),
+      ),
+    );
+  }
+
+  SizedBox _posterImageWanted() {
+    return const SizedBox(
+      width: 200,
+      height: 200,
+      child: ClipRRect(
+        borderRadius: BorderRadius.all(Radius.circular(50)), // Adjust the radius as needed
+        child: Image(
+          image: AssetImage('assets/images/money_page/wanted_poster.png'),
+          fit: BoxFit.fill, // Use BoxFit.fill to stretch the image to fit the box
+        ),
+      ),
+    );
   }
 }
