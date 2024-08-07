@@ -57,7 +57,7 @@ class TexasCalculator {
   String calculateObjectAreaForHowPage(Map<String, dynamic> json) {
 
     if(json['area'] != null) {
-      return json['area'].toDouble();
+      return json['area'].toString();
     }
 
     double length = json['length'].toDouble();
