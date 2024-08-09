@@ -175,7 +175,7 @@ class HomePage extends StatelessWidget {
             child: Image.asset(AssetPaths.TEXAS_FLAG,// Adjust the fit as needed
                 ),
           ),
-          Expanded(child: Image.asset('')),
+          Expanded(child: Image.asset(AssetPaths.STAR)),
         ],
       ),
     );

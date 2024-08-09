@@ -78,7 +78,7 @@ class MoneyPage extends StatelessWidget {
       onPressed: () {
         _navToHomePage(context);
       },
-      image: const AssetImage('assets/big_red_button.png'),
+      image: const AssetImage(AssetPaths.BIG_RED_BUTTON),
       height: 125,
       width: 175,
     );

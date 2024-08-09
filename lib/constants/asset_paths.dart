@@ -10,7 +10,7 @@ class AssetPaths {
 
   // Money Page images
   static const String _moneyPagePath = _rootPath + _moneyPage;
-  static const String WANTED_POSTER = '${_moneyPagePath}wantedPoster.png';
+  static const String WANTED_POSTER = '${_moneyPagePath}wanted_poster.png';
   static const String BANK_POSTER = '${_moneyPagePath}bank.png';
 
   // Common Images

@@ -73,6 +73,8 @@ flutter:
       - assets/
       - assets/fonts/
       - assets/images/money_page/
+      - assets/images/home_page/
+      - assets/images/common/
   fonts:
     - family: Smokum
       fonts:
