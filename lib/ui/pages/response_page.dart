@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:how_many_texas/constants/asset_paths.dart';
 import 'package:how_many_texas/data/model/search_result.dart';
 import '../../cubit/app_cubit.dart';
 import '../common_widgets/image_button.dart';
@@ -90,7 +91,7 @@ class ResponsePage extends StatelessWidget {
       child: FittedBox(
         fit: BoxFit.cover,
         child: Image(
-          image: AssetImage('assets/rope_frame.png'),
+          image: AssetImage(AssetPaths.ROPE_FRAME),
         ),
       ),
     );
@@ -112,7 +113,7 @@ class ResponsePage extends StatelessWidget {
   BoxDecoration _woodBackground() {
     return const BoxDecoration(
       image: DecorationImage(
-        image: AssetImage('assets/wood_floors_3.png'),
+        image: AssetImage(AssetPaths.WOOD_FLOORS),
         // Replace 'assets/background_image.jpg' with your image path
         fit: BoxFit.fill, // Adjust the image fit as needed
       ),
@@ -143,7 +144,7 @@ class ResponsePage extends StatelessWidget {
         ..rotateZ(180 * 3.1415927 / 180)
         ..scale(1.0, -1.0), // Flip horizontally
       child: Image.asset(
-        'assets/arrow_1_trimmed.png',
+        AssetPaths.ANGLED_ARROW,
         width: 120,
         height: 120,
       ),
@@ -156,7 +157,7 @@ class ResponsePage extends StatelessWidget {
         appCubit.navToHowPage();
       },
 
-      image: const AssetImage('assets/big_red_button.png'),
+      image: const AssetImage(AssetPaths.BIG_RED_BUTTON),
       height: 125,
       width: 175,
     );

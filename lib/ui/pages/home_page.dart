@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:how_many_texas/constants/asset_paths.dart';
 import 'package:how_many_texas/ui/common_widgets/image_button.dart';
 import 'package:how_many_texas/constants/text_styles.dart';
 
@@ -55,7 +56,8 @@ class HomePage extends StatelessWidget {
                   const SizedBox(
                     height: 30,
                   ),
-                  _inputTextBox(controller: _controller),
+                  _textBoxStack(controller: _controller),
+                  // _inputTextBox(controller: _controller),
                   // Pass the controller to _inputTextBox
                   const SizedBox(
                     height: 30,
@@ -97,7 +99,7 @@ class HomePage extends StatelessWidget {
   BoxDecoration _woodBackground() {
     return const BoxDecoration(
       image: DecorationImage(
-        image: AssetImage('assets/wood_floors_3.png'),
+        image: AssetImage(AssetPaths.WOOD_FLOORS),
         // Replace 'assets/background_image.jpg' with your image path
         fit: BoxFit.fill, // Adjust the image fit as needed
       ),
@@ -111,7 +113,7 @@ class HomePage extends StatelessWidget {
       width: 100,
       // Set the desired width
       height: 100,
-      image: Image.asset('assets/arrow_down.png'), // Set the desired height
+      image: Image.asset(AssetPaths.ARRORW_DOWN), // Set the desired height
     );
   }
 
@@ -121,7 +123,7 @@ class HomePage extends StatelessWidget {
         // _navToLoadingPage(context);
         _submitAPIRequests(context);
       },
-      image: const AssetImage('assets/big_red_button.png'),
+      image: const AssetImage(AssetPaths.BIG_RED_BUTTON),
       height: 150,
       width: 200,
     );
@@ -170,10 +172,33 @@ class HomePage extends StatelessWidget {
       child: Row(
         children: [
           Expanded(
-            child: Image.asset('assets/texas_flag_wavy_trimmed.png',// Adjust the fit as needed
+            child: Image.asset(AssetPaths.TEXAS_FLAG,// Adjust the fit as needed
                 ),
           ),
+          Expanded(child: Image.asset('')),
         ],
+      ),
+    );
+  }
+
+  Stack _textBoxStack({required TextEditingController controller}) {
+
+      return Stack(children: [
+        Center(child: _ropePictureFrame()),
+        Center(child: _inputTextBox(controller: controller)),
+      ],);
+  }
+
+  Widget _ropePictureFrame() {
+    return SizedBox(
+      width: 350,
+      height: 80,
+      child: Transform.translate(
+        offset: const Offset(0, -8), // Adjust the x and y offset as needed
+        child: const Image(
+          image: AssetImage(AssetPaths.ROPE_FRAME),
+          fit: BoxFit.fill, // Use BoxFit.fill to stretch the image to fit the box
+        ),
       ),
     );
   }

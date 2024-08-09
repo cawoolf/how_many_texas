@@ -22,7 +22,9 @@ class RotatedImage extends StatelessWidget {
     child: SizedBox(
       width: width,
       height: height,
-      child: image,
+      child: FittedBox(
+        fit:BoxFit.cover,
+        child: image,),
     ));
   }
 }

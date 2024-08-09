@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:how_many_texas/constants/asset_paths.dart';
 import 'package:how_many_texas/constants/text_styles.dart';
 import '../../cubit/app_cubit.dart';
 import '../common_widgets/image_button.dart';
@@ -53,7 +54,7 @@ class MoneyPage extends StatelessWidget {
   BoxDecoration _woodBackground() {
     return const BoxDecoration(
       image: DecorationImage(
-        image: AssetImage('assets/wood_floors_3.png'),
+        image: AssetImage(AssetPaths.WOOD_FLOORS),
         // Replace 'assets/background_image.jpg' with your image path
         fit: BoxFit.fill, // Adjust the image fit as needed
       ),
@@ -109,9 +110,8 @@ class MoneyPage extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        SizedBox(width: 10),
-        _posterImageBank(),
         _posterImageWanted(),
+        _posterImageBank(),
 
       ]);
   }
@@ -123,7 +123,7 @@ class MoneyPage extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.all(Radius.circular(0)), // Adjust the radius as needed
         child: Image(
-          image: AssetImage('assets/images/money_page/bank.png'),
+          image: AssetImage(AssetPaths.BANK_POSTER),
           fit: BoxFit.fill, // Use BoxFit.fill to stretch the image to fit the box
         ),
       ),
@@ -137,7 +137,7 @@ class MoneyPage extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.all(Radius.circular(0)), // Adjust the radius as needed
         child: Image(
-          image: AssetImage('assets/images/money_page/wanted_poster.png'),
+          image: AssetImage(AssetPaths.WANTED_POSTER),
           fit: BoxFit.fill, // Use BoxFit.fill to stretch the image to fit the box
         ),
       ),
