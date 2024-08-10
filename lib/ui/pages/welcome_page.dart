@@ -64,12 +64,13 @@ class WelcomePage extends StatelessWidget {
   void checkCredits(AppCubit appCubit) {
     int credits = appCubit.getCredits();
     print('welcome_page.dart line 66 -> credits = $credits');
-    if(credits == 0) {
-      appCubit.navToMoneyPage(credits);
+    if(credits <= 0) {
+      appCubit.navToMoneyPageDelayed(credits);
     }
     else {
       appCubit.navToHomePageDelayed();
     }
   }
+
 
 }

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:how_many_texas/constants/asset_paths.dart';
@@ -8,14 +7,16 @@ import 'package:how_many_texas/constants/text_styles.dart';
 import '../../cubit/app_cubit.dart';
 import '../common_widgets/rotated_image.dart';
 
-
 class HomePage extends StatelessWidget {
   HomePage({super.key});
 
   final TextEditingController _controller = TextEditingController();
+  late AppCubit appCubit;
 
   @override
   Widget build(BuildContext context) {
+    appCubit = BlocProvider.of<AppCubit>(context);
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SizedBox(
@@ -27,7 +28,7 @@ class HomePage extends StatelessWidget {
   }
 
   SafeArea _createBodyContent(BuildContext context) {
-   // Create a TextEditingController
+    // Create a TextEditingController
     return SafeArea(
       // SafeArea keeps the child widgets from interacting with the OS UI
       child: Column(
@@ -40,9 +41,9 @@ class HomePage extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                Padding(
-                    padding: const EdgeInsets.fromLTRB(0.0, 12.0, 0.0 , 0) ,
-                child: _buildHeaderFooter()),
+                  Padding(
+                      padding: const EdgeInsets.fromLTRB(0.0, 12.0, 0.0, 0),
+                      child: _buildHeaderFooter()),
                   const SizedBox(height: 35),
                   Text(
                     'How many of this thing right here..',
@@ -129,12 +130,9 @@ class HomePage extends StatelessWidget {
     );
   }
 
-
   void _submitAPIRequests(BuildContext context) {
     String searchText = _controller.text;
-    final appCubit = BlocProvider.of<AppCubit>(context);
     appCubit.apiRequests(searchText);
-
   }
 
   SizedBox _inputTextBox({required TextEditingController controller}) {
@@ -171,22 +169,38 @@ class HomePage extends StatelessWidget {
       height: 150,
       child: Row(
         children: [
-          Expanded(
-            child: Image.asset(AssetPaths.TEXAS_FLAG,// Adjust the fit as needed
-                ),
-          ),
-          Expanded(child: Image.asset(AssetPaths.STAR)),
+          _texasFlag(),
+          _creditStar(),
         ],
       ),
     );
   }
 
-  Stack _textBoxStack({required TextEditingController controller}) {
+  Expanded _texasFlag() {
+    return Expanded(
+      child: Image.asset(
+        AssetPaths.TEXAS_FLAG, // Adjust the fit as needed
+      ),
+    );
+  }
 
-      return Stack(children: [
-        Center(child: _ropePictureFrame()),
+  Expanded _creditStar() {
+    return Expanded(
+        child: Stack(
+      children: [
+        Center(child: Image.asset(AssetPaths.STAR)),
+        Center(child: Text(appCubit.getCredits().toString(), style: AppTextStyles.welcomePageTextStyle,)),
+      ],
+    ));
+  }
+
+  Stack _textBoxStack({required TextEditingController controller}) {
+    return Stack(
+      children: [
+        // Center(child: _ropePictureFrame()),
         Center(child: _inputTextBox(controller: controller)),
-      ],);
+      ],
+    );
   }
 
   Widget _ropePictureFrame() {
@@ -197,7 +211,8 @@ class HomePage extends StatelessWidget {
         offset: const Offset(0, -8), // Adjust the x and y offset as needed
         child: const Image(
           image: AssetImage(AssetPaths.ROPE_FRAME),
-          fit: BoxFit.fill, // Use BoxFit.fill to stretch the image to fit the box
+          fit: BoxFit
+              .fill, // Use BoxFit.fill to stretch the image to fit the box
         ),
       ),
     );

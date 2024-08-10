@@ -180,11 +180,10 @@ class HowPage extends StatelessWidget {
   // Navigation
 
   void _navToMoneyScreen(BuildContext context) {
-    // final appCubit = BlocProvider.of<AppCubit>(context);
+
     int currentCredits = appCubit.getCredits();
-    // print(credits);
-    currentCredits = 0; // Just for testing
-    if(currentCredits == 0) {
+
+    if(currentCredits <= 0) {
 
       appCubit.navToMoneyPage(currentCredits);
 

@@ -7,11 +7,15 @@ import '../common_widgets/image_button.dart';
 
 class MoneyPage extends StatelessWidget {
   final int credits;
+  late AppCubit appCubit;
 
-  const MoneyPage({super.key, required this.credits});
+  MoneyPage({super.key, required this.credits});
 
   @override
   Widget build(BuildContext context) {
+
+    appCubit = BlocProvider.of<AppCubit>(context);
+
     return PopScope(
       canPop: true,
       child: Scaffold(
@@ -65,18 +69,33 @@ class MoneyPage extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        _bigRedButton(context),
-        _bigRedButton(context),
+        _playAdButton(context),
+        _buyCreditsButton(context),
       ],
     );
   }
 
 
-  ImageButton _bigRedButton(BuildContext context) {
+  ImageButton _playAdButton(BuildContext context) {
+
     return ImageButton(
       // Navigation isn't considered UI. How to abstract this away?
       onPressed: () {
-        _navToHomePage(context);
+        _playAd(context);
+      },
+      image: const AssetImage(AssetPaths.BIG_RED_BUTTON),
+      height: 125,
+      width: 175,
+    );
+  }
+
+
+  ImageButton _buyCreditsButton(BuildContext context) {
+
+    return ImageButton(
+      // Navigation isn't considered UI. How to abstract this away?
+      onPressed: () {
+        _buyCredits(context);
       },
       image: const AssetImage(AssetPaths.BIG_RED_BUTTON),
       height: 125,
@@ -156,6 +175,18 @@ class MoneyPage extends StatelessWidget {
             style: AppTextStyles.homeTextStyle,
             textAlign: TextAlign.center),
       ],);
+
+  }
+
+  void _playAd(BuildContext context) {
+    appCubit.setCredits(4);
+    _navToHomePage(context);
+
+  }
+
+  void _buyCredits(BuildContext context) {
+    appCubit.setCredits(50);
+    _navToHomePage(context);
 
   }
 }

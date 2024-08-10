@@ -11,9 +11,26 @@ import 'package:how_many_texas/cubit/api_service.dart';
 class AppCubit extends Cubit<AppState> {
   final APIService _apiRepository;
   late SearchResult _searchResult;
+  int _credits = 0; // Just for testing the basic logic. You get 5 credits.
 
   AppCubit(this._apiRepository) :super(const WelcomePageState());
 
+  // Getters
+  int getCredits() {
+    return _credits;
+  }
+
+  SearchResult getCurrentSearchResult() {
+    return _searchResult;
+  }
+
+  // Setters
+  void setCredits(int credits) {
+    _credits = credits;
+  }
+
+
+  // API Calls
   Future<void> apiRequests(String userInput) async {
     try {
       emit(const APILoadingState());
@@ -31,6 +48,8 @@ class AppCubit extends Cubit<AppState> {
       _searchResult = SearchResult(search: userInput,searchImage: searchImage, objectDimensionsResult: objectDimensions, finalNumberResult: finalNumberResult, TTS_PATH: ttsFilePath);
 
       emit(const APILoaded());
+
+      _credits--;
 
     } catch (error) {
 
@@ -70,6 +89,32 @@ class AppCubit extends Cubit<AppState> {
     }
   }
 
+  // Navigation.. Not the best but kind of stuck with it for now
+  void navToHomePage() {
+    emit(const HomePageState());
+  }
+
+  void navToHowPage() {
+    emit(const HowPageState());
+  }
+
+  Future<void> navToHomePageDelayed() async {
+    Future.delayed(const Duration(seconds: 3), () {
+      emit(const HomePageState());
+    });
+  }
+
+  void navToMoneyPage(int credits) {
+    emit(MoneyPageState(credits));
+  }
+
+  Future<void> navToMoneyPageDelayed(int credits) async {
+    Future.delayed(const Duration(seconds: 3), () {
+      emit(MoneyPageState(credits));
+    });
+  }
+
+  // Helper Methods
   String calculateHowManyTexas(String objectDimensions) {
     TexasCalculator texasCalculator = TexasCalculator();
     return texasCalculator.calculateFitTimesFromAPIResult(objectDimensions);
@@ -79,34 +124,6 @@ class AppCubit extends Cubit<AppState> {
     // Play the audio file
     AudioPlayer audioPlayer = AudioPlayer();
     await audioPlayer.play(UrlSource(speechFilePath));
-  }
-
-  // Getters
-  int getCredits() {
-    int credits = Random().nextInt(5);
-    return credits;
-  }
-
-  SearchResult getCurrentSearchResult() {
-    return _searchResult;
-  }
-  // Navigation.. Not the best but kind of stuck with it for now
-  void navToHomePage() {
-    emit(const HomePageState());
-  }
-
-  Future<void> navToHomePageDelayed() async {
-    Future.delayed(const Duration(seconds: 3), () {
-      emit(const HomePageState());
-    });
-  }
-
-  void navToHowPage() {
-    emit(const HowPageState());
-  }
-
-  void navToMoneyPage(int credits) {
-    emit(MoneyPageState(credits));
   }
 
 }
