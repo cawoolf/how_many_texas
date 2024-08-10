@@ -29,6 +29,24 @@ class AppCubit extends Cubit<AppState> {
     _credits = credits;
   }
 
+  // Helper Methods
+  String calculateHowManyTexas(String objectDimensions) {
+    TexasCalculator texasCalculator = TexasCalculator();
+    return texasCalculator.calculateFitTimesFromAPIResult(objectDimensions);
+  }
+
+  Future<void> playNumbersAudio(String speechFilePath) async {
+    // Play the audio file
+    AudioPlayer audioPlayer = AudioPlayer();
+    await audioPlayer.play(UrlSource(speechFilePath));
+  }
+
+  Image _loadErrorImage() {
+    return Image.asset(
+      'assets/cow_skull_edited.png',
+      fit: BoxFit.scaleDown,
+    );
+  }
 
   // API Calls
   Future<void> apiRequests(String userInput) async {
@@ -57,13 +75,6 @@ class AppCubit extends Cubit<AppState> {
     }
   }
 
-  Image _loadErrorImage() {
-    return Image.asset(
-      'assets/cow_skull_edited.png',
-      fit: BoxFit.scaleDown,
-    );
-  }
-
   Future<Image> _loadImage(String? searchImageURL) async {
 
     if (searchImageURL != null) {
@@ -89,6 +100,7 @@ class AppCubit extends Cubit<AppState> {
     }
   }
 
+
   // Navigation.. Not the best but kind of stuck with it for now
   void navToHomePage() {
     emit(const HomePageState());
@@ -112,18 +124,6 @@ class AppCubit extends Cubit<AppState> {
     Future.delayed(const Duration(seconds: 3), () {
       emit(MoneyPageState(credits));
     });
-  }
-
-  // Helper Methods
-  String calculateHowManyTexas(String objectDimensions) {
-    TexasCalculator texasCalculator = TexasCalculator();
-    return texasCalculator.calculateFitTimesFromAPIResult(objectDimensions);
-  }
-
-  Future<void> playNumbersAudio(String speechFilePath) async {
-    // Play the audio file
-    AudioPlayer audioPlayer = AudioPlayer();
-    await audioPlayer.play(UrlSource(speechFilePath));
   }
 
 }
