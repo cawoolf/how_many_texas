@@ -100,7 +100,6 @@ class AppCubit extends Cubit<AppState> {
     }
   }
 
-
   // Navigation.. Not the best but kind of stuck with it for now
   void navToHomePage() {
     emit(const HomePageState());

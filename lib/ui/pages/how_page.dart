@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:how_many_texas/constants/asset_paths.dart';
@@ -109,7 +110,12 @@ class HowPage extends StatelessWidget {
   SizedBox _textBody() {
     TexasCalculator texasCalculator = TexasCalculator();
     Map<String, dynamic> json = jsonDecode(searchResult.objectDimensionsResult);
-    String objectArea = texasCalculator.calculateObjectAreaForHowPage(json);
+    String objectName = searchResult.search;
+    double objectArea = texasCalculator.calculateObjectAreaForHowPage(json);
+    double texasArea = texasCalculator.getTexasArea();
+    double objectToSquareMiles = double.parse(texasCalculator.convertToSquareMiles(objectArea, 'feet').toStringAsFixed(10));
+    String finalResult = searchResult.finalNumberResult;
+
 
     return SizedBox(
       width: 300,
@@ -121,11 +127,13 @@ class HowPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Text('1) The area of 1 ${searchResult.search} = $objectArea'),
-              Text('2) The area of Texas = ${texasCalculator.getTexasArea()} square miles'),
-              Text('3) Convert area of ${searchResult.search} to square miles'),
-              Text('4) Divide the area of Texas by the area of ${searchResult.search}'),
-              Text('5) Result! = ${searchResult.finalNumberResult}'),
+              Text('1) The area of 1 $objectName = $objectArea square feet'),
+              Text('2) The area of Texas = $texasArea square miles'),
+              Text('3) Convert area of $objectName to square miles'),
+              Text('1 $objectName = $objectToSquareMiles square miles'),
+              Text('4) Divide the area of Texas by the area of $objectName'),
+              Text('Area of Texas $texasArea/ Area of $objectName $objectToSquareMiles'),
+              Text('5) Result! = $finalResult $objectName fit inside of Texas'),
             ],
           ),
         ),
