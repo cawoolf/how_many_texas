@@ -82,7 +82,7 @@ class HowPage extends StatelessWidget {
   SizedBox _paperBackGround() {
     return const SizedBox(
       width: 350,
-      height: 525,
+      height: 535,
       child: ClipRRect(
         borderRadius: BorderRadius.all(Radius.circular(50)), // Adjust the radius as needed
         child: Image(
@@ -96,7 +96,7 @@ class HowPage extends StatelessWidget {
   Widget _ropePictureFrame() {
     return SizedBox(
       width: 500,
-      height: 570,
+      height: 580,
       child: Transform.translate(
         offset: const Offset(0, -15), // Adjust the x and y offset as needed
         child: const Image(
@@ -127,12 +127,13 @@ class HowPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
+              const SizedBox(height: 15),
               Text('1) The area of 1 $objectName = $objectArea square feet'),
               Text('2) The area of Texas = $texasArea square miles'),
               Text('3) Convert area of $objectName to square miles'),
               Text('1 $objectName = $objectToSquareMiles square miles'),
               Text('4) Divide the area of Texas by the area of $objectName'),
-              Text('Area of Texas $texasArea/ Area of $objectName $objectToSquareMiles'),
+              // Text('Area of Texas $texasArea/ Area of $objectName $objectToSquareMiles'),
               Text('5) Result! = $finalResult $objectName fit inside of Texas'),
             ],
           ),

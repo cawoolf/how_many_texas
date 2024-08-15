@@ -56,7 +56,7 @@ class TexasCalculator {
 
   double calculateObjectAreaForHowPage(Map<String, dynamic> json) {
     if (json['area'] != null) {
-      return double.parse(json['area']);
+      return double.parse(json['area'].toString());
     }
 
     double length = json['length'].toDouble();
@@ -72,7 +72,7 @@ class TexasCalculator {
     }
 
     double area = length * width;
-    area = double.parse(area.toStringAsFixed(2));
+    area = double.parse(area.toStringAsFixed(8));
 
     // return '$area square $unit';
     return area;
