@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:how_many_texas/constants/text_styles.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../cubit/app_cubit.dart';
 import '../../constants/colors.dart';
@@ -12,8 +13,8 @@ class WelcomePage extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final appCubit = BlocProvider.of<AppCubit>(context);
+    appCubit.checkCreditInitialization();
     checkCredits(appCubit);
-
 
     return Scaffold(
       body: SafeArea(
@@ -61,9 +62,10 @@ class WelcomePage extends StatelessWidget {
     );
   }
 
-  void checkCredits(AppCubit appCubit) {
-    int credits = appCubit.getCredits();
+  void checkCredits(AppCubit appCubit) async {
+    int credits = await appCubit.getCredits();
     print('welcome_page.dart line 66 -> credits = $credits');
+
     if(credits <= 0) {
       appCubit.navToMoneyPageDelayed(credits);
     }
@@ -73,4 +75,8 @@ class WelcomePage extends StatelessWidget {
   }
 
 
-}
+  }
+
+
+
+

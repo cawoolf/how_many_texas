@@ -5,3 +5,8 @@ String BASE_CHAT_URL = 'https://api.openai.com/v1/chat';
 String GPT_CHAT_MODEL = "gpt-3.5-turbo-1106";
 String GPT_TTS_MODEL = 'tts-1';
 
+// Credits Keys
+String CREDITS = 'credits';
+String CREDITS_ACTIVE = 'credits_active';
+
+

@@ -5,18 +5,30 @@ import 'package:bloc/bloc.dart';
 import 'package:how_many_texas/constants/constants.dart';
 import 'package:how_many_texas/data/model/search_result.dart';
 import 'package:how_many_texas/cubit/texas_calculator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'app_state.dart';
 import 'package:how_many_texas/cubit/api_service.dart';
 
 class AppCubit extends Cubit<AppState> {
   final APIService _apiRepository;
   late SearchResult _searchResult;
-  int _credits = 0; // Just for testing the basic logic. You get 5 credits.
+  bool? _creditsInitialized = false;
+  int _credits = 0; // default value
 
   AppCubit(this._apiRepository) :super(const WelcomePageState());
 
   // Getters
-  int getCredits() {
+
+  Future<bool> getCreditsInitialized() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    _creditsInitialized = prefs.getBool(CREDITS_ACTIVE);
+    return _creditsInitialized!;
+
+  }
+
+  Future<int> getCredits() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    _credits = prefs.getInt(CREDITS)!;
     return _credits;
   }
 
@@ -25,8 +37,9 @@ class AppCubit extends Cubit<AppState> {
   }
 
   // Setters
-  void setCredits(int credits) {
-    _credits = credits;
+  Future<void> setCredits(int credits) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt(CREDITS, credits);
   }
 
   // Helper Methods
@@ -67,7 +80,8 @@ class AppCubit extends Cubit<AppState> {
 
       emit(const APILoaded());
 
-      _credits--;
+      setCredits(_credits--);
+
 
     } catch (error) {
 
@@ -124,5 +138,22 @@ class AppCubit extends Cubit<AppState> {
       emit(MoneyPageState(credits));
     });
   }
+
+  void checkCreditInitialization() async {
+
+    try {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      _creditsInitialized = prefs.getBool(CREDITS_ACTIVE);
+      if (_creditsInitialized == null) {
+        prefs.setBool(CREDITS_ACTIVE, true);
+        prefs.setInt(CREDITS, 4); // Initial credits on install
+      }
+
+    } catch (error){
+      emit(const APIError('credit initialization error'));
+    }
+
+  }
+
 
 }
