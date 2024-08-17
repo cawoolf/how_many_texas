@@ -188,9 +188,10 @@ class HowPage extends StatelessWidget {
 
   // Navigation
 
-  void _navToMoneyScreen(BuildContext context) async {
+  void _navToMoneyScreen(BuildContext context){
 
-    int currentCredits = await appCubit.getCredits();
+    int currentCredits = appCubit.getCredits();
+    print('how_page $currentCredits');
 
     if(currentCredits <= 0) {
 

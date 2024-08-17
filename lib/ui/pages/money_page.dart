@@ -179,6 +179,7 @@ class MoneyPage extends StatelessWidget {
   }
 
   void _playAd(BuildContext context) {
+
     appCubit.setCredits(4);
     _navToHomePage(context);
 

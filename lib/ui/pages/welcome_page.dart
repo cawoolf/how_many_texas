@@ -13,8 +13,7 @@ class WelcomePage extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final appCubit = BlocProvider.of<AppCubit>(context);
-    appCubit.checkCreditInitialization();
-    checkCredits(appCubit);
+    appCubit.creditInitialization();
 
     return Scaffold(
       body: SafeArea(
@@ -60,18 +59,6 @@ class WelcomePage extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  void checkCredits(AppCubit appCubit) async {
-    int credits = await appCubit.getCredits();
-    print('welcome_page.dart line 66 -> credits = $credits');
-
-    if(credits <= 0) {
-      appCubit.navToMoneyPageDelayed(credits);
-    }
-    else {
-      appCubit.navToHomePageDelayed();
-    }
   }
 
 

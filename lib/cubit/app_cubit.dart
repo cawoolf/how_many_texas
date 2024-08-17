@@ -12,23 +12,13 @@ import 'package:how_many_texas/cubit/api_service.dart';
 class AppCubit extends Cubit<AppState> {
   final APIService _apiRepository;
   late SearchResult _searchResult;
-  bool? _creditsInitialized = false;
+  bool? _creditsInitialized;
   int _credits = 0; // default value
 
   AppCubit(this._apiRepository) :super(const WelcomePageState());
 
   // Getters
-
-  Future<bool> getCreditsInitialized() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    _creditsInitialized = prefs.getBool(CREDITS_ACTIVE);
-    return _creditsInitialized!;
-
-  }
-
-  Future<int> getCredits() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    _credits = prefs.getInt(CREDITS)!;
+  int getCredits() {
     return _credits;
   }
 
@@ -39,7 +29,15 @@ class AppCubit extends Cubit<AppState> {
   // Setters
   Future<void> setCredits(int credits) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setInt(CREDITS, credits);
+    await prefs.setInt(CREDITS, credits);
+    _credits = await _loadCredits();
+    print('credits set $credits');
+  }
+
+  Future<int> _loadCredits() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    _credits = prefs.getInt(CREDITS)!;
+    return _credits;
   }
 
   // Helper Methods
@@ -78,9 +76,12 @@ class AppCubit extends Cubit<AppState> {
 
       _searchResult = SearchResult(search: userInput,searchImage: searchImage, objectDimensionsResult: objectDimensions, finalNumberResult: finalNumberResult, TTS_PATH: ttsFilePath);
 
+      _credits--;
+      print('credit_spent $_credits');
+
+      setCredits(_credits);
       emit(const APILoaded());
 
-      setCredits(_credits--);
 
 
     } catch (error) {
@@ -139,20 +140,38 @@ class AppCubit extends Cubit<AppState> {
     });
   }
 
-  void checkCreditInitialization() async {
+  void creditInitialization() async {
 
     try {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       _creditsInitialized = prefs.getBool(CREDITS_ACTIVE);
+      print('credits_intizilied $_creditsInitialized');
       if (_creditsInitialized == null) {
         prefs.setBool(CREDITS_ACTIVE, true);
         prefs.setInt(CREDITS, 4); // Initial credits on install
+        _credits = await _loadCredits();
+        print ('credits_intizlized $_credits');
+        navToHomePageDelayed();
+      }
+      else {
+        _credits = await _loadCredits();
+        print('credits_already $_credits');
+        _routeToCorrectPage();
       }
 
     } catch (error){
       emit(const APIError('credit initialization error'));
     }
 
+  }
+
+  void _routeToCorrectPage() {
+    if(_credits <= 0) {
+      navToMoneyPageDelayed(_credits);
+    }
+    else {
+      navToHomePageDelayed();
+    }
   }
 
 
