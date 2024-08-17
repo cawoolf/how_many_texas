@@ -81,7 +81,8 @@ class MoneyPage extends StatelessWidget {
     return ImageButton(
       // Navigation isn't considered UI. How to abstract this away?
       onPressed: () {
-        _playAd(context);
+        _playAd();
+        _navToHomePage(context);
       },
       image: const AssetImage(AssetPaths.BIG_RED_BUTTON),
       height: 125,
@@ -95,7 +96,8 @@ class MoneyPage extends StatelessWidget {
     return ImageButton(
       // Navigation isn't considered UI. How to abstract this away?
       onPressed: () {
-        _buyCredits(context);
+        _buyCredits();
+        _navToHomePage(context);
       },
       image: const AssetImage(AssetPaths.BIG_RED_BUTTON),
       height: 125,
@@ -178,16 +180,15 @@ class MoneyPage extends StatelessWidget {
 
   }
 
-  void _playAd(BuildContext context) {
+  void _playAd() async{
 
-    appCubit.setCredits(4);
-    _navToHomePage(context);
+   await appCubit.setCredits(4);
+
 
   }
 
-  void _buyCredits(BuildContext context) {
-    appCubit.setCredits(50);
-    _navToHomePage(context);
+  void _buyCredits() async {
+    await appCubit.setCredits(50);
 
   }
 }
