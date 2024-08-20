@@ -26,7 +26,7 @@ class HowPage extends StatelessWidget {
     return PopScope(
       canPop: false,
       onPopInvoked: (backClicked) {
-        _navToHomePage(context);
+        appCubit.navToResponsePage();
       },
       child: Scaffold(
         body: Container(
@@ -202,13 +202,6 @@ class HowPage extends StatelessWidget {
       appCubit.navToHomePage();
     }
   }
-
-  void _navToHomePage(BuildContext context) {
-    // final appCubit = BlocProvider.of<AppCubit>(context);
-    appCubit.navToHomePage();
-
-  }
-
 
 
 }

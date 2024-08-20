@@ -17,6 +17,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     appCubit = BlocProvider.of<AppCubit>(context);
 
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SizedBox(

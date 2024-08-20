@@ -120,6 +120,10 @@ class AppCubit extends Cubit<AppState> {
     emit(const HomePageState());
   }
 
+  void navToResponsePage() {
+    emit(const APILoaded());
+  }
+
   void navToHowPage() {
     emit(const HowPageState());
   }
@@ -171,6 +175,15 @@ class AppCubit extends Cubit<AppState> {
     }
     else {
       navToHomePageDelayed();
+    }
+  }
+
+  void checkCreditsAndNavToCorrectPage() {
+    if(_credits <= 0) {
+      navToMoneyPage(_credits);
+    }
+    else {
+      navToHomePage();
     }
   }
 

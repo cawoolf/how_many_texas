@@ -22,7 +22,7 @@ class ResponsePage extends StatelessWidget {
     return PopScope(
       canPop: false,
       onPopInvoked: (backClicked) {
-        appCubit.navToHomePage();
+        appCubit.checkCreditsAndNavToCorrectPage();
       },
       child: Scaffold(
         body: Container(
