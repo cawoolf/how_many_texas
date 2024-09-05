@@ -193,6 +193,8 @@ class AppCubit extends Cubit<WorkingAppState> {
     String testAdId = 'ca-app-pub-3940256099942544/1033173712';
     InterstitialAd? interstitialAd;
 
+    emit(const APILoadingState());
+
    InterstitialAd.load(
       adUnitId: testAdId, // Test Ad Unit ID
       request: const AdRequest(),
