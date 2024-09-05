@@ -11,8 +11,8 @@ class HowManyTexas extends StatelessWidget {
 
     return MaterialApp(
       title: 'How Many Texas?',
-      home: BlocBuilder<AppCubit,AppState>(
-      builder: (BuildContext context, AppState state) {
+      home: BlocBuilder<AppCubit,WorkingAppState>(
+      builder: (BuildContext context, WorkingAppState state) {
         if (state is WelcomePageState) {
           return const WelcomePage();
         }

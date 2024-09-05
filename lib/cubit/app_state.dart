@@ -5,11 +5,11 @@ import 'package:flutter/widgets.dart';
 
 // Needs to extends Equatable
 @immutable
-abstract class AppState extends Equatable{
-  const AppState();
+abstract class WorkingAppState extends Equatable{
+  const WorkingAppState();
 }
 
-class WelcomePageState extends AppState {
+class WelcomePageState extends WorkingAppState {
   const WelcomePageState();
 
   @override
@@ -17,7 +17,7 @@ class WelcomePageState extends AppState {
   List<Object?> get props => throw UnimplementedError();
 }
 
-class MoneyPageState extends AppState {
+class MoneyPageState extends WorkingAppState {
   final int credits;
   const MoneyPageState(this.credits);
 
@@ -26,7 +26,7 @@ class MoneyPageState extends AppState {
   List<Object?> get props => throw UnimplementedError();
 }
 
-class HomePageState extends AppState {
+class HomePageState extends WorkingAppState {
   const HomePageState();
 
   @override
@@ -34,7 +34,7 @@ class HomePageState extends AppState {
   List<Object?> get props => throw UnimplementedError();
 }
 
-class APILoadingState extends AppState {
+class APILoadingState extends WorkingAppState {
   const APILoadingState();
 
   @override
@@ -42,7 +42,7 @@ class APILoadingState extends AppState {
   List<Object?> get props => throw UnimplementedError();
 }
 
-class APILoaded extends AppState {
+class APILoaded extends WorkingAppState {
 
   const APILoaded();
 
@@ -52,7 +52,7 @@ class APILoaded extends AppState {
 
 }
 
-class APIError extends AppState {
+class APIError extends WorkingAppState {
   final String errorMessage;
   const APIError(this.errorMessage);
 
@@ -63,7 +63,7 @@ class APIError extends AppState {
 
 }
 
-class HowPageState extends AppState {
+class HowPageState extends WorkingAppState {
   const HowPageState();
   @override
   // TODO: implement props

@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:how_many_texas/constants/constants.dart';
 import 'package:how_many_texas/data/model/search_result.dart';
 import 'package:how_many_texas/cubit/texas_calculator.dart';
@@ -9,7 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'app_state.dart';
 import 'package:how_many_texas/cubit/api_service.dart';
 
-class AppCubit extends Cubit<AppState> {
+class AppCubit extends Cubit<WorkingAppState> {
   final APIService _apiRepository;
   late SearchResult _searchResult;
   bool? _creditsInitialized;
@@ -152,7 +153,7 @@ class AppCubit extends Cubit<AppState> {
       print('credits_intizilied $_creditsInitialized');
       if (_creditsInitialized == null) {
         prefs.setBool(CREDITS_ACTIVE, true);
-        prefs.setInt(CREDITS, 4); // Initial credits on install
+        prefs.setInt(CREDITS, 0); // Initial credits on install
         _credits = await _loadCredits();
         print ('credits_intizlized $_credits');
         navToHomePageDelayed();
@@ -187,5 +188,50 @@ class AppCubit extends Cubit<AppState> {
     }
   }
 
+  void loadInterstitialAd() {
 
+    String testAdId = 'ca-app-pub-3940256099942544/1033173712';
+    InterstitialAd? interstitialAd;
+
+   InterstitialAd.load(
+      adUnitId: testAdId, // Test Ad Unit ID
+      request: const AdRequest(),
+      adLoadCallback: InterstitialAdLoadCallback(
+        onAdLoaded: (InterstitialAd ad) {
+
+          interstitialAd = ad;
+          interstitialAd!.setImmersiveMode(true);
+
+          interstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
+            onAdDismissedFullScreenContent: (InterstitialAd ad) async {
+              // Navigate to the second page when the ad is closed
+              await setCredits(4);
+              navToHomePage();
+              ad.dispose();
+            },
+            onAdFailedToShowFullScreenContent: (InterstitialAd ad, AdError error) {
+              emit(APIError('Ad failed to show: $error'));
+              ad.dispose();
+            },
+          );
+
+          _showInterstitialAd(interstitialAd);
+        },
+        onAdFailedToLoad: (LoadAdError error) {
+         emit(APIError('InterstitialAd failed to load: $error'));
+        },
+      ),
+    );
+
+  }
+
+  void _showInterstitialAd(InterstitialAd? interstitialAd) {
+    if (interstitialAd != null) {
+      interstitialAd.show();
+      interstitialAd = null; // Reset the ad instance after showing
+      // loadInterstitialAd(); // Load a new ad for the next time
+    } else {
+      print('Interstitial ad is not ready yet.');
+    }
+  }
 }

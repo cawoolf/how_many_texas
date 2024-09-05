@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:how_many_texas/constants/asset_paths.dart';
 import 'package:how_many_texas/constants/text_styles.dart';
 import '../../cubit/app_cubit.dart';
@@ -8,6 +9,8 @@ import '../common_widgets/image_button.dart';
 class MoneyPage extends StatelessWidget {
   final int credits;
   late AppCubit appCubit;
+  late InterstitialAd? _interstitialAd;
+
 
   MoneyPage({super.key, required this.credits});
 
@@ -81,8 +84,9 @@ class MoneyPage extends StatelessWidget {
     return ImageButton(
       // Navigation isn't considered UI. How to abstract this away?
       onPressed: () {
-        _playAd();
-        _navToHomePage(context);
+        // _playAd();
+        // _navToHomePage(context);
+        appCubit.loadInterstitialAd();
       },
       image: const AssetImage(AssetPaths.BIG_RED_BUTTON),
       height: 125,
