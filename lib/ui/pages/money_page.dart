@@ -99,8 +99,8 @@ class MoneyPage extends StatelessWidget {
 
     return ImageButton(
       // Navigation isn't considered UI. How to abstract this away?
-      onPressed: () {
-        _buyCredits();
+      onPressed: () async {
+        appCubit.buyCredits();
         _navToHomePage(context);
       },
       image: const AssetImage(AssetPaths.BIG_RED_BUTTON),

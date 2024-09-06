@@ -15,6 +15,7 @@ class WelcomePage extends StatelessWidget {
     final appCubit = BlocProvider.of<AppCubit>(context);
     appCubit.creditInitialization();
 
+
     return Scaffold(
       body: SafeArea(
           child: Container(

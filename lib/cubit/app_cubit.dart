@@ -145,6 +145,10 @@ class AppCubit extends Cubit<WorkingAppState> {
     });
   }
 
+  void buyCredits() async {
+    await setCredits(50);
+  }
+
   void creditInitialization() async {
 
     try {
@@ -153,7 +157,7 @@ class AppCubit extends Cubit<WorkingAppState> {
       print('credits_intizilied $_creditsInitialized');
       if (_creditsInitialized == null) {
         prefs.setBool(CREDITS_ACTIVE, true);
-        prefs.setInt(CREDITS, 0); // Initial credits on install
+        prefs.setInt(CREDITS, 1); // Initial credits on install
         _credits = await _loadCredits();
         print ('credits_intizlized $_credits');
         navToHomePageDelayed();
