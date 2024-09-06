@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:how_many_texas/constants/asset_paths.dart';
 import 'package:how_many_texas/data/model/search_result.dart';
 import '../../cubit/app_cubit.dart';
+import '../common_widgets/helper_methods.dart';
 import '../common_widgets/image_button.dart';
 import 'package:how_many_texas/constants/text_styles.dart';
 
@@ -165,7 +166,7 @@ class ResponsePage extends StatelessWidget {
 
   Widget _resultsNumber() {
     return Text(
-        searchResult.finalNumberResult,
+        formatWithCommas(searchResult.finalNumberResult),
         style: AppTextStyles.welcomePageTextStyle,
         textAlign: TextAlign.center);
   }

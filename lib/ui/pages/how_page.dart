@@ -5,6 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:how_many_texas/constants/asset_paths.dart';
 import 'package:how_many_texas/data/model/search_result.dart';
 import 'package:how_many_texas/cubit/texas_calculator.dart';
+import 'package:how_many_texas/how_many_texas.dart';
+import 'package:how_many_texas/ui/common_widgets/helper_methods.dart';
+import 'package:how_many_texas/ui/ui_exports.dart';
 import '../../cubit/app_cubit.dart';
 import '../common_widgets/image_button.dart';
 import 'package:how_many_texas/constants/text_styles.dart';
@@ -114,7 +117,8 @@ class HowPage extends StatelessWidget {
     double objectArea = texasCalculator.calculateObjectAreaForHowPage(json);
     double texasArea = texasCalculator.getTexasArea();
     double objectToSquareMiles = double.parse(texasCalculator.convertToSquareMiles(objectArea, 'feet').toStringAsFixed(10));
-    String finalResult = searchResult.finalNumberResult;
+    String finalResult = searchResult.finalNumberResult.toString();
+    String finalNumberWordsResult = searchResult.finalNumberWordsResult.capitalizeFirst();
 
 
     return SizedBox(
@@ -134,7 +138,7 @@ class HowPage extends StatelessWidget {
               Text('1 $objectName = $objectToSquareMiles square miles'),
               Text('4) Divide the area of Texas by the area of $objectName'),
               // Text('Area of Texas $texasArea/ Area of $objectName $objectToSquareMiles'),
-              Text('5) Result! = $finalResult $objectName fit inside of Texas'),
+              Text('5) $finalNumberWordsResult $objectName fit inside of Texas'),
             ],
           ),
         ),

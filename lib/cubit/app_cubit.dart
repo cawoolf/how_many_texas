@@ -42,7 +42,7 @@ class AppCubit extends Cubit<WorkingAppState> {
   }
 
   // Helper Methods
-  String calculateHowManyTexas(String objectDimensions) {
+  int calculateHowManyTexas(String objectDimensions) {
     TexasCalculator texasCalculator = TexasCalculator();
     return texasCalculator.calculateFitTimesFromAPIResult(objectDimensions);
   }
@@ -71,11 +71,11 @@ class AppCubit extends Cubit<WorkingAppState> {
       final objectDimensions = await _apiRepository.fetchChatCompletion(userInput, GPT_PROMPT); // Calls OpenAI API to return the dimensions of the object the user inputs to the search field
       final finalNumberResult = calculateHowManyTexas(objectDimensions); // Calculates how many times the object can fit inside of Texas
 
-      final finalNumberResultToWords = await _apiRepository.fetchChatCompletion(finalNumberResult, TTS_PROMPT); // Calculates how many times the object fits into Texas, and then calls the API to return the number in written english.
+      final finalNumberResultToWords = await _apiRepository.fetchChatCompletion(finalNumberResult.toString(), TTS_PROMPT); // Calculates how many times the object fits into Texas, and then calls the API to return the number in written english.
       final String fullText = "$finalNumberResultToWords $userInput can fit inside of Texas"; // Full text to be converted to audio
       final ttsFilePath = await _apiRepository.fetchChatTTS(fullText); // Submits the result of the finalNumberToWords to the OpenAI TTS API to generate an audio file, and store it to the file path, and returns the file path
 
-      _searchResult = SearchResult(search: userInput,searchImage: searchImage, objectDimensionsResult: objectDimensions, finalNumberResult: finalNumberResult, TTS_PATH: ttsFilePath);
+      _searchResult = SearchResult(search: userInput,searchImage: searchImage, objectDimensionsResult: objectDimensions, finalNumberResult: finalNumberResult, finalNumberWordsResult: finalNumberResultToWords, TTS_PATH: ttsFilePath);
 
       _credits--;
       print('credit_spent $_credits');

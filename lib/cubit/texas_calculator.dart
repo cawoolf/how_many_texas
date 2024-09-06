@@ -43,14 +43,14 @@ class TexasCalculator {
     return texasAreaSquareMiles / objectArea;
   }
 
-  String calculateFitTimesFromAPIResult(String result)  {
+  int calculateFitTimesFromAPIResult(String result)  {
     Map<String, dynamic> json = jsonDecode(result);
 
     double fitTimes = _calculateFitTimes(json);
 
     print('texas_calculator.dart line 51 -> The object fits inside Texas $fitTimes times.');
 
-    return fitTimes.round().toString();
+    return fitTimes.round();
   }
 
 
