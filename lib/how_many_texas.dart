@@ -5,47 +5,30 @@ import 'package:how_many_texas/ui/ui_exports.dart';
 class HowManyTexas extends StatelessWidget {
   const HowManyTexas({super.key});
 
-
   @override
   Widget build(BuildContext context) {
-
-    return MaterialApp(
-      title: 'How Many Texas?',
-      home: BlocBuilder<AppCubit,WorkingAppState>(
+    return BlocBuilder<AppCubit, WorkingAppState>(
       builder: (BuildContext context, WorkingAppState state) {
         if (state is WelcomePageState) {
           return const WelcomePage();
-        }
-        else if(state is MoneyPageState) {
+        } else if (state is MoneyPageState) {
           return MoneyPage(credits: state.credits);
-        }
-
-        else if(state is HomePageState) {
+        } else if (state is HomePageState) {
           return HomePage();
-        }
-
-        else if (state is APILoadingState) {
+        } else if (state is APILoadingState) {
           return const LoadingPage();
-        }
-        else if (state is APIError){
+        } else if (state is APIError) {
           return ErrorPage(error: state.errorMessage); // Error
-        }
-        else if (state is APILoaded) {
-
+        } else if (state is APILoaded) {
           return ResponsePage();
-        }
-
-        else if(state is HowPageState) {
-
+        } else if (state is HowPageState) {
           return HowPage();
-        }
-
-        else {
+        } else {
           return const Text('Other Error');
         }
-      }));
+      },
+    );
   }
-
 }
 
 // To refactor navigation, use a BlocListener to push routes when listening for changes.
