@@ -22,6 +22,13 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
 
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file('key.properties')
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
+
+
 android {
     namespace "com.destellodev.how_many_texas"
     compileSdk flutter.compileSdkVersion
@@ -55,7 +62,7 @@ android {
         release {
             keyAlias keystoreProperties['upload']
             keyPassword keystoreProperties['142312']
-            storeFile file(keystoreProperties['C:\\Users\\cawoo\\upload-keystore.jks'])
+            storeFile file(keystoreProperties['C:\\Users\\cawoo\\upload-keystore.jks']) ? file(keystoreProperties['C:\\Users\\cawoo\\upload-keystore.jks']) : null
             storePassword keystoreProperties['142312']
         }
     }

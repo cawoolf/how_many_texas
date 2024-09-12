@@ -44,3 +44,4 @@ app.*.map.json
 
 #API Keys
 lib/constants/api_keys.dart
+/android/key.properties
