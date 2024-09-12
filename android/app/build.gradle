@@ -80,4 +80,6 @@ flutter {
     source '../..'
 }
 
-dependencies {}
+dependencies {
+    implementation 'com.android.billingclient:billing:6.0.1'
+}
