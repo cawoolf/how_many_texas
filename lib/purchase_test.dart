@@ -82,7 +82,7 @@ Future<void> _connectToStoreTest() async {
 }
 
 Future<ProductDetails> _loadProducts() async {
-  const Set<String> kIds = <String>{'buy_credits','android.test.purchased'};
+  const Set<String> kIds = <String>{'buy_credits','test_product'};
   // const Set<String> kIds = <String>{'android.test.purchased'};
   final ProductDetailsResponse response =
   await InAppPurchase.instance.queryProductDetails(kIds);
