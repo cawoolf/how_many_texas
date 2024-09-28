@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:how_many_texas/cubit/api_service.dart';
 import 'package:how_many_texas/how_many_texas.dart';
-import 'package:how_many_texas/purchase_test.dart';
-import 'package:in_app_purchase/in_app_purchase.dart';
 import 'cubit/app_cubit.dart';
 
 void main() {
