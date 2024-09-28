@@ -149,6 +149,7 @@ class AppCubit extends Cubit<WorkingAppState> {
   void buyCredits() async {
 
     await setCredits(50);
+    navToHomePage();
   }
 
   void creditInitialization() async {

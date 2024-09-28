@@ -62,7 +62,7 @@ class PurchaseService {
           '${product.title}');
     });
 
-    return products[0];
+    return products[1];
   }
 
   void _listenToPurchaseUpdated(List<PurchaseDetails> purchaseDetailsList) {
@@ -97,9 +97,9 @@ class PurchaseService {
     appCubit.setErrorState('Purchase error: ${purchaseDetails.error}');
   }
 
-  void _deliverProduct(PurchaseDetails purchaseDetails) {
+  void _deliverProduct(PurchaseDetails purchaseDetails) async {
     appCubit.buyCredits();
-    appCubit.navToHomePage();
+
   }
 
   void _handleError(IAPError iapError) {
