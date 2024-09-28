@@ -121,9 +121,10 @@ class HomePage extends StatelessWidget {
 
   ImageButton _bigRedButton(BuildContext context) {
     return ImageButton(
-      onPressed: () {
-        // _navToLoadingPage(context);
-        _submitAPIRequests(context);
+      onPressed: () async {
+        bool creditCheck = await appCubit.creditCheck();
+        creditCheck ? _submitAPIRequests() : appCubit.navToMoneyPage(appCubit.getCredits());
+
       },
       image: const AssetImage(AssetPaths.BIG_RED_BUTTON),
       height: 150,
@@ -131,7 +132,7 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  void _submitAPIRequests(BuildContext context) {
+  void _submitAPIRequests() {
     String searchText = _controller.text;
     appCubit.apiRequests(searchText);
   }

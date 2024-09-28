@@ -82,7 +82,7 @@ class ErrorPage extends StatelessWidget {
   }
 
   void _logErrorMsg(String errorMsg) {
-    log(errorMsg);
+    print(errorMsg);
   }
 
   void _navToHomePageDelayed (BuildContext context) {

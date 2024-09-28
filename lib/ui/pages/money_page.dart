@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:how_many_texas/constants/asset_paths.dart';
 import 'package:how_many_texas/constants/text_styles.dart';
+import 'package:how_many_texas/cubit/purchase_service.dart';
 import '../../cubit/app_cubit.dart';
 import '../common_widgets/image_button.dart';
 
@@ -100,8 +101,8 @@ class MoneyPage extends StatelessWidget {
     return ImageButton(
       // Navigation isn't considered UI. How to abstract this away?
       onPressed: () async {
-        appCubit.buyCredits();
-        _navToHomePage(context);
+        PurchaseService purchaseService = PurchaseService(appCubit: appCubit);
+        purchaseService.initPurchase();
       },
       image: const AssetImage(AssetPaths.BIG_RED_BUTTON),
       height: 125,

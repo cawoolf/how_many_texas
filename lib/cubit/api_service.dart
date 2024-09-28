@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:dart_openai/dart_openai.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:how_many_texas/constants/api_keys.dart';
 import 'package:how_many_texas/constants/constants.dart';
 import 'package:path_provider/path_provider.dart';
@@ -12,6 +13,7 @@ abstract class APIService {
   Future<String> fetchChatCompletion(String search, String prompt);
 
   Future<String> fetchChatTTS(String numberText);
+
 }
 
 // With the GPT prompt, Returns the length and width of the object described in the user input
@@ -112,5 +114,6 @@ class ApiService implements APIService {
       return "unsplash error ${response.statusCode}";
     }
   }
+
 }
 

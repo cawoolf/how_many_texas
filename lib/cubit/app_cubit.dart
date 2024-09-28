@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:how_many_texas/constants/constants.dart';
+import 'package:how_many_texas/cubit/purchase_service.dart';
 import 'package:how_many_texas/data/model/search_result.dart';
 import 'package:how_many_texas/cubit/texas_calculator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -146,6 +147,7 @@ class AppCubit extends Cubit<WorkingAppState> {
   }
 
   void buyCredits() async {
+
     await setCredits(50);
   }
 
@@ -160,12 +162,12 @@ class AppCubit extends Cubit<WorkingAppState> {
         prefs.setInt(CREDITS, 1); // Initial credits on install
         _credits = await _loadCredits();
         print ('credits_intizlized $_credits');
-        navToHomePageDelayed();
+
       }
       else {
         _credits = await _loadCredits();
         print('credits_already $_credits');
-        _routeToCorrectPage();
+
       }
 
     } catch (error){
@@ -174,12 +176,13 @@ class AppCubit extends Cubit<WorkingAppState> {
 
   }
 
-  void _routeToCorrectPage() {
+  Future<bool> creditCheck() async {
+    _credits = await _loadCredits();
     if(_credits <= 0) {
-      navToMoneyPageDelayed(_credits);
+      return false;
     }
     else {
-      navToHomePageDelayed();
+      return true;
     }
   }
 
@@ -194,10 +197,10 @@ class AppCubit extends Cubit<WorkingAppState> {
 
   void loadInterstitialAd() {
 
+    emit(const APILoadingState());
     String testAdId = 'ca-app-pub-3940256099942544/1033173712';
     InterstitialAd? interstitialAd;
 
-    emit(const APILoadingState());
 
    InterstitialAd.load(
       adUnitId: testAdId, // Test Ad Unit ID
@@ -237,7 +240,16 @@ class AppCubit extends Cubit<WorkingAppState> {
       interstitialAd = null; // Reset the ad instance after showing
       // loadInterstitialAd(); // Load a new ad for the next time
     } else {
-      print('Interstitial ad is not ready yet.');
+      emit(const APIError('InterstitialAd failed to load: _showInterstitialAd()'));
     }
+  }
+
+
+  void setLoadingState() {
+    emit(const APILoadingState());
+  }
+
+  void setErrorState(String errorMessage) {
+    emit(APIError(errorMessage));
   }
 }

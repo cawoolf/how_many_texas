@@ -14,6 +14,7 @@ class WelcomePage extends StatelessWidget {
 
     final appCubit = BlocProvider.of<AppCubit>(context);
     appCubit.creditInitialization();
+    appCubit.navToHomePageDelayed();
 
 
     return Scaffold(
