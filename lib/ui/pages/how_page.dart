@@ -59,14 +59,16 @@ class _HowPageState extends State<HowPage> {
       // SafeArea keeps the child widgets from interacting with the OS UI
       child: Container(
         decoration: _woodBackground(),
-        child: Column(
-          // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          // crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            _spacerBox(45),
-             _explanationBody(),
-            _arrowButtonRow(context)
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            // crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              _spacerBox(45),
+               _explanationBody(),
+              _arrowButtonRow(context)
+            ],
+          ),
         ),
       ),
     );
@@ -91,7 +93,9 @@ class _HowPageState extends State<HowPage> {
       children: [
         Center(child: _paperBackGround()),
         Center(child: _ropePictureFrame()),
-        Center(child: _textBody()),
+        Transform.translate(
+            offset:const Offset(0, 10),
+            child: Center(child: _textBody())),
       ],
     );
   }
@@ -99,7 +103,7 @@ class _HowPageState extends State<HowPage> {
   SizedBox _paperBackGround() {
     return const SizedBox(
       width: 350,
-      height: 535,
+      height: 550,
       child: ClipRRect(
         borderRadius: BorderRadius.all(Radius.circular(50)),
         // Adjust the radius as needed
@@ -117,7 +121,7 @@ class _HowPageState extends State<HowPage> {
       width: 500,
       height: 600,
       child: Transform.translate(
-        offset: const Offset(0, -15), // Adjust the x and y offset as needed
+        offset: const Offset(0,-20), // Adjust the x and y offset as needed
         child: const Image(
           image: AssetImage(AssetPaths.ROPE_FRAME),
           fit: BoxFit
