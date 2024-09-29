@@ -33,7 +33,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       body: SizedBox(
         height: double.infinity,
         width: double.infinity,
@@ -49,34 +49,36 @@ class _HomePageState extends State<HomePage> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Flexible(
-            child: Container(
-              decoration: _woodBackground(),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0.0, 12.0, 0.0, 0),
-                    child: _buildHeaderFooter(),
-                  ),
-                  const SizedBox(height: 35),
-                  Text(
-                    'How many of this thing right here..',
-                    style: AppTextStyles.homeTextStyle,
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 30),
-                  _bigRedArrow(rotation: 90),
-                  const SizedBox(height: 30),
-                  _textBoxStack(controller: _controller),
-                  const SizedBox(height: 30),
-                  Text(
-                    'Can fit inside of Texas?',
-                    style: AppTextStyles.homeTextStyle,
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 10),
-                  _arrowButtonRow(context),
-                ],
+            child: SingleChildScrollView(
+              child: Container(
+                decoration: _woodBackground(),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(4.0, 12.0, 4.0, 0),
+                      child: _buildHeaderFooter(),
+                    ),
+                    const SizedBox(height: 35),
+                    Text(
+                      'How many of this thing right here..',
+                      style: AppTextStyles.homeTextStyle,
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 30),
+                    _bigRedArrow(rotation: 90),
+                    const SizedBox(height: 30),
+                    _textBoxStack(controller: _controller),
+                    const SizedBox(height: 30),
+                    Text(
+                      'Can fit inside of Texas?',
+                      style: AppTextStyles.homeTextStyle,
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 10),
+                    _arrowButtonRow(context),
+                  ],
+                ),
               ),
             ),
           ),

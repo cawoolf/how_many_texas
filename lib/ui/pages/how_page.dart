@@ -136,7 +136,6 @@ class _HowPageState extends State<HowPage> {
     double objectToSquareMiles = double.parse(texasCalculator
         .convertToSquareMiles(objectArea, 'feet')
         .toStringAsFixed(10));
-    String finalResult = searchResult.finalNumberResult.toString();
     String finalNumberWordsResult =
         searchResult.finalNumberWordsResult.capitalizeFirst();
 

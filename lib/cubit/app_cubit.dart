@@ -14,6 +14,7 @@ import 'package:how_many_texas/cubit/api_service.dart';
 class AppCubit extends Cubit<WorkingAppState> {
   final APIService _apiRepository;
   late SearchResult _searchResult;
+  AudioPlayer? _audioPlayer;
   bool? _creditsInitialized;
   int _credits = 0; // default value
 
@@ -50,11 +51,17 @@ class AppCubit extends Cubit<WorkingAppState> {
     TexasCalculator texasCalculator = TexasCalculator();
     return texasCalculator.calculateFitTimesFromAPIResult(objectDimensions);
   }
-
   Future<void> playNumbersAudio(String speechFilePath) async {
+    // If an audio is already playing, stop it
+    if (_audioPlayer != null) {
+      await _audioPlayer!.stop();
+    }
+
+    // Create or reuse the audio player instance
+    _audioPlayer ??= AudioPlayer();
+
     // Play the audio file
-    AudioPlayer audioPlayer = AudioPlayer();
-    await audioPlayer.play(UrlSource(speechFilePath));
+    await _audioPlayer!.play(UrlSource(speechFilePath));
   }
 
   Image _loadErrorImage() {

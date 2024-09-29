@@ -30,8 +30,6 @@ class _ResponsePageState extends State<ResponsePage> {
   @override
   Widget build(BuildContext context) {
 
-    appCubit.playNumbersAudio(searchResult.TTS_PATH);
-
     return PopScope(
       canPop: false,
       // onPopInvoked: (backClicked) {
