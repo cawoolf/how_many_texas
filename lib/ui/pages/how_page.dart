@@ -64,7 +64,7 @@ class _HowPageState extends State<HowPage> {
           // crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             _spacerBox(45),
-            SingleChildScrollView(child: _explanationBody()),
+             _explanationBody(),
             _arrowButtonRow(context)
           ],
         ),
@@ -115,7 +115,7 @@ class _HowPageState extends State<HowPage> {
   Widget _ropePictureFrame() {
     return SizedBox(
       width: 500,
-      height: 580,
+      height: 600,
       child: Transform.translate(
         offset: const Offset(0, -15), // Adjust the x and y offset as needed
         child: const Image(
@@ -143,23 +143,25 @@ class _HowPageState extends State<HowPage> {
     return SizedBox(
       width: 300,
       height: 500, // Adjust the height as needed
-      child: Center(
-        child: DefaultTextStyle(
-          style: AppTextStyles.howPageBodyTextStyle,
-          textAlign: TextAlign.center,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              const SizedBox(height: 15),
-              Text('1) The area of 1 $objectName = $objectArea square feet'),
-              Text('2) The area of Texas = $texasArea square miles'),
-              Text('3) Convert area of $objectName to square miles'),
-              Text('1 $objectName = $objectToSquareMiles square miles'),
-              Text('4) Divide the area of Texas by the area of $objectName'),
-              // Text('Area of Texas $texasArea/ Area of $objectName $objectToSquareMiles'),
-              Text(
-                  '5) $finalNumberWordsResult $objectName fit inside of Texas'),
-            ],
+      child: SingleChildScrollView(
+        child: Center(
+          child: DefaultTextStyle(
+            style: AppTextStyles.howPageBodyTextStyle,
+            textAlign: TextAlign.center,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                const SizedBox(height: 50),
+                Text('1) The area of 1 $objectName = $objectArea square feet'),
+                Text('2) The area of Texas = $texasArea square miles'),
+                Text('3) Convert area of $objectName to square miles'),
+                Text('1 $objectName = $objectToSquareMiles square miles'),
+                Text('4) Divide the area of Texas by the area of $objectName'),
+                // Text('Area of Texas $texasArea/ Area of $objectName $objectToSquareMiles'),
+                Text(
+                    '5) $finalNumberWordsResult $objectName fit inside of Texas'),
+              ],
+            ),
           ),
         ),
       ),

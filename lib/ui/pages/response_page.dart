@@ -47,7 +47,7 @@ class _ResponsePageState extends State<ResponsePage> {
           width: double.infinity,
           // Makes the child as wide as the device screen
           color: Colors.grey,
-          child: SingleChildScrollView(child: _createBodyContent(context, searchResult.searchImage)),
+          child:  _createBodyContent(context, searchResult.searchImage),
         ),
       ),
     );
@@ -59,24 +59,26 @@ class _ResponsePageState extends State<ResponsePage> {
       // SafeArea keeps the child widgets from interacting with the OS UI
       child: Container(
         decoration: _woodBackground(),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Text('You can fit..',
-                style: AppTextStyles.homeTextStyle,
-                textAlign: TextAlign.center),
-            _resultsNumber(),
-            Transform.translate(offset: const Offset(0, -25),
-            child: _searchText()),
-            _resultsImageRow(searchImage),
-            const SizedBox(height: 15.0),
-            Text('Inside of Texas!',
-                style: AppTextStyles.homeTextStyle,
-                textAlign: TextAlign.center),
-            // _texasFlag(),
-            _arrowButtonRow(context)
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text('You can fit..',
+                  style: AppTextStyles.homeTextStyle,
+                  textAlign: TextAlign.center),
+              _resultsNumber(),
+              Transform.translate(offset: const Offset(0, -25),
+              child: _searchText()),
+              _resultsImageRow(searchImage),
+              const SizedBox(height: 15.0),
+              Text('Inside of Texas!',
+                  style: AppTextStyles.homeTextStyle,
+                  textAlign: TextAlign.center),
+              // _texasFlag(),
+              _arrowButtonRow(context)
+            ],
+          ),
         ),
       ),
     );
