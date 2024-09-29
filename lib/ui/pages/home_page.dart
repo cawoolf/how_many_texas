@@ -3,35 +3,47 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:how_many_texas/constants/asset_paths.dart';
 import 'package:how_many_texas/ui/common_widgets/image_button.dart';
 import 'package:how_many_texas/constants/text_styles.dart';
-
 import '../../cubit/app_cubit.dart';
 import '../common_widgets/rotated_image.dart';
 
-class HomePage extends StatelessWidget {
-  HomePage({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
 
-  final TextEditingController _controller = TextEditingController();
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  late final TextEditingController _controller;
   late AppCubit appCubit;
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
     appCubit = BlocProvider.of<AppCubit>(context);
+    _controller = TextEditingController();
+  }
 
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SizedBox(
-        height: double.infinity, // Makes the child as high as the device screen
-        width: double.infinity, // Makes the child as wide as the device screen
+        height: double.infinity,
+        width: double.infinity,
         child: _createBodyContent(context),
       ),
     );
   }
 
   SafeArea _createBodyContent(BuildContext context) {
-    // Create a TextEditingController
     return SafeArea(
-      // SafeArea keeps the child widgets from interacting with the OS UI
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -43,27 +55,20 @@ class HomePage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Padding(
-                      padding: const EdgeInsets.fromLTRB(0.0, 12.0, 0.0, 0),
-                      child: _buildHeaderFooter()),
+                    padding: const EdgeInsets.fromLTRB(0.0, 12.0, 0.0, 0),
+                    child: _buildHeaderFooter(),
+                  ),
                   const SizedBox(height: 35),
                   Text(
                     'How many of this thing right here..',
                     style: AppTextStyles.homeTextStyle,
                     textAlign: TextAlign.center,
                   ),
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   _bigRedArrow(rotation: 90),
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   _textBoxStack(controller: _controller),
-                  // _inputTextBox(controller: _controller),
-                  // Pass the controller to _inputTextBox
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  const SizedBox(height: 30),
                   Text(
                     'Can fit inside of Texas?',
                     style: AppTextStyles.homeTextStyle,
@@ -71,7 +76,6 @@ class HomePage extends StatelessWidget {
                   ),
                   const SizedBox(height: 10),
                   _arrowButtonRow(context),
-                  // _buildHeaderFooter(),
                 ],
               ),
             ),
@@ -102,8 +106,7 @@ class HomePage extends StatelessWidget {
     return const BoxDecoration(
       image: DecorationImage(
         image: AssetImage(AssetPaths.WOOD_FLOORS),
-        // Replace 'assets/background_image.jpg' with your image path
-        fit: BoxFit.fill, // Adjust the image fit as needed
+        fit: BoxFit.fill,
       ),
     );
   }
@@ -111,11 +114,9 @@ class HomePage extends StatelessWidget {
   RotatedImage _bigRedArrow({required double rotation}) {
     return RotatedImage(
       rotation: rotation,
-      // Replace 'assets/your_image.png' with the actual path to your image asset
       width: 100,
-      // Set the desired width
       height: 100,
-      image: Image.asset(AssetPaths.ARRORW_DOWN), // Set the desired height
+      image: Image.asset(AssetPaths.ARRORW_DOWN),
     );
   }
 
@@ -123,8 +124,7 @@ class HomePage extends StatelessWidget {
     return ImageButton(
       onPressed: () async {
         bool creditCheck = await appCubit.creditCheck();
-        creditCheck ? _submitAPIRequests() : appCubit.navToMoneyPage(appCubit.getCredits());
-
+        creditCheck ? _submitAPIRequests() : appCubit.navToMoneyPage();
       },
       image: const AssetImage(AssetPaths.BIG_RED_BUTTON),
       height: 150,
@@ -133,32 +133,30 @@ class HomePage extends StatelessWidget {
   }
 
   void _submitAPIRequests() {
-    String searchText = _controller.text;
-    appCubit.apiRequests(searchText);
+    String searchText = _controller.text.trim();
+    if (searchText.isNotEmpty) {
+      appCubit.apiRequests(searchText);
+    }
   }
 
   SizedBox _inputTextBox({required TextEditingController controller}) {
     return SizedBox(
-      width: 300, // Set the width of the text input box
+      width: 300,
       child: TextField(
-        controller: controller, // Assign the controller to the TextField
+        controller: controller,
         decoration: const InputDecoration(
           filled: true,
           fillColor: Colors.white,
-          // Set white background
           hintText: 'Enter text...',
-          // Placeholder text
           hintStyle: TextStyle(color: Colors.black),
-          // Set black hint text color
           border: OutlineInputBorder(
             borderSide: BorderSide(
-              width: 10.0, // Set border width
+              width: 10.0,
             ),
-          ), // Add border
+          ),
         ),
         onTap: () {
-          // Clear the hint text when user taps on the text field
-          if (controller.text == 'Enter text...') {
+          if (controller.text.isEmpty || controller.text == 'Enter text...') {
             controller.clear();
           }
         },
@@ -181,42 +179,32 @@ class HomePage extends StatelessWidget {
   Expanded _texasFlag() {
     return Expanded(
       child: Image.asset(
-        AssetPaths.TEXAS_FLAG, // Adjust the fit as needed
+        AssetPaths.TEXAS_FLAG,
       ),
     );
   }
 
   Expanded _creditStar() {
     return Expanded(
-        child: Stack(
-      children: [
-        Center(child: Image.asset(AssetPaths.STAR)),
-        Center(child: Text(appCubit.getCredits().toString(), style: AppTextStyles.welcomePageTextStyle,)),
-      ],
-    ));
+      child: Stack(
+        children: [
+          Center(child: Image.asset(AssetPaths.STAR)),
+          Center(
+            child: Text(
+              appCubit.getCredits().toString(),
+              style: AppTextStyles.welcomePageTextStyle,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   Stack _textBoxStack({required TextEditingController controller}) {
     return Stack(
       children: [
-        // Center(child: _ropePictureFrame()),
         Center(child: _inputTextBox(controller: controller)),
       ],
-    );
-  }
-
-  Widget _ropePictureFrame() {
-    return SizedBox(
-      width: 350,
-      height: 80,
-      child: Transform.translate(
-        offset: const Offset(0, -8), // Adjust the x and y offset as needed
-        child: const Image(
-          image: AssetImage(AssetPaths.ROPE_FRAME),
-          fit: BoxFit
-              .fill, // Use BoxFit.fill to stretch the image to fit the box
-        ),
-      ),
     );
   }
 }

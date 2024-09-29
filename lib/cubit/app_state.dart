@@ -18,8 +18,7 @@ class WelcomePageState extends WorkingAppState {
 }
 
 class MoneyPageState extends WorkingAppState {
-  final int credits;
-  const MoneyPageState(this.credits);
+  const MoneyPageState();
 
   @override
   // TODO: implement props

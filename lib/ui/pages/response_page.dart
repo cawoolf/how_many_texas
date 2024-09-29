@@ -8,22 +8,37 @@ import '../common_widgets/image_button.dart';
 import 'package:how_many_texas/constants/text_styles.dart';
 
 
-class ResponsePage extends StatelessWidget {
-  ResponsePage({super.key});
+class ResponsePage extends StatefulWidget {
+  const ResponsePage({super.key});
+
+  @override
+  State<ResponsePage> createState() => _ResponsePageState();
+}
+
+class _ResponsePageState extends State<ResponsePage> {
   late SearchResult searchResult;
   late AppCubit appCubit;
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
     appCubit = BlocProvider.of<AppCubit>(context);
     searchResult = appCubit.getCurrentSearchResult();
+    appCubit.playNumbersAudio(searchResult.TTS_PATH);
+  }
+
+  @override
+  Widget build(BuildContext context) {
 
     appCubit.playNumbersAudio(searchResult.TTS_PATH);
 
     return PopScope(
       canPop: false,
-      onPopInvoked: (backClicked) {
-        appCubit.checkCreditsAndNavToCorrectPage();
+      // onPopInvoked: (backClicked) {
+      //   appCubit.checkCreditsAndNavToCorrectPage();
+      // },
+      onPopInvokedWithResult: (bool didPop, Object? result)  async {
+          appCubit.checkCreditsAndNavToCorrectPage();
       },
       child: Scaffold(
         body: Container(
@@ -32,7 +47,7 @@ class ResponsePage extends StatelessWidget {
           width: double.infinity,
           // Makes the child as wide as the device screen
           color: Colors.grey,
-          child: _createBodyContent(context, searchResult.searchImage),
+          child: SingleChildScrollView(child: _createBodyContent(context, searchResult.searchImage)),
         ),
       ),
     );
@@ -110,7 +125,6 @@ class ResponsePage extends StatelessWidget {
     );
   }
 
-
   BoxDecoration _woodBackground() {
     return const BoxDecoration(
       image: DecorationImage(
@@ -175,5 +189,4 @@ class ResponsePage extends StatelessWidget {
     return Text(searchResult.search,
         style: AppTextStyles.welcomePageTextStyle, textAlign: TextAlign.center);
   }
-
 }

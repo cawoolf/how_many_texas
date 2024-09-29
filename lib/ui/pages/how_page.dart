@@ -12,29 +12,41 @@ import '../../cubit/app_cubit.dart';
 import '../common_widgets/image_button.dart';
 import 'package:how_many_texas/constants/text_styles.dart';
 
+class HowPage extends StatefulWidget {
+  const HowPage({super.key});
 
-class HowPage extends StatelessWidget {
-  HowPage({super.key});
+  @override
+  State<HowPage> createState() => _HowPageState();
+}
+
+class _HowPageState extends State<HowPage> {
   late SearchResult searchResult;
   late AppCubit appCubit;
 
-  // final SearchResult searchResult;
-  // const HowPage({required this.searchResult,  super.key});
-
   @override
-  Widget build(BuildContext context) {
+  void initState() {
     appCubit = BlocProvider.of<AppCubit>(context);
     searchResult = appCubit.getCurrentSearchResult();
+    super.initState();
+  }
 
+  // final SearchResult searchResult;
+  @override
+  Widget build(BuildContext context) {
     return PopScope(
       canPop: false,
-      onPopInvoked: (backClicked) {
+      // onPopInvoked: (backClicked) {
+      //    appCubit.navToResponsePage();
+      // },
+      onPopInvokedWithResult: (bool didPop, Object? result) async {
         appCubit.navToResponsePage();
       },
       child: Scaffold(
         body: Container(
-          height: double.infinity, // Makes the child as high as the device screen
-          width: double.infinity, // Makes the child as wide as the device screen
+          height: double.infinity,
+          // Makes the child as high as the device screen
+          width: double.infinity,
+          // Makes the child as wide as the device screen
           color: Colors.grey,
           child: _createBodyContent(context),
         ),
@@ -51,8 +63,8 @@ class HowPage extends StatelessWidget {
           // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           // crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-             _spacerBox(45),
-             _explanationBody(),
+            _spacerBox(45),
+            SingleChildScrollView(child: _explanationBody()),
             _arrowButtonRow(context)
           ],
         ),
@@ -75,11 +87,13 @@ class HowPage extends StatelessWidget {
   }
 
   Stack _explanationBody() {
-    return Stack(children: [
-      Center(child: _paperBackGround()),
-      Center(child: _ropePictureFrame()),
-      Center(child: _textBody()),
-    ],);
+    return Stack(
+      children: [
+        Center(child: _paperBackGround()),
+        Center(child: _ropePictureFrame()),
+        Center(child: _textBody()),
+      ],
+    );
   }
 
   SizedBox _paperBackGround() {
@@ -87,10 +101,12 @@ class HowPage extends StatelessWidget {
       width: 350,
       height: 535,
       child: ClipRRect(
-        borderRadius: BorderRadius.all(Radius.circular(50)), // Adjust the radius as needed
+        borderRadius: BorderRadius.all(Radius.circular(50)),
+        // Adjust the radius as needed
         child: Image(
           image: AssetImage(AssetPaths.PAPER_BACKGROUND),
-          fit: BoxFit.fill, // Use BoxFit.fill to stretch the image to fit the box
+          fit: BoxFit
+              .fill, // Use BoxFit.fill to stretch the image to fit the box
         ),
       ),
     );
@@ -104,7 +120,8 @@ class HowPage extends StatelessWidget {
         offset: const Offset(0, -15), // Adjust the x and y offset as needed
         child: const Image(
           image: AssetImage(AssetPaths.ROPE_FRAME),
-          fit: BoxFit.fill, // Use BoxFit.fill to stretch the image to fit the box
+          fit: BoxFit
+              .fill, // Use BoxFit.fill to stretch the image to fit the box
         ),
       ),
     );
@@ -116,10 +133,12 @@ class HowPage extends StatelessWidget {
     String objectName = searchResult.search;
     double objectArea = texasCalculator.calculateObjectAreaForHowPage(json);
     double texasArea = texasCalculator.getTexasArea();
-    double objectToSquareMiles = double.parse(texasCalculator.convertToSquareMiles(objectArea, 'feet').toStringAsFixed(10));
+    double objectToSquareMiles = double.parse(texasCalculator
+        .convertToSquareMiles(objectArea, 'feet')
+        .toStringAsFixed(10));
     String finalResult = searchResult.finalNumberResult.toString();
-    String finalNumberWordsResult = searchResult.finalNumberWordsResult.capitalizeFirst();
-
+    String finalNumberWordsResult =
+        searchResult.finalNumberWordsResult.capitalizeFirst();
 
     return SizedBox(
       width: 300,
@@ -138,7 +157,8 @@ class HowPage extends StatelessWidget {
               Text('1 $objectName = $objectToSquareMiles square miles'),
               Text('4) Divide the area of Texas by the area of $objectName'),
               // Text('Area of Texas $texasArea/ Area of $objectName $objectToSquareMiles'),
-              Text('5) $finalNumberWordsResult $objectName fit inside of Texas'),
+              Text(
+                  '5) $finalNumberWordsResult $objectName fit inside of Texas'),
             ],
           ),
         ),
@@ -165,9 +185,8 @@ class HowPage extends StatelessWidget {
 
   ImageButton _bigRedButton(BuildContext context) {
     return ImageButton(
-      // Navigation isn't considered UI. How to abstract this away?
       onPressed: () {
-        _navToMoneyScreen(context);
+        appCubit.checkCreditsAndNavToCorrectPage();
       },
 
       image: const AssetImage(AssetPaths.BIG_RED_BUTTON),
@@ -183,29 +202,10 @@ class HowPage extends StatelessWidget {
         ..rotateZ(180 * 3.1415927 / 180)
         ..scale(1.0, -1.0), // Flip horizontally
       child: Image.asset(
-       AssetPaths.ANGLED_ARROW,
+        AssetPaths.ANGLED_ARROW,
         width: 120,
         height: 120,
       ),
     );
   }
-
-  // Navigation
-
-  void _navToMoneyScreen(BuildContext context){
-
-    int currentCredits = appCubit.getCredits();
-    print('how_page $currentCredits');
-
-    if(currentCredits <= 0) {
-
-      appCubit.navToMoneyPage(currentCredits);
-
-    }
-    else {
-      appCubit.navToHomePage();
-    }
-  }
-
-
 }

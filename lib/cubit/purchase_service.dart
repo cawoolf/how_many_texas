@@ -52,7 +52,7 @@ class PurchaseService {
     final ProductDetailsResponse response =
         await InAppPurchase.instance.queryProductDetails(kIds);
     if (response.notFoundIDs.isNotEmpty) {
-      print('Load products error');
+      appCubit.setErrorState('Load products error');
     }
     List<ProductDetails> products = response.productDetails;
     products.forEach((product) {

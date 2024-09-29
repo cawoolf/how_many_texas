@@ -12,17 +12,17 @@ class HowManyTexas extends StatelessWidget {
         if (state is WelcomePageState) {
           return const WelcomePage();
         } else if (state is MoneyPageState) {
-          return MoneyPage(credits: state.credits);
+          return MoneyPage();
         } else if (state is HomePageState) {
-          return HomePage();
+          return const HomePage();
         } else if (state is APILoadingState) {
           return const LoadingPage();
         } else if (state is APIError) {
           return ErrorPage(error: state.errorMessage); // Error
         } else if (state is APILoaded) {
-          return ResponsePage();
+          return const ResponsePage();
         } else if (state is HowPageState) {
-          return HowPage();
+          return const HowPage();
         } else {
           return const Text('Other Error');
         }

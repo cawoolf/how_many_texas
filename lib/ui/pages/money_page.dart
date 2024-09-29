@@ -1,24 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:how_many_texas/constants/asset_paths.dart';
 import 'package:how_many_texas/constants/text_styles.dart';
 import 'package:how_many_texas/cubit/purchase_service.dart';
 import '../../cubit/app_cubit.dart';
 import '../common_widgets/image_button.dart';
 
-class MoneyPage extends StatelessWidget {
-  final int credits;
+class MoneyPage extends StatefulWidget {
+
+  const MoneyPage({super.key});
+
+  @override
+  State<MoneyPage> createState() => _MoneyPageState();
+}
+
+class _MoneyPageState extends State<MoneyPage> {
   late AppCubit appCubit;
-  late InterstitialAd? _interstitialAd;
 
-
-  MoneyPage({super.key, required this.credits});
+  @override
+  void initState() {
+    appCubit = BlocProvider.of<AppCubit>(context);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-
-    appCubit = BlocProvider.of<AppCubit>(context);
 
     return PopScope(
       canPop: true,
@@ -79,7 +85,6 @@ class MoneyPage extends StatelessWidget {
     );
   }
 
-
   ImageButton _playAdButton(BuildContext context) {
 
     return ImageButton(
@@ -95,7 +100,6 @@ class MoneyPage extends StatelessWidget {
     );
   }
 
-
   ImageButton _buyCreditsButton(BuildContext context) {
 
     return ImageButton(
@@ -108,14 +112,6 @@ class MoneyPage extends StatelessWidget {
       height: 125,
       width: 175,
     );
-  }
-
-  // Not UI
-  void _navToHomePage(BuildContext context) {
-
-    final appCubit = BlocProvider.of<AppCubit>(context);
-    appCubit.navToHomePage();
-
   }
 
   Row _posterText() {

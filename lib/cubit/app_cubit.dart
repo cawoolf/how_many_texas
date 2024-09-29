@@ -33,7 +33,10 @@ class AppCubit extends Cubit<WorkingAppState> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setInt(CREDITS, credits);
     _credits = await _loadCredits();
-    print('credits set $credits');
+    if(_credits != credits) {
+      print('app_cubit.dart line 37 -> SET CREDIT ERROR');
+      emit(const APIError('setCredits Error'));
+    }
   }
 
   Future<int> _loadCredits() async {
@@ -136,13 +139,13 @@ class AppCubit extends Cubit<WorkingAppState> {
     });
   }
 
-  void navToMoneyPage(int credits) {
-    emit(MoneyPageState(credits));
+  void navToMoneyPage() {
+    emit(MoneyPageState());
   }
 
   Future<void> navToMoneyPageDelayed(int credits) async {
     Future.delayed(const Duration(seconds: 3), () {
-      emit(MoneyPageState(credits));
+      emit(MoneyPageState());
     });
   }
 
@@ -187,12 +190,13 @@ class AppCubit extends Cubit<WorkingAppState> {
     }
   }
 
-  void checkCreditsAndNavToCorrectPage() {
-    if(_credits <= 0) {
-      navToMoneyPage(_credits);
+  void checkCreditsAndNavToCorrectPage() async {
+  bool enoughCredits = await creditCheck();
+    if(enoughCredits) {
+      navToHomePage();
     }
     else {
-      navToHomePage();
+      navToMoneyPage();
     }
   }
 
