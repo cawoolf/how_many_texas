@@ -55,8 +55,9 @@ class _HomePageState extends State<HomePage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
+                    const SizedBox(height: 30),
                     Transform.scale(
-                      scale: 0.90, // Scale down for other widgets
+                      scale: 0.80, // Scale down for other widgets
                       child: Column(
                         children: [
                           Padding(
@@ -71,14 +72,14 @@ class _HomePageState extends State<HomePage> {
                           ),
                           const SizedBox(height: 30),
                           _bigRedArrow(rotation: 90),
-                          const SizedBox(height: 30),
+                          // const SizedBox(height: 30),
                         ],
                       ),
                     ),
                     _textBoxStack(controller: _controller), // Original size for text box
-                    const SizedBox(height: 30),
+                    // const SizedBox(height: 30),
                     Transform.scale(
-                      scale: 0.90,
+                      scale: 0.80,
                       child: Column(
                         children: [
                           Text(
@@ -86,11 +87,11 @@ class _HomePageState extends State<HomePage> {
                             style: AppTextStyles.homeTextStyle,
                             textAlign: TextAlign.center,
                           ),
-                          const SizedBox(height: 10),
                           _arrowButtonRow(context),
                         ],
                       ),
                     ),
+                          // const SizedBox(height: 20),
                   ],
                 ),
               ),
@@ -100,6 +101,7 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
 
 
 
