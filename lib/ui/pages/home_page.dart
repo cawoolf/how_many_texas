@@ -44,48 +44,65 @@ class _HomePageState extends State<HomePage> {
 
   SafeArea _createBodyContent(BuildContext context) {
     return SafeArea(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Flexible(
-            child: SingleChildScrollView(
-              child: Container(
-                decoration: _woodBackground(),
+      child: Container(
+        decoration: _woodBackground(), // Apply background to fill the entire screen
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Expanded( // Expands to fill available space
+              child: SingleChildScrollView(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(4.0, 12.0, 4.0, 0),
-                      child: _buildHeaderFooter(),
+                    Transform.scale(
+                      scale: 0.90, // Scale down for other widgets
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(4.0, 12.0, 4.0, 0),
+                            child: _buildHeaderFooter(),
+                          ),
+                          const SizedBox(height: 35),
+                          Text(
+                            'How many of this thing right here..',
+                            style: AppTextStyles.homeTextStyle,
+                            textAlign: TextAlign.center,
+                          ),
+                          const SizedBox(height: 30),
+                          _bigRedArrow(rotation: 90),
+                          const SizedBox(height: 30),
+                        ],
+                      ),
                     ),
-                    const SizedBox(height: 35),
-                    Text(
-                      'How many of this thing right here..',
-                      style: AppTextStyles.homeTextStyle,
-                      textAlign: TextAlign.center,
+                    _textBoxStack(controller: _controller), // Original size for text box
+                    const SizedBox(height: 30),
+                    Transform.scale(
+                      scale: 0.90,
+                      child: Column(
+                        children: [
+                          Text(
+                            'Can fit inside of Texas?',
+                            style: AppTextStyles.homeTextStyle,
+                            textAlign: TextAlign.center,
+                          ),
+                          const SizedBox(height: 10),
+                          _arrowButtonRow(context),
+                        ],
+                      ),
                     ),
-                    const SizedBox(height: 30),
-                    _bigRedArrow(rotation: 90),
-                    const SizedBox(height: 30),
-                    _textBoxStack(controller: _controller),
-                    const SizedBox(height: 30),
-                    Text(
-                      'Can fit inside of Texas?',
-                      style: AppTextStyles.homeTextStyle,
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(height: 10),
-                    _arrowButtonRow(context),
                   ],
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
+
+
+
 
   Row _arrowButtonRow(BuildContext context) {
     return Row(
