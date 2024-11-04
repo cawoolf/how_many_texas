@@ -34,7 +34,6 @@ class PurchaseService {
     if (!available) {
       String connectionError = 'Cannot Connect to google play store';
       appCubit.setErrorState(connectionError);
-
     } else {
       print('Connected to Google Play store');
     }
@@ -42,7 +41,7 @@ class PurchaseService {
 
   void _purchaseProduct(ProductDetails productDetails) {
     final PurchaseParam purchaseParam =
-    PurchaseParam(productDetails: productDetails);
+        PurchaseParam(productDetails: productDetails);
     InAppPurchase.instance.buyConsumable(purchaseParam: purchaseParam);
   }
 
@@ -99,7 +98,6 @@ class PurchaseService {
 
   void _deliverProduct(PurchaseDetails purchaseDetails) async {
     appCubit.buyCredits();
-
   }
 
   void _handleError(IAPError iapError) {

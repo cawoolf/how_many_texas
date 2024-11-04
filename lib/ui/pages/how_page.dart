@@ -66,7 +66,7 @@ class _HowPageState extends State<HowPage> {
             // crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               _spacerBox(45),
-               _explanationBody(),
+              _explanationBody(),
               _arrowButtonRow(context)
             ],
           ),
@@ -95,8 +95,7 @@ class _HowPageState extends State<HowPage> {
         Center(child: _paperBackGround()),
         Center(child: _ropePictureFrame()),
         Transform.translate(
-            offset:const Offset(0, 10),
-            child: Center(child: _textBody())),
+            offset: const Offset(0, 10), child: Center(child: _textBody())),
       ],
     );
   }
@@ -122,7 +121,7 @@ class _HowPageState extends State<HowPage> {
       width: 500,
       height: 600,
       child: Transform.translate(
-        offset: const Offset(0,-20), // Adjust the x and y offset as needed
+        offset: const Offset(0, -20), // Adjust the x and y offset as needed
         child: const Image(
           image: AssetImage(AssetPaths.ROPE_FRAME),
           fit: BoxFit
@@ -194,7 +193,6 @@ class _HowPageState extends State<HowPage> {
       onPressed: () {
         appCubit.checkCreditsAndNavToCorrectPage();
       },
-
       image: const AssetImage(AssetPaths.BIG_RED_BUTTON),
       height: 125,
       width: 175,

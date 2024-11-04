@@ -7,7 +7,6 @@ import '../common_widgets/helper_methods.dart';
 import '../common_widgets/image_button.dart';
 import 'package:how_many_texas/constants/text_styles.dart';
 
-
 class ResponsePage extends StatefulWidget {
   const ResponsePage({super.key});
 
@@ -29,14 +28,13 @@ class _ResponsePageState extends State<ResponsePage> {
 
   @override
   Widget build(BuildContext context) {
-
     return PopScope(
       canPop: false,
       // onPopInvoked: (backClicked) {
       //   appCubit.checkCreditsAndNavToCorrectPage();
       // },
-      onPopInvokedWithResult: (bool didPop, Object? result)  async {
-          appCubit.checkCreditsAndNavToCorrectPage();
+      onPopInvokedWithResult: (bool didPop, Object? result) async {
+        appCubit.checkCreditsAndNavToCorrectPage();
       },
       child: Scaffold(
         body: Container(
@@ -45,14 +43,13 @@ class _ResponsePageState extends State<ResponsePage> {
           width: double.infinity,
           // Makes the child as wide as the device screen
           color: Colors.grey,
-          child:  _createBodyContent(context, searchResult.searchImage),
+          child: _createBodyContent(context, searchResult.searchImage),
         ),
       ),
     );
   }
 
-  SafeArea _createBodyContent(
-      BuildContext context, Image searchImage) {
+  SafeArea _createBodyContent(BuildContext context, Image searchImage) {
     return SafeArea(
       // SafeArea keeps the child widgets from interacting with the OS UI
       child: Container(
@@ -67,8 +64,8 @@ class _ResponsePageState extends State<ResponsePage> {
                   style: AppTextStyles.homeTextStyle,
                   textAlign: TextAlign.center),
               _resultsNumber(),
-              Transform.translate(offset: const Offset(0, -25),
-              child: _searchText()),
+              Transform.translate(
+                  offset: const Offset(0, -25), child: _searchText()),
               _resultsImageRow(searchImage),
               const SizedBox(height: 15.0),
               Text('Inside of Texas!',
@@ -172,7 +169,6 @@ class _ResponsePageState extends State<ResponsePage> {
       onPressed: () {
         appCubit.navToHowPage();
       },
-
       image: const AssetImage(AssetPaths.BIG_RED_BUTTON),
       height: 125,
       width: 175,
@@ -180,10 +176,8 @@ class _ResponsePageState extends State<ResponsePage> {
   }
 
   Widget _resultsNumber() {
-    return Text(
-        formatWithCommas(searchResult.finalNumberResult),
-        style: AppTextStyles.welcomePageTextStyle,
-        textAlign: TextAlign.center);
+    return Text(formatWithCommas(searchResult.finalNumberResult),
+        style: AppTextStyles.welcomePageTextStyle, textAlign: TextAlign.center);
   }
 
   Widget _searchText() {

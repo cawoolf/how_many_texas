@@ -11,29 +11,20 @@ class WelcomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final appCubit = BlocProvider.of<AppCubit>(context);
     appCubit.creditInitialization();
     appCubit.navToHomePageDelayed();
 
-
     return Scaffold(
-      body: SafeArea(
-          child: Container(
-            decoration: _backgroundColor(),
-            child: Transform.scale(
-              scale: 0.90,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  _welcomeText1(),
-                  _welcomeText2(),
-                  _showCowBoyGraphic()
-                ],
-              ),
-            ),
-          )),
-    );
+        body: SafeArea(
+      child: Container(
+        decoration: _backgroundColor(),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [_welcomeText1(), _welcomeText2(), _showCowBoyGraphic()],
+        ),
+      ),
+    ));
   }
 
   Text _welcomeText1() {
@@ -65,10 +56,4 @@ class WelcomePage extends StatelessWidget {
       ),
     );
   }
-
-
-  }
-
-
-
-
+}

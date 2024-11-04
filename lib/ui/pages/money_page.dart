@@ -7,7 +7,6 @@ import '../../cubit/app_cubit.dart';
 import '../common_widgets/image_button.dart';
 
 class MoneyPage extends StatefulWidget {
-
   const MoneyPage({super.key});
 
   @override
@@ -25,13 +24,14 @@ class _MoneyPageState extends State<MoneyPage> {
 
   @override
   Widget build(BuildContext context) {
-
     return PopScope(
       canPop: true,
       child: Scaffold(
         body: Container(
-          height: double.infinity, // Makes the child as high as the device screen
-          width: double.infinity, // Makes the child as wide as the device screen
+          height: double.infinity,
+          // Makes the child as high as the device screen
+          width: double.infinity,
+          // Makes the child as wide as the device screen
           color: Colors.grey,
           child: _createBodyContent(context),
         ),
@@ -43,31 +43,28 @@ class _MoneyPageState extends State<MoneyPage> {
     return SafeArea(
       // SafeArea keeps the child widgets from interacting with the OS UI
       child: Container(
-          decoration: _woodBackground(),
-          child: Transform.scale(
-            scale: 0.90,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                _headerText(),
-                _posterText(),
-                _posterImages(),
-                _creditsRow(),
-                _buttonRow(context),
-                // SizedBox(height: 15,)
-              ],
-            ),
+        decoration: _woodBackground(),
+        child: Transform.scale(
+          scale: 0.90,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              _headerText(),
+              _posterText(),
+              _posterImages(),
+              _creditsRow(),
+              _buttonRow(context),
+              // SizedBox(height: 15,)
+            ],
           ),
         ),
+      ),
     );
-
-
   }
 
   Text _headerText() {
     return Text('Out of credits..',
-              style: AppTextStyles.welcomePageTextStyle,
-              textAlign: TextAlign.center);
+        style: AppTextStyles.welcomePageTextStyle, textAlign: TextAlign.center);
   }
 
   BoxDecoration _woodBackground() {
@@ -91,7 +88,6 @@ class _MoneyPageState extends State<MoneyPage> {
   }
 
   ImageButton _playAdButton(BuildContext context) {
-
     return ImageButton(
       // Navigation isn't considered UI. How to abstract this away?
       onPressed: () {
@@ -106,7 +102,6 @@ class _MoneyPageState extends State<MoneyPage> {
   }
 
   ImageButton _buyCreditsButton(BuildContext context) {
-
     return ImageButton(
       // Navigation isn't considered UI. How to abstract this away?
       onPressed: () async {
@@ -123,24 +118,20 @@ class _MoneyPageState extends State<MoneyPage> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-      Text('Watch an \n Ad',
-          style: AppTextStyles.homeTextStyle,
-          textAlign: TextAlign.center),
-      const SizedBox(width: 15),
-      Text('Cash in \n \$0.50',
-          style: AppTextStyles.homeTextStyle,
-          textAlign: TextAlign.center),
-    ],);
+        Text('Watch an \n Ad',
+            style: AppTextStyles.homeTextStyle, textAlign: TextAlign.center),
+        const SizedBox(width: 15),
+        Text('Cash in \n \$0.50',
+            style: AppTextStyles.homeTextStyle, textAlign: TextAlign.center),
+      ],
+    );
   }
 
   Row _posterImages() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        _posterImageWanted(),
-        _posterImageBank(),
-
-      ]);
+    return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+      _posterImageWanted(),
+      _posterImageBank(),
+    ]);
   }
 
   SizedBox _posterImageBank() {
@@ -148,10 +139,12 @@ class _MoneyPageState extends State<MoneyPage> {
       width: 200,
       height: 300,
       child: ClipRRect(
-        borderRadius: BorderRadius.all(Radius.circular(0)), // Adjust the radius as needed
+        borderRadius: BorderRadius.all(Radius.circular(0)),
+        // Adjust the radius as needed
         child: Image(
           image: AssetImage(AssetPaths.BANK_POSTER),
-          fit: BoxFit.fill, // Use BoxFit.fill to stretch the image to fit the box
+          fit: BoxFit
+              .fill, // Use BoxFit.fill to stretch the image to fit the box
         ),
       ),
     );
@@ -162,10 +155,12 @@ class _MoneyPageState extends State<MoneyPage> {
       width: 200,
       height: 325,
       child: ClipRRect(
-        borderRadius: BorderRadius.all(Radius.circular(0)), // Adjust the radius as needed
+        borderRadius: BorderRadius.all(Radius.circular(0)),
+        // Adjust the radius as needed
         child: Image(
           image: AssetImage(AssetPaths.WANTED_POSTER),
-          fit: BoxFit.fill, // Use BoxFit.fill to stretch the image to fit the box
+          fit: BoxFit
+              .fill, // Use BoxFit.fill to stretch the image to fit the box
         ),
       ),
     );
@@ -176,25 +171,19 @@ class _MoneyPageState extends State<MoneyPage> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Text('4 Credits',
-            style: AppTextStyles.homeTextStyle,
-            textAlign: TextAlign.center),
+            style: AppTextStyles.homeTextStyle, textAlign: TextAlign.center),
         const SizedBox(width: 15),
         Text('50 Credits',
-            style: AppTextStyles.homeTextStyle,
-            textAlign: TextAlign.center),
-      ],);
-
+            style: AppTextStyles.homeTextStyle, textAlign: TextAlign.center),
+      ],
+    );
   }
 
-  void _playAd() async{
-
-   await appCubit.setCredits(4);
-
-
+  void _playAd() async {
+    await appCubit.setCredits(4);
   }
 
   void _buyCredits() async {
     await appCubit.setCredits(50);
-
   }
 }

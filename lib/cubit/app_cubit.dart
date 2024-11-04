@@ -18,7 +18,7 @@ class AppCubit extends Cubit<WorkingAppState> {
   bool? _creditsInitialized;
   int _credits = 0; // default value
 
-  AppCubit(this._apiRepository) :super(const WelcomePageState());
+  AppCubit(this._apiRepository) : super(const WelcomePageState());
 
   // Getters
   int getCredits() {
@@ -34,7 +34,7 @@ class AppCubit extends Cubit<WorkingAppState> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setInt(CREDITS, credits);
     _credits = await _loadCredits();
-    if(_credits != credits) {
+    if (_credits != credits) {
       print('app_cubit.dart line 37 -> SET CREDIT ERROR');
       emit(const APIError('setCredits Error'));
     }
@@ -51,6 +51,7 @@ class AppCubit extends Cubit<WorkingAppState> {
     TexasCalculator texasCalculator = TexasCalculator();
     return texasCalculator.calculateFitTimesFromAPIResult(objectDimensions);
   }
+
   Future<void> playNumbersAudio(String speechFilePath) async {
     // If an audio is already playing, stop it
     if (_audioPlayer != null) {
@@ -76,49 +77,62 @@ class AppCubit extends Cubit<WorkingAppState> {
     try {
       emit(const APILoadingState());
 
-      final searchImageURL = await _apiRepository.fetchSearchImage(userInput); // Calls the UnSplash AIP to return a random image of the user input
-      Image searchImage = await _loadImage(searchImageURL); // Loads the image provided by the URL
+      final searchImageURL = await _apiRepository.fetchSearchImage(
+          userInput); // Calls the UnSplash AIP to return a random image of the user input
+      Image searchImage = await _loadImage(
+          searchImageURL); // Loads the image provided by the URL
 
-      final objectDimensions = await _apiRepository.fetchChatCompletion(userInput, GPT_PROMPT); // Calls OpenAI API to return the dimensions of the object the user inputs to the search field
-      final finalNumberResult = calculateHowManyTexas(objectDimensions); // Calculates how many times the object can fit inside of Texas
+      final objectDimensions = await _apiRepository.fetchChatCompletion(
+          userInput,
+          GPT_PROMPT); // Calls OpenAI API to return the dimensions of the object the user inputs to the search field
+      final finalNumberResult = calculateHowManyTexas(
+          objectDimensions); // Calculates how many times the object can fit inside of Texas
 
-      final finalNumberResultToWords = await _apiRepository.fetchChatCompletion(finalNumberResult.toString(), TTS_PROMPT); // Calculates how many times the object fits into Texas, and then calls the API to return the number in written english.
-      final String fullText = "$finalNumberResultToWords $userInput can fit inside of Texas"; // Full text to be converted to audio
-      final ttsFilePath = await _apiRepository.fetchChatTTS(fullText); // Submits the result of the finalNumberToWords to the OpenAI TTS API to generate an audio file, and store it to the file path, and returns the file path
+      final finalNumberResultToWords = await _apiRepository.fetchChatCompletion(
+          finalNumberResult.toString(),
+          TTS_PROMPT); // Calculates how many times the object fits into Texas, and then calls the API to return the number in written english.
+      final String fullText =
+          "$finalNumberResultToWords $userInput can fit inside of Texas"; // Full text to be converted to audio
+      final ttsFilePath = await _apiRepository.fetchChatTTS(
+          fullText); // Submits the result of the finalNumberToWords to the OpenAI TTS API to generate an audio file, and store it to the file path, and returns the file path
 
-      _searchResult = SearchResult(search: userInput,searchImage: searchImage, objectDimensionsResult: objectDimensions, finalNumberResult: finalNumberResult, finalNumberWordsResult: finalNumberResultToWords, TTS_PATH: ttsFilePath);
+      _searchResult = SearchResult(
+          search: userInput,
+          searchImage: searchImage,
+          objectDimensionsResult: objectDimensions,
+          finalNumberResult: finalNumberResult,
+          finalNumberWordsResult: finalNumberResultToWords,
+          TTS_PATH: ttsFilePath);
 
       _credits--;
       print('credit_spent $_credits');
 
       setCredits(_credits);
       emit(const APILoaded());
-
-
-
     } catch (error) {
-
       emit(APIError(error.toString()));
     }
   }
 
   Future<Image> _loadImage(String? searchImageURL) async {
-
     if (searchImageURL != null) {
       return Image.network(
         searchImageURL,
         fit: BoxFit.cover,
-        loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+        loadingBuilder: (BuildContext context, Widget child,
+            ImageChunkEvent? loadingProgress) {
           if (loadingProgress == null) return child;
           return Center(
             child: CircularProgressIndicator(
               value: loadingProgress.expectedTotalBytes != null
-                  ? loadingProgress.cumulativeBytesLoaded / (loadingProgress.expectedTotalBytes ?? 1)
+                  ? loadingProgress.cumulativeBytesLoaded /
+                      (loadingProgress.expectedTotalBytes ?? 1)
                   : null,
             ),
           );
         },
-        errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
+        errorBuilder:
+            (BuildContext context, Object error, StackTrace? stackTrace) {
           return _loadErrorImage();
         },
       );
@@ -157,13 +171,11 @@ class AppCubit extends Cubit<WorkingAppState> {
   }
 
   void buyCredits() async {
-
     await setCredits(50);
     navToHomePage();
   }
 
   void creditInitialization() async {
-
     try {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       _creditsInitialized = prefs.getBool(CREDITS_ACTIVE);
@@ -172,54 +184,44 @@ class AppCubit extends Cubit<WorkingAppState> {
         prefs.setBool(CREDITS_ACTIVE, true);
         prefs.setInt(CREDITS, 1); // Initial credits on install
         _credits = await _loadCredits();
-        print ('credits_intizlized $_credits');
-
-      }
-      else {
+        print('credits_intizlized $_credits');
+      } else {
         _credits = await _loadCredits();
         print('credits_already $_credits');
-
       }
-
-    } catch (error){
+    } catch (error) {
       emit(const APIError('credit initialization error'));
     }
-
   }
 
   Future<bool> creditCheck() async {
     _credits = await _loadCredits();
-    if(_credits <= 0) {
+    if (_credits <= 0) {
       return false;
-    }
-    else {
+    } else {
       return true;
     }
   }
 
   void checkCreditsAndNavToCorrectPage() async {
-  bool enoughCredits = await creditCheck();
-    if(enoughCredits) {
+    bool enoughCredits = await creditCheck();
+    if (enoughCredits) {
       navToHomePage();
-    }
-    else {
+    } else {
       navToMoneyPage();
     }
   }
 
   void loadInterstitialAd() {
-
     emit(const APILoadingState());
     String testAdId = 'ca-app-pub-3940256099942544/1033173712';
     InterstitialAd? interstitialAd;
 
-
-   InterstitialAd.load(
+    InterstitialAd.load(
       adUnitId: testAdId, // Test Ad Unit ID
       request: const AdRequest(),
       adLoadCallback: InterstitialAdLoadCallback(
         onAdLoaded: (InterstitialAd ad) {
-
           interstitialAd = ad;
           interstitialAd!.setImmersiveMode(true);
 
@@ -230,7 +232,8 @@ class AppCubit extends Cubit<WorkingAppState> {
               navToHomePage();
               ad.dispose();
             },
-            onAdFailedToShowFullScreenContent: (InterstitialAd ad, AdError error) {
+            onAdFailedToShowFullScreenContent:
+                (InterstitialAd ad, AdError error) {
               emit(APIError('Ad failed to show: $error'));
               ad.dispose();
             },
@@ -239,11 +242,10 @@ class AppCubit extends Cubit<WorkingAppState> {
           _showInterstitialAd(interstitialAd);
         },
         onAdFailedToLoad: (LoadAdError error) {
-         emit(APIError('InterstitialAd failed to load: $error'));
+          emit(APIError('InterstitialAd failed to load: $error'));
         },
       ),
     );
-
   }
 
   void _showInterstitialAd(InterstitialAd? interstitialAd) {
@@ -252,10 +254,10 @@ class AppCubit extends Cubit<WorkingAppState> {
       interstitialAd = null; // Reset the ad instance after showing
       // loadInterstitialAd(); // Load a new ad for the next time
     } else {
-      emit(const APIError('InterstitialAd failed to load: _showInterstitialAd()'));
+      emit(const APIError(
+          'InterstitialAd failed to load: _showInterstitialAd()'));
     }
   }
-
 
   void setLoadingState() {
     emit(const APILoadingState());

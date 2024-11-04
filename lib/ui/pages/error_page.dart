@@ -7,37 +7,34 @@ import 'package:how_many_texas/constants/text_styles.dart';
 
 import '../../cubit/app_cubit.dart';
 
-
 class ErrorPage extends StatelessWidget {
-
   final String error;
+
   const ErrorPage({super.key, required this.error});
 
   @override
   Widget build(BuildContext context) {
-
     // Not UI
     _logErrorMsg(error);
     _navToHomePageDelayed(context);
 
     return Scaffold(
-      body: SafeArea(
-          child: Container(
-            decoration: _backgroundColor(),
-            child: Transform.scale(
-              scale: 0.90,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  _buildHeaderText(),
-                  _showCowGraphic(),
-                  _buildFooterText()
-                ],
-              ),
-            ),
+        body: SafeArea(
+      child: Container(
+        decoration: _backgroundColor(),
+        child: Transform.scale(
+          scale: 0.90,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              _buildHeaderText(),
+              _showCowGraphic(),
+              _buildFooterText()
+            ],
           ),
-        )
-    );
+        ),
+      ),
+    ));
   }
 
   Expanded _buildHeaderText() {
@@ -88,7 +85,7 @@ class ErrorPage extends StatelessWidget {
     print(errorMsg);
   }
 
-  void _navToHomePageDelayed (BuildContext context) {
+  void _navToHomePageDelayed(BuildContext context) {
     final appCubit = BlocProvider.of<AppCubit>(context);
     appCubit.navToHomePageDelayed();
   }

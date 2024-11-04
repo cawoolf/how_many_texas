@@ -7,4 +7,3 @@ export 'package:how_many_texas/ui/pages/loading_page.dart';
 export 'package:how_many_texas/ui/pages/money_page.dart';
 export 'package:how_many_texas/ui/pages/response_page.dart';
 export 'package:how_many_texas/ui/pages/welcome_page.dart';
-

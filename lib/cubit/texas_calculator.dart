@@ -23,8 +23,7 @@ class TexasCalculator {
   }
 
   double _calculateObjectArea(Map<String, dynamic> json) {
-
-    if(json['area'] != null) {
+    if (json['area'] != null) {
       return json['area'].toDouble();
     }
 
@@ -43,16 +42,16 @@ class TexasCalculator {
     return texasAreaSquareMiles / objectArea;
   }
 
-  int calculateFitTimesFromAPIResult(String result)  {
+  int calculateFitTimesFromAPIResult(String result) {
     Map<String, dynamic> json = jsonDecode(result);
 
     double fitTimes = _calculateFitTimes(json);
 
-    print('texas_calculator.dart line 51 -> The object fits inside Texas $fitTimes times.');
+    print(
+        'texas_calculator.dart line 51 -> The object fits inside Texas $fitTimes times.');
 
     return fitTimes.round();
   }
-
 
   double calculateObjectAreaForHowPage(Map<String, dynamic> json) {
     if (json['area'] != null) {
@@ -77,7 +76,6 @@ class TexasCalculator {
     // return '$area square $unit';
     return area;
   }
-
 
   double getTexasArea() {
     return texasAreaSquareMiles;

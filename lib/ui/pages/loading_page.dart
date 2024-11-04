@@ -13,21 +13,21 @@ class LoadingPage extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Container(
-            decoration: _backgroundColor(),
-            child: Transform.scale(
-              scale: 0.90,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  _buildHeaderText(),
-                  _showCowGraphic(),
-                  _buildFooterText()
-                ],
-              ),
+          decoration: _backgroundColor(),
+          child: Transform.scale(
+            scale: 0.90,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _buildHeaderText(),
+                _showCowGraphic(),
+                _buildFooterText()
+              ],
             ),
           ),
         ),
-      );
+      ),
+    );
   }
 
   Expanded _buildHeaderText() {
@@ -74,4 +74,3 @@ class LoadingPage extends StatelessWidget {
     return const BoxDecoration(color: AppColors.backgroundColor);
   }
 }
-

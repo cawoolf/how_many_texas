@@ -168,7 +168,7 @@ class _HomePageState extends State<HomePage> {
         decoration: const InputDecoration(
           filled: true,
           fillColor: Colors.white,
-          hintText: 'Enter text...',
+          hintText: 'Enter anything here! ...',
           hintStyle: TextStyle(color: Colors.black),
           border: OutlineInputBorder(
             borderSide: BorderSide(

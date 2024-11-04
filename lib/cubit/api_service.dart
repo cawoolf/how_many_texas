@@ -13,7 +13,6 @@ abstract class APIService {
   Future<String> fetchChatCompletion(String search, String prompt);
 
   Future<String> fetchChatTTS(String numberText);
-
 }
 
 // With the GPT prompt, Returns the length and width of the object described in the user input
@@ -89,8 +88,6 @@ class ApiService implements APIService {
     print('api_service.dart line 88 -> TTSPath : ${speechFile.path}');
 
     return speechFile.path;
-
-
   }
 
   @override
@@ -109,11 +106,8 @@ class ApiService implements APIService {
       String imageUrl = data['urls']['regular'];
 
       return imageUrl;
-
     } else {
       return "unsplash error ${response.statusCode}";
     }
   }
-
 }
-
