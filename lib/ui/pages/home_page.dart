@@ -57,7 +57,7 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     const SizedBox(height: 30),
                     Transform.scale(
-                      scale: 0.80, // Scale down for other widgets
+                      scale: 0.90, // Scale down for other widgets
                       child: Column(
                         children: [
                           Padding(
@@ -79,7 +79,7 @@ class _HomePageState extends State<HomePage> {
                     _textBoxStack(controller: _controller), // Original size for text box
                     // const SizedBox(height: 30),
                     Transform.scale(
-                      scale: 0.80,
+                      scale: 0.90,
                       child: Column(
                         children: [
                           Text(

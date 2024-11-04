@@ -21,13 +21,16 @@ class WelcomePage extends StatelessWidget {
       body: SafeArea(
           child: Container(
             decoration: _backgroundColor(),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                _welcomeText1(),
-                _welcomeText2(),
-                _showCowBoyGraphic()
-              ],
+            child: Transform.scale(
+              scale: 0.90,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _welcomeText1(),
+                  _welcomeText2(),
+                  _showCowBoyGraphic()
+                ],
+              ),
             ),
           )),
     );

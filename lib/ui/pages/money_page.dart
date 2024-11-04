@@ -43,20 +43,25 @@ class _MoneyPageState extends State<MoneyPage> {
     return SafeArea(
       // SafeArea keeps the child widgets from interacting with the OS UI
       child: Container(
-        decoration: _woodBackground(),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            _headerText(),
-            _posterText(),
-            _posterImages(),
-            _creditsRow(),
-            _buttonRow(context),
-            // SizedBox(height: 15,)
-          ],
+          decoration: _woodBackground(),
+          child: Transform.scale(
+            scale: 0.90,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _headerText(),
+                _posterText(),
+                _posterImages(),
+                _creditsRow(),
+                _buttonRow(context),
+                // SizedBox(height: 15,)
+              ],
+            ),
+          ),
         ),
-      ),
     );
+
+
   }
 
   Text _headerText() {
