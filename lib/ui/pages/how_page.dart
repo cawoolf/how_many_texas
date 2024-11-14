@@ -66,7 +66,8 @@ class _HowPageState extends State<HowPage> {
             // crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               _spacerBox(45),
-              _explanationBody(),
+              // _explanationBody(),
+              Center(child: _textBody()),
               _arrowButtonRow(context)
             ],
           ),
@@ -78,7 +79,7 @@ class _HowPageState extends State<HowPage> {
   BoxDecoration _woodBackground() {
     return const BoxDecoration(
       image: DecorationImage(
-        image: AssetImage(AssetPaths.WOOD_FLOORS),
+        image: AssetImage(AssetPaths.CHALKBOARD),
         // Replace 'assets/background_image.jpg' with your image path
         fit: BoxFit.fill, // Adjust the image fit as needed
       ),

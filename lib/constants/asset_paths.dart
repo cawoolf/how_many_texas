@@ -6,6 +6,7 @@ class AssetPaths {
  static const String _rootPath = 'assets/images/';
   static const String _moneyPage = 'money_page/';
   static const String _homePage = 'home_page/';
+  static const String _howPage = 'how_page/';
   static const String _common = 'common/';
 
   // Money Page images
@@ -26,6 +27,10 @@ class AssetPaths {
   static const String _homePagePath = _rootPath + _homePage;
   static const String TEXAS_FLAG = '${_homePagePath}texas_flag_wavy.png';
   static const String STAR = '${_homePagePath}star.png';
+
+  // How Page Images
+  static const String _howPagePath = _rootPath + _howPage;
+  static const String CHALKBOARD = '${_howPagePath}chalkboard_background.jpg';
 
 
 
