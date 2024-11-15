@@ -30,7 +30,8 @@ class AssetPaths {
 
   // How Page Images
   static const String _howPagePath = _rootPath + _howPage;
-  static const String CHALKBOARD = '${_howPagePath}chalkboard_background.jpg';
+  // static const String CHALKBOARD = '${_howPagePath}chalkboard.png';
+ static const String CHALKBOARD ='assets/images/how_page/chalkboard.jpg';
 
 
 

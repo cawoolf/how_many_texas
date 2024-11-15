@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:how_many_texas/constants/asset_paths.dart';
@@ -52,32 +53,48 @@ class _ResponsePageState extends State<ResponsePage> {
   SafeArea _createBodyContent(BuildContext context, Image searchImage) {
     return SafeArea(
       // SafeArea keeps the child widgets from interacting with the OS UI
-      child: Container(
-        decoration: _woodBackground(),
-        child: Transform.scale(
-          scale: 0.90,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Text('You can fit..',
-                  style: AppTextStyles.homeTextStyle,
-                  textAlign: TextAlign.center),
-              _resultsNumber(),
-              Transform.translate(
-                  offset: const Offset(0, -25), child: _searchText()),
-              _resultsImageRow(searchImage),
-              const SizedBox(height: 15.0),
-              Text('Inside of Texas!',
-                  style: AppTextStyles.homeTextStyle,
-                  textAlign: TextAlign.center),
-              // _texasFlag(),
-              _arrowButtonRow(context)
-            ],
+        child: Container(
+          decoration: _woodBackground(),
+      child: SingleChildScrollView(
+          child: Transform.scale(
+            scale: 0.90,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                _topTextRow(),
+                _resultsNumber(),
+                Transform.translate(
+                    offset: const Offset(0, -25), child: _searchText()),
+                _resultsImageRow(searchImage),
+                const SizedBox(height: 15.0),
+                Text('Inside of Texas!',
+                    style: AppTextStyles.homeTextStyle,
+                    textAlign: TextAlign.center),
+                // _texasFlag(),
+                _arrowButtonRow(context)
+              ],
+            ),
           ),
         ),
       ),
     );
+  }
+
+  Row _topTextRow() {
+    return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+      Text(
+        'You can fit..',
+        style: AppTextStyles.homeTextStyle,
+        textAlign: TextAlign.center,
+      ),
+      //   Image.asset(
+      //     'assets/images/common/info_button.png', // Replace with your actual asset path
+      //     width: 80, // Adjust width as needed
+      //     height: 80, // Adjust height as needed
+      //   ),
+      // ],
+    ]);
   }
 
   Row _resultsImageRow(Image searchImage) {
@@ -176,8 +193,15 @@ class _ResponsePageState extends State<ResponsePage> {
   }
 
   Widget _resultsNumber() {
-    return Text(formatWithCommas(searchResult.finalNumberResult),
-        style: AppTextStyles.welcomePageTextStyle, textAlign: TextAlign.center);
+    return AutoSizeText(
+      formatWithCommas(searchResult.finalNumberResult),
+      style: AppTextStyles.welcomePageTextStyle,
+      textAlign: TextAlign.center,
+      maxLines: 1,            // Ensures single-line text
+      minFontSize: 12,         // Set a minimum font size to prevent text from becoming too small
+      maxFontSize: 64,         // Set an initial or maximum font size to start from
+      overflow: TextOverflow.ellipsis,
+    );
   }
 
   Widget _searchText() {

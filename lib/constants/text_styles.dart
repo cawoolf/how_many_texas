@@ -43,17 +43,18 @@ class AppTextStyles {
       color: Colors.black);
 
   static TextStyle howPageBodyTextStyle = const TextStyle(
-    fontFamily: 'Handy',
-    fontSize: 20,
-    color: Colors.black,
-    fontWeight: FontWeight.bold,
+    fontFamily: 'Eraser',
+    fontSize: 25,
+    color: Colors.white,
+    fontWeight: FontWeight.normal,
     letterSpacing: 4.0,
-    shadows: [
-      Shadow(
-        color: Colors.black,
-        blurRadius: 4,
-        offset: Offset(1, 1),
-      ),
-    ],
+    // shadows: [
+    //   Shadow(
+    //     color: Colors.black,
+    //     blurRadius: 4,
+    //     offset: Offset(1, 1),
+    //   ),
+    // ],
   );
+
 }

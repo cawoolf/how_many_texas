@@ -59,17 +59,18 @@ class _HowPageState extends State<HowPage> {
       // SafeArea keeps the child widgets from interacting with the OS UI
       child: Container(
         decoration: _woodBackground(),
-        child: Transform.scale(
-          scale: 0.90,
-          child: Column(
-            // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            // crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              _spacerBox(45),
-              // _explanationBody(),
-              Center(child: _textBody()),
-              _arrowButtonRow(context)
-            ],
+        child: SingleChildScrollView(
+          child: Transform.scale(
+            scale: 0.90,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              // crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                _textBody(),
+                // _spacerBox(45),
+                _arrowButtonRow(context)
+              ],
+            ),
           ),
         ),
       ),
@@ -132,7 +133,7 @@ class _HowPageState extends State<HowPage> {
     );
   }
 
-  SizedBox _textBody() {
+  Center _textBody() {
     TexasCalculator texasCalculator = TexasCalculator();
     Map<String, dynamic> json = jsonDecode(searchResult.objectDimensionsResult);
     String objectName = searchResult.search;
@@ -144,29 +145,34 @@ class _HowPageState extends State<HowPage> {
     String finalNumberWordsResult =
         searchResult.finalNumberWordsResult.capitalizeFirst();
 
-    return SizedBox(
-      width: 300,
-      height: 500, // Adjust the height as needed
-      child: SingleChildScrollView(
-        child: Center(
-          child: DefaultTextStyle(
-            style: AppTextStyles.howPageBodyTextStyle,
-            textAlign: TextAlign.center,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                const SizedBox(height: 50),
-                Text('1) The area of 1 $objectName = $objectArea square feet'),
-                Text('2) The area of Texas = $texasArea square miles'),
-                Text('3) Convert area of $objectName to square miles'),
-                Text('1 $objectName = $objectToSquareMiles square miles'),
-                Text('4) Divide the area of Texas by the area of $objectName'),
-                // Text('Area of Texas $texasArea/ Area of $objectName $objectToSquareMiles'),
-                Text(
-                    '5) $finalNumberWordsResult $objectName fit inside of Texas'),
-              ],
+    const spacerSize = 25.0;
+
+    return Center(
+      child: DefaultTextStyle(
+        style: AppTextStyles.howPageBodyTextStyle,
+        textAlign: TextAlign.center,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Text(
+              'Math Time! ......',
+              style: TextStyle(
+                fontSize: 56, // Adjust this value to increase or decrease the text size
+              ),
             ),
-          ),
+            const SizedBox(height: spacerSize),
+            Text('1) The area of 1 $objectName = $objectArea square feet'),
+            const SizedBox(height: spacerSize),
+            Text('2) The area of Texas = $texasArea square miles'),
+            const SizedBox(height:spacerSize),
+            Text('3) Convert area of $objectName to square miles'),
+            const SizedBox(height: spacerSize),
+            Text('1 $objectName = $objectToSquareMiles square miles'),
+            const SizedBox(height: spacerSize),
+            Text('4) Divide the area of Texas by the area of $objectName'),
+            const SizedBox(height: spacerSize),
+            Text('5) $finalNumberWordsResult $objectName fit inside of Texas'),
+          ],
         ),
       ),
     );
