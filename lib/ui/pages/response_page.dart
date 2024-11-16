@@ -53,13 +53,13 @@ class _ResponsePageState extends State<ResponsePage> {
   SafeArea _createBodyContent(BuildContext context, Image searchImage) {
     return SafeArea(
       // SafeArea keeps the child widgets from interacting with the OS UI
-        child: Container(
-          decoration: _woodBackground(),
-      child: SingleChildScrollView(
+      child: Container(
+        decoration: _woodBackground(),
+        child: SingleChildScrollView(
           child: Transform.scale(
             scale: 0.90,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 _topTextRow(),
@@ -72,6 +72,7 @@ class _ResponsePageState extends State<ResponsePage> {
                     style: AppTextStyles.homeTextStyle,
                     textAlign: TextAlign.center),
                 // _texasFlag(),
+                const SizedBox(height: 25),
                 _arrowButtonRow(context)
               ],
             ),
@@ -81,20 +82,13 @@ class _ResponsePageState extends State<ResponsePage> {
     );
   }
 
-  Row _topTextRow() {
-    return Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-      Text(
-        'You can fit..',
+  Text _topTextRow() {
+
+     return Text(
+        'You can fit',
         style: AppTextStyles.homeTextStyle,
         textAlign: TextAlign.center,
-      ),
-      //   Image.asset(
-      //     'assets/images/common/info_button.png', // Replace with your actual asset path
-      //     width: 80, // Adjust width as needed
-      //     height: 80, // Adjust height as needed
-      //   ),
-      // ],
-    ]);
+      );
   }
 
   Row _resultsImageRow(Image searchImage) {
@@ -152,31 +146,27 @@ class _ResponsePageState extends State<ResponsePage> {
 
   Row _arrowButtonRow(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.max,
       children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.fromLTRB(32.0, 0, 0, 0),
-          child: _bigRedButton(context),
-        ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(0, 0, 0, 48),
-          child: _bigRedArrow(rotation: 0),
-        ),
+        _bigRedButton(context),
+        _dumbChicken(rotation: 0),
       ],
     );
   }
 
-  Transform _bigRedArrow({required double rotation}) {
-    return Transform(
-      alignment: Alignment.center,
-      transform: Matrix4.rotationY(rotation * 3.1415927 / 180)
-        ..rotateZ(180 * 3.1415927 / 180)
-        ..scale(1.0, -1.0), // Flip horizontally
-      child: Image.asset(
-        AssetPaths.ANGLED_ARROW,
-        width: 120,
-        height: 120,
+  Widget _dumbChicken({required double rotation}) {
+    return Flexible(
+      child: Transform.translate(
+        offset: const Offset(0, -15),
+        child: SizedBox(
+          width: 225,
+          height: 225,
+          child: Image.asset(
+            AssetPaths.DUMB_CHICKEN,
+            fit: BoxFit.contain, // Ensures the image scales proportionally
+          ),
+        ),
       ),
     );
   }
@@ -187,7 +177,7 @@ class _ResponsePageState extends State<ResponsePage> {
         appCubit.navToHowPage();
       },
       image: const AssetImage(AssetPaths.BIG_RED_BUTTON),
-      height: 125,
+      height: 175,
       width: 175,
     );
   }
@@ -197,9 +187,12 @@ class _ResponsePageState extends State<ResponsePage> {
       formatWithCommas(searchResult.finalNumberResult),
       style: AppTextStyles.welcomePageTextStyle,
       textAlign: TextAlign.center,
-      maxLines: 1,            // Ensures single-line text
-      minFontSize: 12,         // Set a minimum font size to prevent text from becoming too small
-      maxFontSize: 64,         // Set an initial or maximum font size to start from
+      maxLines: 1,
+      // Ensures single-line text
+      minFontSize: 12,
+      // Set a minimum font size to prevent text from becoming too small
+      maxFontSize: 64,
+      // Set an initial or maximum font size to start from
       overflow: TextOverflow.ellipsis,
     );
   }

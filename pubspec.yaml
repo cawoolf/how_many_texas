@@ -78,6 +78,7 @@ flutter:
       - assets/images/home_page/
       - assets/images/how_page/
       - assets/images/common/
+      - assets/images/response_page/
   fonts:
     - family: Smokum
       fonts:
